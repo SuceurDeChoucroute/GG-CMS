@@ -14,17 +14,14 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper" id="app">
         <admin-header app_name="{{ config('app.name') }}" app_name_mini="{{ config('app.name') }}"></admin-header>
+        
         <admin-sidebar></admin-sidebar>
 
-        <div class="content-wrapper">
-    
-        </div>
+        <admin-dashboard></admin-dashboard>
 
         <admin-footer version="1.0"></admin-footer>
     </div>
     
-
-
     @include('admin.script')
     <script src=" {{ asset('js/admin.js') }} "></script>
 </body>
