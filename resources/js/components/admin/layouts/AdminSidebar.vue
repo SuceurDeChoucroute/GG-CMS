@@ -1,40 +1,29 @@
 <template>
     <aside class="main-sidebar">
         <section class="sidebar">
-            <!-- Sidebar -->
+
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p> User </p>
+                </div>
+            </div>
+
             <ul class="sidebar-menu" data-widget="tree">
-                <!-- Header -->
-                <li class="header">MAIN NAVIGATION</li>
-
-                <!-- Dropdown -->
-                <li class="active treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> 
-                        <span>Dashboard</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-
-                    <ul class="treeview-menu">
-                        <li class="active">
-                            <a href="index.html">
-                                <i class="fa fa-circle-o"></i>
-                                Dashboard v1
-                            </a>
-                        </li>
-                    </ul>
+                <li>
+                    <router-link :to="{ name: 'index' }">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span> 
+                    </router-link>
                 </li>
 
-                <!-- Item -->
                 <li>
-                    <a href="pages/widgets.html">
-                        <i class="fa fa-th"></i> 
-                        <span>Widgets</span>
-                        <span class="pull-right-container">
-                            <small class="label pull-right bg-green">new</small>
-                        </span>
-                    </a>
+                    <router-link :to="{ name: 'players' }">
+                        <i class="fa fa-users"></i>
+                        <span>Players</span> 
+                    </router-link>
                 </li>
             </ul>
         </section>

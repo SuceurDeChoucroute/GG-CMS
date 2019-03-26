@@ -13,12 +13,18 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper" id="app">
+        {{-- Header --}}
         <admin-header app_name="{{ config('app.name') }}" app_name_mini="{{ config('app.name') }}"></admin-header>
         
+        {{-- Sidebar --}}
         <admin-sidebar></admin-sidebar>
 
-        <admin-dashboard></admin-dashboard>
+        {{-- Content --}}
+        <div class="content-wrapper">
+            <router-view></router-view>
+        </div>
 
+        {{-- Footer --}}
         <admin-footer version="1.0"></admin-footer>
     </div>
     
