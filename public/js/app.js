@@ -2157,10 +2157,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-// $(document).ready( function () {
-//     $('#players').DataTable();
-// } );
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -60331,7 +60327,8 @@ var staticRenderFns = [
                 _c("img", {
                   staticClass: "img-circle",
                   attrs: {
-                    src: "dist/img/user2-160x160.jpg",
+                    src:
+                      "https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg",
                     alt: "User Image"
                   }
                 }),
