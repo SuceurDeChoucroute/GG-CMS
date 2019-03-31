@@ -1,7 +1,6 @@
 <template>
     <div>
         <admin-content-header page_name="Players" page_description="Manage your players"></admin-content-header>
-
         <section class="content">
             <div class="row">
                 <div class="col-lg-12">
@@ -13,10 +12,6 @@
 </template>
 
 <script>
-// $(document).ready( function () {
-//     $('#players').DataTable();
-// } );
-
 import AdminContentHeader from './../layouts/AdminContentHeader'
 
 export default {
