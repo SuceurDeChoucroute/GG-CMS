@@ -1,13 +1,14 @@
 <template>
     <div class="box box-primary">
+        <FlashMessage></FlashMessage>
         <div class="box-header with-border">
-            <h3 class="box-title">Players</h3>
-            <div class="box-tools pull-right">
+            <h3 class="box-title">
+                Players
                 <button class="btn btn-success" @click="addPlayer()">
                     <i class="fas fa-plus"></i>
                     Add
                 </button>
-            </div>
+            </h3>
         </div>
         <div class="box-body">
             <table class="table table-dark table-hover table-striped" id="players">
@@ -59,10 +60,23 @@ export default {
     methods: {
         addPlayer() {
             this.players.push(this.player)
+            this.flashMessage.success({
+                title: "Players added !",
+                message: "The player has been successfully added"
+            })
         },
 
         deletePlayer(key) {
-            this.players.splice(key,1) 
+            this.players.splice(key,1)
+
+            this.flashMessage.success({
+                title: "Players deleted !",
+                message: "The player has been successfully deleted"
+            })
+            // this.flashMessage.error({
+            //     title: "Something went wrong",
+            //     message: "Please try again"
+            // })
         }
     },
 }

@@ -1815,6 +1815,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['players'],
   data: function data() {
@@ -1830,9 +1831,20 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     addPlayer: function addPlayer() {
       this.players.push(this.player);
+      this.flashMessage.success({
+        title: "Players added !",
+        message: "The player has been successfully added"
+      });
     },
     deletePlayer: function deletePlayer(key) {
       this.players.splice(key, 1);
+      this.flashMessage.success({
+        title: "Players deleted !",
+        message: "The player has been successfully deleted"
+      }); // this.flashMessage.error({
+      //     title: "Something went wrong",
+      //     message: "Please try again"
+      // })
     }
   }
 });
@@ -37287,73 +37299,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "box box-primary" }, [
-    _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Players")]),
+  return _c(
+    "div",
+    { staticClass: "box box-primary" },
+    [
+      _c("FlashMessage"),
       _vm._v(" "),
-      _c("div", { staticClass: "box-tools pull-right" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success",
-            on: {
-              click: function($event) {
-                return _vm.addPlayer()
+      _c("div", { staticClass: "box-header with-border" }, [
+        _c("h3", { staticClass: "box-title" }, [
+          _vm._v("\n            Players\n            "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success",
+              on: {
+                click: function($event) {
+                  return _vm.addPlayer()
+                }
               }
-            }
+            },
+            [
+              _c("i", { staticClass: "fas fa-plus" }),
+              _vm._v("\n                Add\n            ")
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-body" }, [
+        _c(
+          "table",
+          {
+            staticClass: "table table-dark table-hover table-striped",
+            attrs: { id: "players" }
           },
           [
-            _c("i", { staticClass: "fas fa-plus" }),
-            _vm._v("\n                Add\n            ")
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.players, function(player, key) {
+                return _c("tr", { key: key }, [
+                  _c("td", [_vm._v(_vm._s(player.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(player.email))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(player.description))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._m(1, true),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        on: {
+                          click: function($event) {
+                            return _vm.deletePlayer(key)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fas fa-trash-alt" })]
+                    )
+                  ])
+                ])
+              }),
+              0
+            )
           ]
         )
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "box-body" }, [
-      _c(
-        "table",
-        {
-          staticClass: "table table-dark table-hover table-striped",
-          attrs: { id: "players" }
-        },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.players, function(player, key) {
-              return _c("tr", { key: key }, [
-                _c("td", [_vm._v(_vm._s(player.name))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(player.email))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(player.description))]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._m(1, true),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger",
-                      on: {
-                        click: function($event) {
-                          return _vm.deletePlayer(key)
-                        }
-                      }
-                    },
-                    [_c("i", { staticClass: "fas fa-trash-alt" })]
-                  )
-                ])
-              ])
-            }),
-            0
-          )
-        ]
-      )
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
