@@ -20,9 +20,9 @@
                             <p class="text-muted text-center"> {{ player.email }} </p>
 
                             <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item" v-show="!loading">
-                                    <b>GG-LAN#8</b> 
-                                    <a class="pull-right">3rd</a>
+                                <li class="list-group-item" v-for="(participation, key) in player.tournamentsParticipation" :key="key">
+                                    <b> {{ participation.tournament_name }} </b> 
+                                    <a class="pull-right"> {{ participation.place }} </a>
                                 </li>
                             </ul>
                         </div>
@@ -217,13 +217,17 @@ export default {
                 pseudo: "Amiral Choucroute",
                 description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
                 teams: [
-                    { name: "ElPaso", game: "CS:GO"},
-                    { name: "Berzerker", game: "ForHonor"},
+                    { name: "ElPaso", game: "CS:GO" },
+                    { name: "Berzerker", game: "ForHonor" },
                 ],
                 games: [
-                    { name: "CS:GO", rank: "Eagle II"},
-                    { name: "ForHonor", rank: "Berserker"},
+                    { name: "CS:GO", rank: "Eagle II" },
+                    { name: "ForHonor", rank: "Berserker" },
                 ],
+                tournamentsParticipation: [
+                    { tournament_name: "GG-LAN #8", place: "3rd" },
+                    { tournament_name: "GG-LAN #7", place: "5th" },
+                ]
             },
 
 

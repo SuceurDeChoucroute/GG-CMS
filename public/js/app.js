@@ -2392,6 +2392,13 @@ __webpack_require__.r(__webpack_exports__);
         }, {
           name: "ForHonor",
           rank: "Berserker"
+        }],
+        tournamentsParticipation: [{
+          tournament_name: "GG-LAN #8",
+          place: "3rd"
+        }, {
+          tournament_name: "GG-LAN #7",
+          place: "5th"
         }]
       },
       playerBeforeUpdate: {
@@ -61186,29 +61193,29 @@ var render = function() {
                     _c(
                       "ul",
                       { staticClass: "list-group list-group-unbordered" },
-                      [
-                        _c(
+                      _vm._l(_vm.player.tournamentsParticipation, function(
+                        participation,
+                        key
+                      ) {
+                        return _c(
                           "li",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: !_vm.loading,
-                                expression: "!loading"
-                              }
-                            ],
-                            staticClass: "list-group-item"
-                          },
+                          { key: key, staticClass: "list-group-item" },
                           [
-                            _c("b", [_vm._v("GG-LAN#8")]),
+                            _c("b", [
+                              _vm._v(
+                                " " +
+                                  _vm._s(participation.tournament_name) +
+                                  " "
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("a", { staticClass: "pull-right" }, [
-                              _vm._v("3rd")
+                              _vm._v(" " + _vm._s(participation.place) + " ")
                             ])
                           ]
                         )
-                      ]
+                      }),
+                      0
                     )
                   ]
                 )
