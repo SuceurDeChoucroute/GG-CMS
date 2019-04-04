@@ -1,6 +1,6 @@
 <template>
     <div class="box box-primary">
-        <FlashMessage></FlashMessage>
+        <FlashMessage position="right bottom"></FlashMessage>
         <div class="box-header with-border">
             <h3 class="box-title">
                 Players
@@ -11,7 +11,8 @@
             </h3>
         </div>
         <div class="box-body">
-            <table class="table table-dark table-hover table-striped" id="players">
+            <loader :color="'#337ab7'" v-show="loading"></loader>
+            <table class="table table-dark table-hover table-striped" id="players" v-show="!loading">
                 <thead>
                     <tr>
                         <th>Pseudo</th>
@@ -26,9 +27,9 @@
                         <td>{{ player.email }}</td>
                         <td>{{ player.description }}</td>
                         <td>
-                            <button class="btn btn-primary">
+                            <router-link :to="{ name: 'player.show', params: {id: player.id} }" class="btn btn-primary">
                                 <i class="fas fa-eye"></i>
-                            </button>
+                            </router-link>
                             <button class="btn btn-danger" @click="deletePlayer(key)">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
@@ -41,13 +42,20 @@
 </template>
 
 <script>
+import Loader from 'vue-spinner/src/ScaleLoader.vue'
+
 export default {
+    components: {
+        Loader
+    },
+
     props: [
         'players'
     ],
 
     data() {
         return {
+            loading: false,
             player: {
               id: 10,
               name: "Pepito",

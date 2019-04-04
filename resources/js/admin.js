@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 
 const flashConfig = {
     time: 5000,
+    strategy: "single",
 }
 Vue.use(FlashMessage, flashConfig);
 
@@ -17,6 +18,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 import AdminDashboard from './components/admin/pages/AdminDashboard.vue'
 import AdminPlayers from './components/admin/pages/AdminPlayers.vue'
+import AdminPlayerShow from './components/admin/pages/AdminPlayerShow.vue'
 
 const routes = [
     { 
@@ -28,6 +30,11 @@ const routes = [
         name: "players",
         path: '/players',
         component: AdminPlayers 
+    },
+    {
+        name: "player.show",
+        path: '/players/show/:id',
+        component: AdminPlayerShow
     },
 ]
 
