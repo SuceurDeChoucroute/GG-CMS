@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import AdminContentHeader from './../layouts/AdminContentHeader'
+import AdminContentHeader from './../../layouts/AdminContentHeader'
 import Loader from 'vue-spinner/src/ScaleLoader.vue'
 
 export default {
@@ -79,11 +79,7 @@ export default {
 
     methods: {
         addPlayer() {
-            this.players.push(this.player)
-            this.flashMessage.success({
-                title: "Players added !",
-                message: "The player has been successfully added"
-            })
+            this.$router.push({name: 'player.create'})
         },
     },
 }

@@ -4,7 +4,7 @@
         <FlashMessage position="right bottom"></FlashMessage>
 
         <section class="content">
-                <button @click="goBack()" class="btn btn-primary">
+                <button @click="goToPlayerList()" class="btn btn-primary">
                     <i class="fas fa-arrow-left"></i>
                     Return to player list
                 </button>
@@ -195,13 +195,13 @@
                         </div>
                     </div>
                 </div>
-      </div>
+            </div>
         </section>
     </div>
 </template>
 
 <script>
-import AdminContentHeader from './../layouts/AdminContentHeader'
+import AdminContentHeader from './../../layouts/AdminContentHeader'
 import Loader from 'vue-spinner/src/ScaleLoader.vue'
 
 export default {
@@ -247,8 +247,8 @@ export default {
 
     methods: {
         // Go back to the previous page
-        goBack() {
-            this.$router.back();
+        goToPlayerList() {
+            this.$router.push({name: 'players'});
         },
 
         // Update the player
@@ -280,12 +280,12 @@ export default {
 
         deletePlayer(id) {
 
-            if (confirm('Are you sure you want to delete this player ?')) {
+            if (confirm("Are you sure you want to delete this player ? It's definitive")) {
                 this.flashMessage.success({
                     title: "Players deleted !",
                     message: "The player has been successfully deleted"
                 })
-                this.goBack();
+                this.goToPlayerList();
             }
 
             // this.flashMessage.error({
