@@ -2621,12 +2621,172 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Loader: vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      loading: false,
+      team: {
+        id: 99,
+        name: '',
+        description: '',
+        avatar: '',
+        captain: {}
+      },
+      players: []
+    };
+  },
   methods: {
-    addPlayer: function addPlayer() {
+    goToTeamList: function goToTeamList() {
       this.$router.push({
-        name: 'player.create'
+        name: 'teams'
       });
+    },
+    createTeam: function createTeam() {
+      this.$router.push({
+        name: 'team.show',
+        params: {
+          id: this.team.id
+        }
+      });
+      this.flashMessage.success({
+        title: "Team added !",
+        message: "The team has been successfully added"
+      });
+    },
+    getPlayers: function getPlayers() {
+      this.loading = true;
+      this.players = [{
+        id: 1,
+        pseudo: 'John Doe',
+        email: 'john.doe@example.com',
+        description: "I'm the best and i know it !"
+      }, {
+        id: 2,
+        pseudo: 'John Doe',
+        email: 'john.doe@example.com',
+        description: "I'm the best and i know it !"
+      }, {
+        id: 6,
+        pseudo: 'Gotaga',
+        email: 'gotaga@example.com',
+        description: "The french monster !"
+      }, {
+        id: 3,
+        pseudo: 'John Doe',
+        email: 'john.doe@example.com',
+        description: "I'm the best and i know it !"
+      }, {
+        id: 4,
+        pseudo: 'John Doe',
+        email: 'john.doe@example.com',
+        description: "I'm the best and i know it !"
+      }, {
+        id: 5,
+        pseudo: 'John Doe',
+        email: 'john.doe@example.com',
+        description: "I'm the best and i know it !"
+      }];
+      this.loading = false;
     }
+  },
+  mounted: function mounted() {
+    this.getPlayers();
   }
 });
 
@@ -2849,11 +3009,54 @@ __webpack_require__.r(__webpack_exports__);
         }]
       },
       teamBeforeUpdate: {
-        name: "John Doe",
-        email: 'john.doe@example.com',
-        birth_date: '01/01/1999',
-        pseudo: "Amiral Choucroute",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!"
+        id: this.$route.params.id,
+        name: "Choucroute Powa",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
+        captain: {
+          id: 6,
+          pseudo: 'Gotaga',
+          email: 'gotaga@example.com',
+          description: "The french monster !"
+        },
+        players: [{
+          id: 1,
+          pseudo: 'John Doe',
+          email: 'john.doe@example.com',
+          description: "I'm the best and i know it !"
+        }, {
+          id: 2,
+          pseudo: 'John Doe',
+          email: 'john.doe@example.com',
+          description: "I'm the best and i know it !"
+        }, {
+          id: 6,
+          pseudo: 'Gotaga',
+          email: 'gotaga@example.com',
+          description: "The french monster !"
+        }, {
+          id: 3,
+          pseudo: 'John Doe',
+          email: 'john.doe@example.com',
+          description: "I'm the best and i know it !"
+        }, {
+          id: 4,
+          pseudo: 'John Doe',
+          email: 'john.doe@example.com',
+          description: "I'm the best and i know it !"
+        }],
+        tournamentsParticipation: [{
+          tournament_name: "GG-LAN #8",
+          place: "1st"
+        }, {
+          tournament_name: "GG-LAN #7",
+          place: "2nd"
+        }, {
+          tournament_name: "GG-LAN #6",
+          place: "3rd"
+        }, {
+          tournament_name: "GG-LAN #5",
+          place: "5th"
+        }]
       }
     };
   },
@@ -2868,19 +3071,18 @@ __webpack_require__.r(__webpack_exports__);
     updateTeam: function updateTeam() {
       this.loading = true;
 
-      if (this.player.name != this.playerBeforeUpdate.name || this.player.pseudo != this.playerBeforeUpdate.pseudo || this.player.description != this.playerBeforeUpdate.description) {
+      if (this.team.name != this.teamBeforeUpdate.name || this.team.description != this.teamBeforeUpdate.description) {
         // Update player info before update
-        this.playerBeforeUpdate.name = this.player.name;
-        this.playerBeforeUpdate.pseudo = this.player.pseudo;
-        this.playerBeforeUpdate.description = this.player.description;
+        this.teamBeforeUpdate.name = this.team.name;
+        this.teamBeforeUpdate.description = this.team.description;
         this.flashMessage.success({
-          title: "Player updated !",
-          message: "The player has been successfully updated"
+          title: "Team updated !",
+          message: "The team has been successfully updated"
         });
       } else {
         this.flashMessage.error({
           title: "You didn't change any fields !",
-          message: "You have to change a least one field to update the player"
+          message: "You have to change a least one field to update the team"
         });
       }
 
@@ -2888,12 +3090,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Delete the team
     deleteTeam: function deleteTeam(id) {
-      if (confirm("Are you sure you want to delete this player ? It's definitive")) {
+      if (confirm("Are you sure you want to delete this team ? It's definitive")) {
         this.flashMessage.success({
-          title: "Players deleted !",
-          message: "The player has been successfully deleted"
+          title: "Team deleted !",
+          message: "The team has been successfully deleted"
         });
-        this.goToPlayerList();
+        this.goToTeamsList();
       } // this.flashMessage.error({
       //     title: "Something went wrong",
       //     message: "Please try again"
@@ -3008,6 +3210,7 @@ __webpack_require__.r(__webpack_exports__);
         game: "ForHonor"
       }],
       team: {
+        id: 99,
         name: "Test Team",
         players: 10,
         game: "CS:GO"
@@ -62599,28 +62802,29 @@ var render = function() {
           _c("div", { staticClass: "col-lg-12" }, [
             _c("div", { staticClass: "box box-primary" }, [
               _c("div", { staticClass: "box-header with-border" }, [
-                _c("h3", { staticClass: "box-title" }, [
-                  _vm._v(
-                    "\n                            Players\n                            "
-                  ),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success",
-                      on: {
-                        click: function($event) {
-                          return _vm.addPlayer()
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-plus" }),
-                      _vm._v(
-                        "\n                                Add\n                            "
-                      )
-                    ]
-                  )
-                ])
+                _c(
+                  "h3",
+                  { staticClass: "box-title" },
+                  [
+                    _vm._v(
+                      "\n                            Players\n                            "
+                    ),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { to: { name: "player.create" } }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-plus" }),
+                        _vm._v(
+                          "\n                                Add\n                            "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
               ]),
               _vm._v(" "),
               _c(
@@ -62716,6 +62920,301 @@ var staticRenderFns = [
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=template&id=983b2b2e&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=template&id=983b2b2e& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("FlashMessage", { attrs: { position: "right bottom" } }),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            on: {
+              click: function($event) {
+                return _vm.goToPlayerList()
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "fas fa-arrow-left" }),
+            _vm._v("\n            Return to player list\n        ")
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-12" }, [
+            _c("div", { staticClass: "box box-primary" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "form-horizontal",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.createTeam()
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "name" }
+                        },
+                        [_vm._v("Name")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-8" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.team.name,
+                              expression: "team.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "name",
+                            placeholder: "Name",
+                            required: ""
+                          },
+                          domProps: { value: _vm.team.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.team, "name", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "description" }
+                        },
+                        [_vm._v("Description")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-8" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.team.description,
+                              expression: "team.description"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          staticStyle: { resize: "none" },
+                          attrs: {
+                            id: "description",
+                            cols: "30",
+                            rows: "5",
+                            max: "250",
+                            required: ""
+                          },
+                          domProps: { value: _vm.team.description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.team,
+                                "description",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "avatar" }
+                        },
+                        [_vm._v("Captain")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-8" },
+                        [
+                          _c("loader", {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.loading,
+                                expression: "loading"
+                              }
+                            ],
+                            attrs: { color: "#337ab7" }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: !_vm.loading,
+                                  expression: "!loading"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { name: "captain", id: "captain" }
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { disabled: "", selected: "" } },
+                                [_vm._v("-- Please choose the captain --")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.players, function(player, key) {
+                                return _c(
+                                  "option",
+                                  { key: key, domProps: { value: player.id } },
+                                  [_vm._v(" " + _vm._s(player.pseudo) + " ")]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "col-sm-offset-2 col-sm-8" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { type: "submit" }
+                          },
+                          [
+                            _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.loading,
+                                  expression: "loading"
+                                }
+                              ],
+                              staticClass: "fas fa-sync fa-spin"
+                            }),
+                            _vm._v(" "),
+                            _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: !_vm.loading,
+                                  expression: "!loading"
+                                }
+                              ],
+                              staticClass: "fas fa-check"
+                            }),
+                            _vm._v(
+                              "\n                                        Create\n                                    "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Create player")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        { staticClass: "col-sm-2 control-label", attrs: { for: "avatar" } },
+        [_vm._v("Avatar")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-8" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "url",
+            id: "avatar",
+            placeholder: "https://imgur.com",
+            required: ""
+          }
+        })
       ])
     ])
   }
@@ -63131,7 +63630,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 id: "name",
-                                placeholder: "Name"
+                                placeholder: "Name",
+                                required: ""
                               },
                               domProps: { value: _vm.team.name },
                               on: {
@@ -63175,7 +63675,8 @@ var render = function() {
                               attrs: {
                                 id: "description",
                                 cols: "30",
-                                rows: "5"
+                                rows: "5",
+                                required: ""
                               },
                               domProps: { value: _vm.team.description },
                               on: {
@@ -63328,28 +63829,29 @@ var render = function() {
           _c("div", { staticClass: "col-lg-12" }, [
             _c("div", { staticClass: "box box-primary" }, [
               _c("div", { staticClass: "box-header with-border" }, [
-                _c("h3", { staticClass: "box-title" }, [
-                  _vm._v(
-                    "\n                            Teams\n                            "
-                  ),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success",
-                      on: {
-                        click: function($event) {
-                          return _vm.addTeam()
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-plus" }),
-                      _vm._v(
-                        "\n                                Add\n                            "
-                      )
-                    ]
-                  )
-                ])
+                _c(
+                  "h3",
+                  { staticClass: "box-title" },
+                  [
+                    _vm._v(
+                      "\n                            Teams\n                            "
+                    ),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { to: { name: "team.create" } }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-plus" }),
+                        _vm._v(
+                          "\n                                Add\n                            "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
               ]),
               _vm._v(" "),
               _c(
@@ -75742,6 +76244,7 @@ var map = {
 	"./components/admin/pages/players/AdminPlayerCreate.vue": "./resources/js/components/admin/pages/players/AdminPlayerCreate.vue",
 	"./components/admin/pages/players/AdminPlayerShow.vue": "./resources/js/components/admin/pages/players/AdminPlayerShow.vue",
 	"./components/admin/pages/players/AdminPlayers.vue": "./resources/js/components/admin/pages/players/AdminPlayers.vue",
+	"./components/admin/pages/teams/AdminTeamCreate.vue": "./resources/js/components/admin/pages/teams/AdminTeamCreate.vue",
 	"./components/admin/pages/teams/AdminTeamShow.vue": "./resources/js/components/admin/pages/teams/AdminTeamShow.vue",
 	"./components/admin/pages/teams/AdminTeams.vue": "./resources/js/components/admin/pages/teams/AdminTeams.vue",
 	"./components/site/ExampleComponent.vue": "./resources/js/components/site/ExampleComponent.vue"
@@ -76477,6 +76980,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminPlayers_vue_vue_type_template_id_48652894___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminPlayers_vue_vue_type_template_id_48652894___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/teams/AdminTeamCreate.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/admin/pages/teams/AdminTeamCreate.vue ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdminTeamCreate_vue_vue_type_template_id_983b2b2e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminTeamCreate.vue?vue&type=template&id=983b2b2e& */ "./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=template&id=983b2b2e&");
+/* harmony import */ var _AdminTeamCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminTeamCreate.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AdminTeamCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdminTeamCreate_vue_vue_type_template_id_983b2b2e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AdminTeamCreate_vue_vue_type_template_id_983b2b2e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/pages/teams/AdminTeamCreate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTeamCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminTeamCreate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTeamCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=template&id=983b2b2e&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=template&id=983b2b2e& ***!
+  \******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTeamCreate_vue_vue_type_template_id_983b2b2e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminTeamCreate.vue?vue&type=template&id=983b2b2e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/teams/AdminTeamCreate.vue?vue&type=template&id=983b2b2e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTeamCreate_vue_vue_type_template_id_983b2b2e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTeamCreate_vue_vue_type_template_id_983b2b2e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

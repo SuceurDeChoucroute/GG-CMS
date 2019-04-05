@@ -10,10 +10,10 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">
                                 Teams
-                                <button class="btn btn-success" @click="addTeam()">
+                                <router-link :to="{ name: 'team.create'}" class="btn btn-success">
                                     <i class="fas fa-plus"></i>
                                     Add
-                                </button>
+                                </router-link>
                             </h3>
                         </div>
                         <div class="box-body">
@@ -71,6 +71,7 @@ export default {
                 { id:6, name: "No Beta Test", players: 1, game: "ForHonor" },
             ],
             team: {
+                id: 99,
                 name: "Test Team",
                 players: 10,
                 game: "CS:GO",

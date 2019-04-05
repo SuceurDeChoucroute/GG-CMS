@@ -24,6 +24,7 @@ import AdminPlayerCreate from './components/admin/pages/players/AdminPlayerCreat
 
 import AdminTeams from './components/admin/pages/teams/AdminTeams.vue'
 import AdminTeamShow from './components/admin/pages/teams/AdminTeamShow.vue'
+import AdminTeamCreate from './components/admin/pages/teams/AdminTeamCreate.vue'
 
 const routes = [
     // Dashboard
@@ -37,6 +38,7 @@ const routes = [
     // Teams
     { name: "teams", path: '/teams', component: AdminTeams },
     { name: "team.show", path: '/team/show/:id', component: AdminTeamShow },
+    { name: "team.create", path: '/team/create', component: AdminTeamCreate },
 ]
 
 const router = new VueRouter({
