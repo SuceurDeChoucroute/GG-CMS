@@ -10,10 +10,10 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">
                                 Players
-                                <button class="btn btn-success" @click="addPlayer()">
+                                <router-link :to="{ name: 'player.create'}" class="btn btn-success">
                                     <i class="fas fa-plus"></i>
                                     Add
-                                </button>
+                                </router-link>
                             </h3>
                         </div>
                         <div class="box-body">
@@ -78,9 +78,6 @@ export default {
     },
 
     methods: {
-        addPlayer() {
-            this.$router.push({name: 'player.create'})
-        },
     },
 }
 </script>
