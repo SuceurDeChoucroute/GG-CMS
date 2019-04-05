@@ -25,6 +25,13 @@
                         <span>Players</span> 
                     </router-link>
                 </li>
+
+                <li>
+                    <router-link :to="{ name: 'teams' }">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Teams</span> 
+                    </router-link>
+                </li>
             </ul>
         </section>
     </aside>
