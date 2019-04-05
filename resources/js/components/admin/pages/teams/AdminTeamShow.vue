@@ -100,7 +100,7 @@
                                         <label for="name" class="col-sm-2 control-label">Name</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="name" placeholder="Name" v-model="team.name">
+                                            <input type="text" class="form-control" id="name" placeholder="Name" v-model="team.name" required>
                                         </div>
                                     </div>
 
@@ -109,7 +109,7 @@
                                         <label for="description" class="col-sm-2 control-label">Description</label>
 
                                         <div class="col-sm-10">
-                                            <textarea id="description" cols="30" rows="5" class="form-control" style="resize: none;" v-model="team.description"></textarea>
+                                            <textarea id="description" cols="30" rows="5" class="form-control" style="resize: none;" v-model="team.description" required></textarea>
                                         </div>
                                     </div>
                                     <!-- <div class="form-group">
@@ -175,15 +175,25 @@ export default {
                     { tournament_name: "GG-LAN #5", place: "5th" },
                 ]
             },
-
-
             teamBeforeUpdate: {
-                name: "John Doe",
-                email: 'john.doe@example.com',
-                birth_date: '01/01/1999',
-                pseudo: "Amiral Choucroute",
+                id: this.$route.params.id,
+                name: "Choucroute Powa",
                 description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
-            }
+                captain: {id: 6, pseudo: 'Gotaga'  , email: 'gotaga@example.com', description: "The french monster !"},
+                players: [
+                    {id: 1, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
+                    {id: 2, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
+                    {id: 6, pseudo: 'Gotaga'  , email: 'gotaga@example.com', description: "The french monster !"},
+                    {id: 3, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
+                    {id: 4, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
+                ],
+                tournamentsParticipation: [
+                    { tournament_name: "GG-LAN #8", place: "1st" },
+                    { tournament_name: "GG-LAN #7", place: "2nd" },
+                    { tournament_name: "GG-LAN #6", place: "3rd" },
+                    { tournament_name: "GG-LAN #5", place: "5th" },
+                ]
+            },
         }
     },
 
@@ -196,24 +206,22 @@ export default {
         // Update the team
         updateTeam() {
             this.loading = true;
-            if (this.player.name != this.playerBeforeUpdate.name || 
-                this.player.pseudo != this.playerBeforeUpdate.pseudo || 
-                this.player.description != this.playerBeforeUpdate.description) {
+            if (this.team.name != this.teamBeforeUpdate.name || 
+                this.team.description != this.teamBeforeUpdate.description) {
 
                 // Update player info before update
-                this.playerBeforeUpdate.name = this.player.name
-                this.playerBeforeUpdate.pseudo = this.player.pseudo
-                this.playerBeforeUpdate.description = this.player.description
+                this.teamBeforeUpdate.name = this.team.name
+                this.teamBeforeUpdate.description = this.team.description
                 
                 this.flashMessage.success({
-                    title: "Player updated !",
-                    message: "The player has been successfully updated"
+                    title: "Team updated !",
+                    message: "The team has been successfully updated"
                 })
             }
             else {
                 this.flashMessage.error({
                     title: "You didn't change any fields !",
-                    message: "You have to change a least one field to update the player"
+                    message: "You have to change a least one field to update the team"
                 })
             }
 
@@ -222,12 +230,12 @@ export default {
 
         // Delete the team
         deleteTeam(id) {
-            if (confirm("Are you sure you want to delete this player ? It's definitive")) {
+            if (confirm("Are you sure you want to delete this team ? It's definitive")) {
                 this.flashMessage.success({
-                    title: "Players deleted !",
-                    message: "The player has been successfully deleted"
+                    title: "Team deleted !",
+                    message: "The team has been successfully deleted"
                 })
-                this.goToPlayerList();
+                this.goToTeamsList();
             }
 
             // this.flashMessage.error({
