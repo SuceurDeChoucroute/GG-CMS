@@ -36,9 +36,6 @@
                                             <router-link :to="{ name: 'player.show', params: {id: player.id} }" class="btn btn-primary">
                                                 <i class="fas fa-eye"></i>
                                             </router-link>
-                                            <button class="btn btn-danger" @click="deletePlayer(key)">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -88,19 +85,6 @@ export default {
                 message: "The player has been successfully added"
             })
         },
-
-        deletePlayer(key) {
-            this.players.splice(key,1)
-
-            this.flashMessage.success({
-                title: "Players deleted !",
-                message: "The player has been successfully deleted"
-            })
-            // this.flashMessage.error({
-            //     title: "Something went wrong",
-            //     message: "Please try again"
-            // })
-        }
     },
 }
 </script>

@@ -181,8 +181,12 @@
                                             <button type="submit" class="btn btn-success">
                                                 <i class="fas fa-sync fa-spin" v-show="loading"></i>
                                                 <i class="fas fa-check" v-show="!loading"></i>
-
                                                 Update
+                                            </button>
+
+                                            <button type="button" class="btn btn-danger" @click="deletePlayer(player.id)">
+                                                <i class="fas fa-trash-alt"></i>
+                                                Delete
                                             </button>
                                         </div>
                                     </div>
@@ -244,7 +248,7 @@ export default {
     methods: {
         // Go back to the previous page
         goBack() {
-            this.$router.go(-1);
+            this.$router.back();
         },
 
         // Update the player
@@ -272,6 +276,22 @@ export default {
             }
 
             this.loading = false;
+        },
+
+        deletePlayer(id) {
+
+            if (confirm('Are you sure you want to delete this player ?')) {
+                this.flashMessage.success({
+                    title: "Players deleted !",
+                    message: "The player has been successfully deleted"
+                })
+                this.goBack();
+            }
+
+            // this.flashMessage.error({
+            //     title: "Something went wrong",
+            //     message: "Please try again"
+            // })
         },
     }
 }

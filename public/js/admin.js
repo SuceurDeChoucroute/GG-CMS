@@ -2280,6 +2280,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2331,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     // Go back to the previous page
     goBack: function goBack() {
-      this.$router.go(-1);
+      this.$router.back();
     },
     // Update the player
     updatePlayer: function updatePlayer() {
@@ -2354,6 +2358,19 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.loading = false;
+    },
+    deletePlayer: function deletePlayer(id) {
+      if (confirm('Are you sure you want to delete this player ?')) {
+        this.flashMessage.success({
+          title: "Players deleted !",
+          message: "The player has been successfully deleted"
+        });
+        this.goBack();
+      } // this.flashMessage.error({
+      //     title: "Something went wrong",
+      //     message: "Please try again"
+      // })
+
     }
   }
 });
@@ -2371,9 +2388,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../layouts/AdminContentHeader */ "./resources/js/components/admin/layouts/AdminContentHeader.vue");
 /* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
-//
-//
-//
 //
 //
 //
@@ -2480,16 +2494,6 @@ __webpack_require__.r(__webpack_exports__);
         title: "Players added !",
         message: "The player has been successfully added"
       });
-    },
-    deletePlayer: function deletePlayer(key) {
-      this.players.splice(key, 1);
-      this.flashMessage.success({
-        title: "Players deleted !",
-        message: "The player has been successfully deleted"
-      }); // this.flashMessage.error({
-      //     title: "Something went wrong",
-      //     message: "Please try again"
-      // })
     }
   }
 });
@@ -39499,7 +39503,26 @@ var render = function() {
                                     staticClass: "fas fa-check"
                                   }),
                                   _vm._v(
-                                    "\n\n                                            Update\n                                        "
+                                    "\n                                            Update\n                                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deletePlayer(_vm.player.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", { staticClass: "fas fa-trash-alt" }),
+                                  _vm._v(
+                                    "\n                                            Delete\n                                        "
                                   )
                                 ]
                               )
@@ -39692,19 +39715,6 @@ var render = function() {
                                     }
                                   },
                                   [_c("i", { staticClass: "fas fa-eye" })]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.deletePlayer(key)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fas fa-trash-alt" })]
                                 )
                               ],
                               1
