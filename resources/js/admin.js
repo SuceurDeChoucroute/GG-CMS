@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 
 const flashConfig = {
     time: 5000,
+    strategy: "single",
 }
 Vue.use(FlashMessage, flashConfig);
 
@@ -16,19 +17,26 @@ const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 import AdminDashboard from './components/admin/pages/AdminDashboard.vue'
-import AdminPlayers from './components/admin/pages/AdminPlayers.vue'
+
+import AdminPlayers from './components/admin/pages/players/AdminPlayers.vue'
+import AdminPlayerShow from './components/admin/pages/players/AdminPlayerShow.vue'
+import AdminPlayerCreate from './components/admin/pages/players/AdminPlayerCreate.vue'
+
+import AdminTeams from './components/admin/pages/teams/AdminTeams.vue'
+import AdminTeamShow from './components/admin/pages/teams/AdminTeamShow.vue'
 
 const routes = [
-    { 
-        name: "index",
-        path: '/', 
-        component: AdminDashboard 
-    },
-    { 
-        name: "players",
-        path: '/players',
-        component: AdminPlayers 
-    },
+    // Dashboard
+    { name: "index", path: '/', component: AdminDashboard },
+
+    // Players
+    { name: "players", path: '/players',component: AdminPlayers },
+    { name: "player.show", path: '/player/show/:id', component: AdminPlayerShow },
+    { name: "player.create", path: '/player/create', component: AdminPlayerCreate },
+
+    // Teams
+    { name: "teams", path: '/teams', component: AdminTeams },
+    { name: "team.show", path: '/team/show/:id', component: AdminTeamShow },
 ]
 
 const router = new VueRouter({

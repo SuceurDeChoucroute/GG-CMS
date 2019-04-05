@@ -26,6 +26,7 @@
     "dependencies": {
         "@smartweb/vue-flash-message": "^0.4.1",
         "bootstrap-vue": "^2.0.0-rc.15",
-        "vue-router": "^3.0.2"
+        "vue-router": "^3.0.2",
+        "vue-spinner": "^1.0.3"
     }
 }
