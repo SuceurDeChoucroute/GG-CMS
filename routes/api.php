@@ -24,3 +24,6 @@ Route::get('games/{game}/players', 'GameController@players')->name('games.player
 // Players
 Route::resource('players', 'PlayerController');
 Route::get('players/{player}/games', 'PlayerController@games')->name('players.games');
+
+// Teams
+Route::resource('teams', 'TeamController');
