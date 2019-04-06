@@ -32,6 +32,7 @@ import AdminGameCreate from './components/admin/pages/games/AdminGameCreate.vue'
 
 import AdminTournaments from './components/admin/pages/tournaments/AdminTournaments.vue'
 import AdminTournamentShow from './components/admin/pages/tournaments/AdminTournamentShow.vue'
+import AdminTournamentCreate from './components/admin/pages/tournaments/AdminTournamentCreate.vue'
 
 const routes = [
     // Dashboard
@@ -55,6 +56,7 @@ const routes = [
     // Tournaments
     { name: "tournaments", path: '/tournaments', component: AdminTournaments },
     { name: "tournament.show", path: '/tournament/show/:id', component: AdminTournamentShow },
+    { name: "tournament.create", path: '/tournament/create', component: AdminTournamentCreate },
 ]
 
 const router = new VueRouter({

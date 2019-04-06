@@ -3707,6 +3707,181 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Loader: vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      loading: false,
+      tournament: {
+        id: 99,
+        name: '',
+        description: "",
+        game: '',
+        startDate: '',
+        endDate: '',
+        place: '',
+        cashprize: '',
+        status: '',
+        image: ''
+      },
+      games: [{
+        id: 1,
+        name: "CS:GO",
+        description: "An amazing FPS shooter",
+        place: 5
+      }, {
+        id: 2,
+        name: "ForHonor",
+        description: "Now you are an ultimate warrior",
+        place: 4
+      }]
+    };
+  },
+  methods: {
+    goToTournamentList: function goToTournamentList() {
+      this.$router.push({
+        name: 'tournaments'
+      });
+    },
+    createTournament: function createTournament() {
+      this.$router.push({
+        name: 'tournament.show',
+        params: {
+          id: this.tournament.id
+        }
+      });
+      this.flashMessage.success({
+        title: "Tournament added !",
+        message: "The tournament has been successfully added"
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/tournaments/AdminTournamentShow.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/tournaments/AdminTournamentShow.vue?vue&type=script&lang=js& ***!
@@ -42804,7 +42979,7 @@ var render = function() {
             staticClass: "btn btn-primary",
             on: {
               click: function($event) {
-                return _vm.goToPlayerList()
+                return _vm.goToTeamList()
               }
             }
           },
@@ -43795,6 +43970,483 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=template&id=46045069&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=template&id=46045069& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("FlashMessage", { attrs: { position: "right bottom" } }),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            on: {
+              click: function($event) {
+                return _vm.goToTournamentList()
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "fas fa-arrow-left" }),
+            _vm._v("\n            Return to tournament list\n        ")
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-12" }, [
+            _c("div", { staticClass: "box box-primary" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "form-horizontal",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.createTournament()
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "name" }
+                        },
+                        [_vm._v("Name")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tournament.name,
+                              expression: "tournament.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "name",
+                            placeholder: "Name",
+                            required: ""
+                          },
+                          domProps: { value: _vm.tournament.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.tournament,
+                                "name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "description" }
+                        },
+                        [_vm._v("Description")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tournament.description,
+                              expression: "tournament.description"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          staticStyle: { resize: "none" },
+                          attrs: {
+                            id: "description",
+                            cols: "30",
+                            rows: "5",
+                            required: ""
+                          },
+                          domProps: { value: _vm.tournament.description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.tournament,
+                                "description",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "game" }
+                        },
+                        [_vm._v("Game")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-10" },
+                        [
+                          _c("loader", {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.loading,
+                                expression: "loading"
+                              }
+                            ],
+                            attrs: { color: "#337ab7" }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: !_vm.loading,
+                                  expression: "!loading"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { name: "game", id: "game", required: "" }
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { disabled: "", selected: "" } },
+                                [_vm._v("-- Please choose the game --")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.games, function(game, key) {
+                                return _c(
+                                  "option",
+                                  { key: key, domProps: { value: game.id } },
+                                  [_vm._v(" " + _vm._s(game.name) + " ")]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "name" }
+                        },
+                        [_vm._v("Start & End Date")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-5" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tournament.startDate,
+                              expression: "tournament.startDate"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "date",
+                            id: "startDate",
+                            required: ""
+                          },
+                          domProps: { value: _vm.tournament.startDate },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.tournament,
+                                "startDate",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-5" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tournament.endDate,
+                              expression: "tournament.endDate"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "date", id: "endDate", required: "" },
+                          domProps: { value: _vm.tournament.endDate },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.tournament,
+                                "endDate",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "place" }
+                        },
+                        [_vm._v("Place")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tournament.place,
+                              expression: "tournament.place"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            min: "0",
+                            step: "1",
+                            id: "place",
+                            placeholder: "Place",
+                            required: ""
+                          },
+                          domProps: { value: _vm.tournament.place },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.tournament,
+                                "place",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "cashprize" }
+                        },
+                        [_vm._v("Cashprize")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tournament.cashprize,
+                              expression: "tournament.cashprize"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "cashprize",
+                            placeholder: "Cashprize",
+                            required: ""
+                          },
+                          domProps: { value: _vm.tournament.cashprize },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.tournament,
+                                "cashprize",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "image" }
+                        },
+                        [_vm._v("Image")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tournament.image,
+                              expression: "tournament.image"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "url",
+                            id: "image",
+                            placeholder: "https://...",
+                            required: ""
+                          },
+                          domProps: { value: _vm.tournament.image },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.tournament,
+                                "image",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "col-sm-offset-2 col-sm-10" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { type: "submit" }
+                          },
+                          [
+                            _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.loading,
+                                  expression: "loading"
+                                }
+                              ],
+                              staticClass: "fas fa-sync fa-spin"
+                            }),
+                            _vm._v(" "),
+                            _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: !_vm.loading,
+                                  expression: "!loading"
+                                }
+                              ],
+                              staticClass: "fas fa-check"
+                            }),
+                            _vm._v(
+                              "\n                                        Create\n                                    "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Create tournament")])
     ])
   }
 ]
@@ -59731,6 +60383,7 @@ var map = {
 	"./components/admin/pages/teams/AdminTeamCreate.vue": "./resources/js/components/admin/pages/teams/AdminTeamCreate.vue",
 	"./components/admin/pages/teams/AdminTeamShow.vue": "./resources/js/components/admin/pages/teams/AdminTeamShow.vue",
 	"./components/admin/pages/teams/AdminTeams.vue": "./resources/js/components/admin/pages/teams/AdminTeams.vue",
+	"./components/admin/pages/tournaments/AdminTournamentCreate.vue": "./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue",
 	"./components/admin/pages/tournaments/AdminTournamentShow.vue": "./resources/js/components/admin/pages/tournaments/AdminTournamentShow.vue",
 	"./components/admin/pages/tournaments/AdminTournaments.vue": "./resources/js/components/admin/pages/tournaments/AdminTournaments.vue",
 	"./components/site/ExampleComponent.vue": "./resources/js/components/site/ExampleComponent.vue"
@@ -59782,6 +60435,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_admin_pages_games_AdminGameCreate_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/admin/pages/games/AdminGameCreate.vue */ "./resources/js/components/admin/pages/games/AdminGameCreate.vue");
 /* harmony import */ var _components_admin_pages_tournaments_AdminTournaments_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/admin/pages/tournaments/AdminTournaments.vue */ "./resources/js/components/admin/pages/tournaments/AdminTournaments.vue");
 /* harmony import */ var _components_admin_pages_tournaments_AdminTournamentShow_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/admin/pages/tournaments/AdminTournamentShow.vue */ "./resources/js/components/admin/pages/tournaments/AdminTournamentShow.vue");
+/* harmony import */ var _components_admin_pages_tournaments_AdminTournamentCreate_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/admin/pages/tournaments/AdminTournamentCreate.vue */ "./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -59799,6 +60453,7 @@ var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 files.keys().map(function (key) {
   return Vue.component(key.split('/').pop().split('.')[0], files(key).default);
 });
+
 
 
 
@@ -59864,6 +60519,10 @@ var routes = [// Dashboard
   name: "tournament.show",
   path: '/tournament/show/:id',
   component: _components_admin_pages_tournaments_AdminTournamentShow_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+}, {
+  name: "tournament.create",
+  path: '/tournament/create',
+  component: _components_admin_pages_tournaments_AdminTournamentCreate_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes // short for `routes: routes`
@@ -60963,6 +61622,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTeams_vue_vue_type_template_id_7ca66894___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTeams_vue_vue_type_template_id_7ca66894___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdminTournamentCreate_vue_vue_type_template_id_46045069___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminTournamentCreate.vue?vue&type=template&id=46045069& */ "./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=template&id=46045069&");
+/* harmony import */ var _AdminTournamentCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminTournamentCreate.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AdminTournamentCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdminTournamentCreate_vue_vue_type_template_id_46045069___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AdminTournamentCreate_vue_vue_type_template_id_46045069___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournamentCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminTournamentCreate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournamentCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=template&id=46045069&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=template&id=46045069& ***!
+  \******************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournamentCreate_vue_vue_type_template_id_46045069___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminTournamentCreate.vue?vue&type=template&id=46045069& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/tournaments/AdminTournamentCreate.vue?vue&type=template&id=46045069&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournamentCreate_vue_vue_type_template_id_46045069___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournamentCreate_vue_vue_type_template_id_46045069___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -4,7 +4,7 @@
         <FlashMessage position="right bottom"></FlashMessage>
 
         <section class="content">
-            <button @click="goToPlayerList()" class="btn btn-primary">
+            <button @click="goToTeamList()" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i>
                 Return to player list
             </button>
