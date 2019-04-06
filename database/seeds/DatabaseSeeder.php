@@ -12,13 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Players & Games
-        factory(App\User::class, 10)
+        $players = factory(App\User::class, 10)
             ->create()
             ->each(function($u) {
                 $u->games()->save(factory(App\Game::class)->create());
             });
         
         // Teams
-        factory(App\Team::class, 5)->create();
+        $teams = factory(App\Team::class, 5)->create();
+        $teams[0]->players()->attach($players[0]->id, ['captain' => true]);
+        $teams[0]->players()->attach($players[1]->id);
+
     }
 }

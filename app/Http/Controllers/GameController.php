@@ -88,4 +88,9 @@ class GameController extends Controller
     {
         return $game->players;
     }
+
+    public function teams(Game $game)
+    {
+        return $game->teams;
+    }
 }

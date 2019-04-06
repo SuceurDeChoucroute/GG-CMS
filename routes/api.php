@@ -20,10 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Games
 Route::resource('games', 'GameController');
 Route::get('games/{game}/players', 'GameController@players')->name('games.players');
+Route::get('games/{game}/teams', 'GameController@teams')->name('games.teams');
 
 // Players
 Route::resource('players', 'PlayerController');
 Route::get('players/{player}/games', 'PlayerController@games')->name('players.games');
+Route::get('players/{player}/teams', 'PlayerController@teams')->name('players.teams');
 
 // Teams
 Route::resource('teams', 'TeamController');
+Route::get('teams/{team}/players', 'TeamController@players')->name('teams.games');

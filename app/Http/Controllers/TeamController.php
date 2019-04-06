@@ -78,4 +78,9 @@ class TeamController extends Controller
             'message' => 'Success',
         ], 200);
     }
+
+    public function players(Team $team)
+    {
+        return $team->players;
+    }
 }
