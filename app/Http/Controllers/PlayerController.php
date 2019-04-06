@@ -80,4 +80,9 @@ class PlayerController extends Controller
             'message' => 'Success',
         ], 200);
     }
+
+    public function games(User $player)
+    {
+        return $player->games;
+    }
 }

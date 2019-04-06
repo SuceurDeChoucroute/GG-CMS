@@ -80,6 +80,10 @@ class GameController extends Controller
                 'message' => 'Error',
             ], 500);
         }
+    }
 
+    public function players(Game $game)
+    {
+        return $game->players;
     }
 }
