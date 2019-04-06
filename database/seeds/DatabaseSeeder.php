@@ -17,5 +17,8 @@ class DatabaseSeeder extends Seeder
             ->each(function($u) {
                 $u->games()->save(factory(App\Game::class)->create());
             });
+        
+        // Teams
+        factory(App\Team::class, 5)->create();
     }
 }

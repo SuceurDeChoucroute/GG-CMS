@@ -29,6 +29,7 @@ class GameController extends Controller
         $game->name = $request->name;
         $game->description = $request->description;
         $game->image = $request->image;
+        $game->places = $request->places;
         $game->save();
 
         return $game;
@@ -57,6 +58,7 @@ class GameController extends Controller
         $game->name = $request->name;
         $game->description = $request->description;
         $game->image = $request->image;
+        $game->places = $request->places;
         $game->save();
 
         return $game;
