@@ -2148,19 +2148,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2169,72 +2156,34 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      team: {
+      game: {
         id: 99,
         name: '',
         description: '',
-        avatar: '',
-        captain: {}
-      },
-      players: []
+        image: ''
+      }
     };
   },
   methods: {
-    goToTeamList: function goToTeamList() {
+    goToGamesList: function goToGamesList() {
       this.$router.push({
-        name: 'teams'
+        name: 'games'
       });
     },
-    createTeam: function createTeam() {
+    createGame: function createGame() {
+      this.loading = true;
+      this.loading = false;
       this.$router.push({
-        name: 'team.show',
+        name: 'game.show',
         params: {
-          id: this.team.id
+          id: this.game.id
         }
       });
       this.flashMessage.success({
-        title: "Team added !",
-        message: "The team has been successfully added"
+        title: "Game added !",
+        message: "The game has been successfully added"
       });
-    },
-    getPlayers: function getPlayers() {
-      this.loading = true;
-      this.players = [{
-        id: 1,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 2,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 6,
-        pseudo: 'Gotaga',
-        email: 'gotaga@example.com',
-        description: "The french monster !"
-      }, {
-        id: 3,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 4,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 5,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }];
-      this.loading = false;
     }
-  },
-  mounted: function mounted() {
-    this.getPlayers();
   }
 });
 
@@ -2388,14 +2337,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2406,16 +2347,45 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      team: {
+      game: {
         id: this.$route.params.id,
         name: "CS:GO",
-        description: "An amazing FPS shooter"
+        description: "An amazing FPS shooter",
+        place: 5,
+        image: "http://i.imgur.com/VNk5wlL.png"
       },
-      teamBeforeUpdate: {
+      gameBeforeUpdate: {
         id: this.$route.params.id,
         name: "CS:GO",
-        description: "An amazing FPS shooter"
-      }
+        description: "An amazing FPS shooter",
+        place: 5,
+        image: "http://i.imgur.com/VNk5wlL.png"
+      },
+      gamePlayers: [{
+        id: 1,
+        pseudo: 'John Doe',
+        email: 'john.doe@example.com',
+        description: "I'm the best and i know it !",
+        rank: "Eagle II"
+      }, {
+        id: 2,
+        pseudo: 'John Doe',
+        email: 'john.doe@example.com',
+        description: "I'm the best and i know it !",
+        rank: "Global Elite"
+      }, {
+        id: 6,
+        pseudo: 'Gotaga',
+        email: 'gotaga@example.com',
+        description: "The french monster !",
+        rank: "Sivler III"
+      }, {
+        id: 3,
+        pseudo: 'John Doe',
+        email: 'john.doe@example.com',
+        description: "I'm the best and i know it !",
+        rank: "Noob"
+      }]
     };
   },
   methods: {
@@ -2425,33 +2395,35 @@ __webpack_require__.r(__webpack_exports__);
         name: 'games'
       });
     },
-    // Update the team
+    // Update the game
     updateGame: function updateGame() {
       this.loading = true;
 
-      if (this.team.name != this.teamBeforeUpdate.name || this.team.description != this.teamBeforeUpdate.description) {
+      if (this.game.name != this.gameBeforeUpdate.name || this.game.description != this.gameBeforeUpdate.description || this.game.place != this.gameBeforeUpdate.place || this.game.image != this.gameBeforeUpdate.image) {
         // Update player info before update
-        this.teamBeforeUpdate.name = this.team.name;
-        this.teamBeforeUpdate.description = this.team.description;
+        this.gameBeforeUpdate.name = this.game.name;
+        this.gameBeforeUpdate.description = this.game.description;
+        this.gameBeforeUpdate.place = this.game.place;
+        this.gameBeforeUpdate.image = this.game.image;
         this.flashMessage.success({
-          title: "Team updated !",
-          message: "The team has been successfully updated"
+          title: "Game updated !",
+          message: "The game has been successfully updated"
         });
       } else {
         this.flashMessage.error({
           title: "You didn't change any fields !",
-          message: "You have to change a least one field to update the team"
+          message: "You have to change a least one field to update the game"
         });
       }
 
       this.loading = false;
     },
-    // Delete the team
+    // Delete the game
     deleteGame: function deleteGame(id) {
       if (confirm("Are you sure you want to delete this team ? It's definitive")) {
         this.flashMessage.success({
-          title: "Team deleted !",
-          message: "The team has been successfully deleted"
+          title: "Game deleted !",
+          message: "The game has been successfully deleted"
         });
         this.goToGamesList();
       } // this.flashMessage.error({
@@ -62207,13 +62179,13 @@ var render = function() {
             staticClass: "btn btn-primary",
             on: {
               click: function($event) {
-                return _vm.goToPlayerList()
+                return _vm.goToGameList()
               }
             }
           },
           [
             _c("i", { staticClass: "fas fa-arrow-left" }),
-            _vm._v("\n            Return to player list\n        ")
+            _vm._v("\n            Return to game list\n        ")
           ]
         ),
         _vm._v(" "),
@@ -62230,7 +62202,7 @@ var render = function() {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        return _vm.createTeam()
+                        return _vm.createGame()
                       }
                     }
                   },
@@ -62251,8 +62223,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.team.name,
-                              expression: "team.name"
+                              value: _vm.game.name,
+                              expression: "game.name"
                             }
                           ],
                           staticClass: "form-control",
@@ -62262,13 +62234,13 @@ var render = function() {
                             placeholder: "Name",
                             required: ""
                           },
-                          domProps: { value: _vm.team.name },
+                          domProps: { value: _vm.game.name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.team, "name", $event.target.value)
+                              _vm.$set(_vm.game, "name", $event.target.value)
                             }
                           }
                         })
@@ -62291,8 +62263,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.team.description,
-                              expression: "team.description"
+                              value: _vm.game.description,
+                              expression: "game.description"
                             }
                           ],
                           staticClass: "form-control",
@@ -62304,14 +62276,14 @@ var render = function() {
                             max: "250",
                             required: ""
                           },
-                          domProps: { value: _vm.team.description },
+                          domProps: { value: _vm.game.description },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.team,
+                                _vm.game,
                                 "description",
                                 $event.target.value
                               )
@@ -62326,64 +62298,40 @@ var render = function() {
                         "label",
                         {
                           staticClass: "col-sm-2 control-label",
-                          attrs: { for: "avatar" }
+                          attrs: { for: "image" }
                         },
-                        [_vm._v("Captain")]
+                        [_vm._v("Image")]
                       ),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-sm-8" },
-                        [
-                          _c("loader", {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.loading,
-                                expression: "loading"
-                              }
-                            ],
-                            attrs: { color: "#337ab7" }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "select",
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          directives: [
                             {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: !_vm.loading,
-                                  expression: "!loading"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { name: "captain", id: "captain" }
-                            },
-                            [
-                              _c(
-                                "option",
-                                { attrs: { disabled: "", selected: "" } },
-                                [_vm._v("-- Please choose the captain --")]
-                              ),
-                              _vm._v(" "),
-                              _vm._l(_vm.players, function(player, key) {
-                                return _c(
-                                  "option",
-                                  { key: key, domProps: { value: player.id } },
-                                  [_vm._v(" " + _vm._s(player.pseudo) + " ")]
-                                )
-                              })
-                            ],
-                            2
-                          )
-                        ],
-                        1
-                      )
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.game.image,
+                              expression: "game.image"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "url",
+                            id: "image",
+                            placeholder: "https://...",
+                            required: ""
+                          },
+                          domProps: { value: _vm.game.image },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.game, "image", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
                     ]),
-                    _vm._v(" "),
-                    _vm._m(1),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("div", { staticClass: "col-sm-offset-2 col-sm-8" }, [
@@ -62441,31 +62389,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Create player")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        { staticClass: "col-sm-2 control-label", attrs: { for: "avatar" } },
-        [_vm._v("Avatar")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-8" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "url",
-            id: "avatar",
-            placeholder: "https://imgur.com",
-            required: ""
-          }
-        })
-      ])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Create game")])
     ])
   }
 ]
@@ -62549,8 +62473,7 @@ var render = function() {
                     _c("img", {
                       staticClass: "profile-user-img img-responsive img-circle",
                       attrs: {
-                        src:
-                          "https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg",
+                        src: _vm.game.image,
                         alt: "User profile picture"
                       }
                     }),
@@ -62560,59 +62483,8 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-muted text-center" }, [
-                      _vm._v(
-                        " Captain: " + _vm._s(_vm.team.captain.pseudo) + " "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "ul",
-                      { staticClass: "list-group list-group-unbordered" },
-                      _vm._l(_vm.team.tournamentsParticipation, function(
-                        participation,
-                        key
-                      ) {
-                        return _c(
-                          "li",
-                          { key: key, staticClass: "list-group-item" },
-                          [
-                            _c("b", [
-                              _vm._v(
-                                " " +
-                                  _vm._s(participation.tournament_name) +
-                                  " "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("a", { staticClass: "pull-right" }, [
-                              _vm._v(
-                                " \n                                    " +
-                                  _vm._s(participation.place) +
-                                  " \n                                    "
-                              ),
-                              participation.place == "3rd"
-                                ? _c("i", {
-                                    staticClass: "fas fa-trophy text-danger"
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              participation.place == "2nd"
-                                ? _c("i", {
-                                    staticClass: "fas fa-trophy text-warning"
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              participation.place == "1st"
-                                ? _c("i", {
-                                    staticClass: "fas fa-trophy text-success"
-                                  })
-                                : _vm._e()
-                            ])
-                          ]
-                        )
-                      }),
-                      0
-                    )
+                      _vm._v(_vm._s(_vm.game.description) + " ")
+                    ])
                   ]
                 )
               ],
@@ -62652,7 +62524,7 @@ var render = function() {
                   "div",
                   { staticClass: "active tab-pane", attrs: { id: "profile" } },
                   [
-                    _c("h3", [_vm._v(" Team informations ")]),
+                    _c("h3", [_vm._v(" Game informations ")]),
                     _vm._v(" "),
                     _c("loader", {
                       directives: [
@@ -62696,20 +62568,20 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.team.name,
-                                  expression: "team.name"
+                                  value: _vm.game.name,
+                                  expression: "game.name"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: { type: "text", id: "name", disabled: "" },
-                              domProps: { value: _vm.team.name },
+                              domProps: { value: _vm.game.name },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.team,
+                                    _vm.game,
                                     "name",
                                     $event.target.value
                                   )
@@ -62735,8 +62607,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.team.description,
-                                  expression: "team.description"
+                                  value: _vm.game.description,
+                                  expression: "game.description"
                                 }
                               ],
                               staticClass: "form-control",
@@ -62747,14 +62619,14 @@ var render = function() {
                                 rows: "5",
                                 disabled: ""
                               },
-                              domProps: { value: _vm.team.description },
+                              domProps: { value: _vm.game.description },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.team,
+                                    _vm.game,
                                     "description",
                                     $event.target.value
                                   )
@@ -62768,7 +62640,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("hr"),
                     _vm._v(" "),
-                    _c("h3", [_vm._v(" Team players ")]),
+                    _c("h3", [_vm._v(" Game players ")]),
                     _vm._v(" "),
                     _c("loader", {
                       directives: [
@@ -62800,14 +62672,14 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.team.players, function(player, key) {
+                          _vm._l(_vm.gamePlayers, function(player, key) {
                             return _c("tr", { key: key }, [
                               _c("td", [
                                 _vm._v(" " + _vm._s(player.pseudo) + " ")
                               ]),
                               _vm._v(" "),
                               _c("td", [
-                                _vm._v(" " + _vm._s(player.description) + " ")
+                                _vm._v(" " + _vm._s(player.rank) + " ")
                               ]),
                               _vm._v(" "),
                               _c(
@@ -62872,8 +62744,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.team.name,
-                                  expression: "team.name"
+                                  value: _vm.game.name,
+                                  expression: "game.name"
                                 }
                               ],
                               staticClass: "form-control",
@@ -62883,14 +62755,14 @@ var render = function() {
                                 placeholder: "Name",
                                 required: ""
                               },
-                              domProps: { value: _vm.team.name },
+                              domProps: { value: _vm.game.name },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.team,
+                                    _vm.game,
                                     "name",
                                     $event.target.value
                                   )
@@ -62916,8 +62788,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.team.description,
-                                  expression: "team.description"
+                                  value: _vm.game.description,
+                                  expression: "game.description"
                                 }
                               ],
                               staticClass: "form-control",
@@ -62928,15 +62800,59 @@ var render = function() {
                                 rows: "5",
                                 required: ""
                               },
-                              domProps: { value: _vm.team.description },
+                              domProps: { value: _vm.game.description },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.team,
+                                    _vm.game,
                                     "description",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-2 control-label",
+                              attrs: { for: "image" }
+                            },
+                            [_vm._v("Image")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-10" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.game.image,
+                                  expression: "game.image"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "url",
+                                id: "image",
+                                placeholder: "https://...",
+                                required: ""
+                              },
+                              domProps: { value: _vm.game.image },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.game,
+                                    "image",
                                     $event.target.value
                                   )
                                 }
@@ -62993,7 +62909,7 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.deleteGame(_vm.team.id)
+                                      return _vm.deleteGame(_vm.game.id)
                                     }
                                   }
                                 },
@@ -63039,7 +62955,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Pseudo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Description")])
+        _c("th", [_vm._v("Rank")])
       ])
     ])
   }
