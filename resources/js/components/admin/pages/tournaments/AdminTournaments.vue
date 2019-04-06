@@ -71,10 +71,10 @@ export default {
         return {
             loading: false,
             tournaments: [
-                { name: 'GG-LAN #8', description: "New edition of GG-LAN", game: 'ForHonor', startDate: '01/01/1999', endDate: '02/01/1999', place: '10', cashprize: '500 €', status: 'Open' },
-                { name: 'GG-LAN #7', description: "New edition of GG-LAN", game: 'CS:GO', startDate: '01/01/1999', endDate: '02/01/1999', place: '16', cashprize: '450 €', status: 'Closed' },
-                { name: 'GG-LAN #6', description: "New edition of GG-LAN", game: 'CS:GO', startDate: '01/01/1999', endDate: '02/01/1999', place: '16', cashprize: '450 €', status: 'Finished' },
-                { name: 'GG-LAN #5', description: "New edition of GG-LAN", game: 'CS:GO', startDate: '01/01/1999', endDate: '02/01/1999', place: '16', cashprize: '450 €', status: 'Finished' },
+                { id: 1,name: 'GG-LAN #8', description: "New edition of GG-LAN", game: 'ForHonor', startDate: '01/01/1999', endDate: '02/01/1999', place: '10', cashprize: '500 €', status: 'Open' },
+                { id: 2,name: 'GG-LAN #7', description: "New edition of GG-LAN", game: 'CS:GO', startDate: '01/01/1999', endDate: '02/01/1999', place: '16', cashprize: '450 €', status: 'Closed' },
+                { id: 3,name: 'GG-LAN #6', description: "New edition of GG-LAN", game: 'CS:GO', startDate: '01/01/1999', endDate: '02/01/1999', place: '16', cashprize: '450 €', status: 'Finished' },
+                { id: 4,name: 'GG-LAN #5', description: "New edition of GG-LAN", game: 'CS:GO', startDate: '01/01/1999', endDate: '02/01/1999', place: '16', cashprize: '450 €', status: 'Finished' },
             ],
         }
     },
