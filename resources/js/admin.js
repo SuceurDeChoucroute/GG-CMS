@@ -26,6 +26,10 @@ import AdminTeams from './components/admin/pages/teams/AdminTeams.vue'
 import AdminTeamShow from './components/admin/pages/teams/AdminTeamShow.vue'
 import AdminTeamCreate from './components/admin/pages/teams/AdminTeamCreate.vue'
 
+import AdminGames from './components/admin/pages/games/AdminGames.vue'
+import AdminGameShow from './components/admin/pages/games/AdminGameShow.vue'
+import AdminGameCreate from './components/admin/pages/games/AdminGameCreate.vue'
+
 const routes = [
     // Dashboard
     { name: "index", path: '/', component: AdminDashboard },
@@ -39,6 +43,11 @@ const routes = [
     { name: "teams", path: '/teams', component: AdminTeams },
     { name: "team.show", path: '/team/show/:id', component: AdminTeamShow },
     { name: "team.create", path: '/team/create', component: AdminTeamCreate },
+
+    // Games
+    { name: "games", path: '/games', component: AdminGames },
+    { name: "game.show", path: '/game/show/:id', component: AdminGameShow },
+    { name: "game.create", path: '/game/create', component: AdminGameCreate },
 ]
 
 const router = new VueRouter({
