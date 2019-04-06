@@ -39,6 +39,13 @@
                         <span>Games</span> 
                     </router-link>
                 </li>
+
+                <li>
+                    <router-link :to="{ name: 'tournaments' }">
+                        <i class="fas fa-trophy"></i>
+                        <span>Tournaments</span> 
+                    </router-link>
+                </li>
             </ul>
         </section>
     </aside>

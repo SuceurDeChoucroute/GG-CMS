@@ -2043,6 +2043,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -3696,6 +3703,130 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../layouts/AdminContentHeader */ "./resources/js/components/admin/layouts/AdminContentHeader.vue");
+/* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    AdminContentHeader: _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Loader: vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      loading: false,
+      tournaments: [{
+        name: 'GG-LAN #8',
+        description: "New edition of GG-LAN",
+        game: 'ForHonor',
+        startDate: '01/01/1999',
+        endDate: '02/01/1999',
+        place: '10',
+        cashprize: '500 €',
+        status: 'Open'
+      }, {
+        name: 'GG-LAN #7',
+        description: "New edition of GG-LAN",
+        game: 'CS:GO',
+        startDate: '01/01/1999',
+        endDate: '02/01/1999',
+        place: '16',
+        cashprize: '450 €',
+        status: 'Closed'
+      }, {
+        name: 'GG-LAN #6',
+        description: "New edition of GG-LAN",
+        game: 'CS:GO',
+        startDate: '01/01/1999',
+        endDate: '02/01/1999',
+        place: '16',
+        cashprize: '450 €',
+        status: 'Finished'
+      }, {
+        name: 'GG-LAN #5',
+        description: "New edition of GG-LAN",
+        game: 'CS:GO',
+        startDate: '01/01/1999',
+        endDate: '02/01/1999',
+        place: '16',
+        cashprize: '450 €',
+        status: 'Finished'
+      }]
+    };
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -39976,6 +40107,18 @@ var render = function() {
               ])
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            [
+              _c("router-link", { attrs: { to: { name: "tournaments" } } }, [
+                _c("i", { staticClass: "fas fa-trophy" }),
+                _vm._v(" "),
+                _c("span", [_vm._v("Tournaments")])
+              ])
+            ],
+            1
           )
         ]
       )
@@ -43327,6 +43470,206 @@ var staticRenderFns = [
         _c("th", [_vm._v("Players")]),
         _vm._v(" "),
         _c("th", [_vm._v("Game")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=template&id=6f7325b6&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=template&id=6f7325b6& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("admin-content-header", {
+        attrs: {
+          page_name: "Tournaments",
+          page_description: "Manage your tournaments"
+        }
+      }),
+      _vm._v(" "),
+      _c("FlashMessage", { attrs: { position: "right bottom" } }),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-12" }, [
+            _c("div", { staticClass: "box box-primary" }, [
+              _c("div", { staticClass: "box-header with-border" }, [
+                _c(
+                  "h3",
+                  { staticClass: "box-title" },
+                  [
+                    _vm._v(
+                      "\n                            Tournaments\n                            "
+                    ),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { to: { name: "tournament.create" } }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-plus" }),
+                        _vm._v(
+                          "\n                                Add\n                            "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "box-body" },
+                [
+                  _c("loader", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.loading,
+                        expression: "loading"
+                      }
+                    ],
+                    attrs: { color: "#337ab7" }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "table",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.loading,
+                          expression: "!loading"
+                        }
+                      ],
+                      staticClass: "table table-dark table-hover table-striped",
+                      attrs: { id: "tournaments" }
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.tournaments, function(tournament, key) {
+                          return _c("tr", { key: key }, [
+                            _c("td", [_vm._v(_vm._s(tournament.name))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(tournament.game))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(tournament.startDate) +
+                                  " | " +
+                                  _vm._s(tournament.endDate)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(tournament.place))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(tournament.cashprize))]),
+                            _vm._v(" "),
+                            tournament.status == "Open"
+                              ? _c("td", [
+                                  _c(
+                                    "span",
+                                    { staticClass: "label label-success" },
+                                    [_vm._v(_vm._s(tournament.status))]
+                                  )
+                                ])
+                              : tournament.status == "Closed"
+                              ? _c("td", [
+                                  _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(_vm._s(tournament.status))]
+                                  )
+                                ])
+                              : _c("td", [
+                                  _c(
+                                    "span",
+                                    { staticClass: "label label-warning" },
+                                    [_vm._v(_vm._s(tournament.status))]
+                                  )
+                                ]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      to: {
+                                        name: "tournament.show",
+                                        params: { id: tournament.id }
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fas fa-eye" })]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Game")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Place")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cashprize")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
@@ -58263,6 +58606,7 @@ var map = {
 	"./components/admin/pages/teams/AdminTeamCreate.vue": "./resources/js/components/admin/pages/teams/AdminTeamCreate.vue",
 	"./components/admin/pages/teams/AdminTeamShow.vue": "./resources/js/components/admin/pages/teams/AdminTeamShow.vue",
 	"./components/admin/pages/teams/AdminTeams.vue": "./resources/js/components/admin/pages/teams/AdminTeams.vue",
+	"./components/admin/pages/tournaments/AdminTournaments.vue": "./resources/js/components/admin/pages/tournaments/AdminTournaments.vue",
 	"./components/site/ExampleComponent.vue": "./resources/js/components/site/ExampleComponent.vue"
 };
 
@@ -58310,6 +58654,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_admin_pages_games_AdminGames_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/admin/pages/games/AdminGames.vue */ "./resources/js/components/admin/pages/games/AdminGames.vue");
 /* harmony import */ var _components_admin_pages_games_AdminGameShow_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/admin/pages/games/AdminGameShow.vue */ "./resources/js/components/admin/pages/games/AdminGameShow.vue");
 /* harmony import */ var _components_admin_pages_games_AdminGameCreate_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/admin/pages/games/AdminGameCreate.vue */ "./resources/js/components/admin/pages/games/AdminGameCreate.vue");
+/* harmony import */ var _components_admin_pages_tournaments_AdminTournaments_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/admin/pages/tournaments/AdminTournaments.vue */ "./resources/js/components/admin/pages/tournaments/AdminTournaments.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -58327,6 +58672,7 @@ var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 files.keys().map(function (key) {
   return Vue.component(key.split('/').pop().split('.')[0], files(key).default);
 });
+
 
 
 
@@ -58381,6 +58727,11 @@ var routes = [// Dashboard
   name: "game.create",
   path: '/game/create',
   component: _components_admin_pages_games_AdminGameCreate_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+}, // Tournaments
+{
+  name: "tournaments",
+  path: '/tournaments',
+  component: _components_admin_pages_tournaments_AdminTournaments_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes // short for `routes: routes`
@@ -59480,6 +59831,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTeams_vue_vue_type_template_id_7ca66894___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTeams_vue_vue_type_template_id_7ca66894___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/tournaments/AdminTournaments.vue":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/tournaments/AdminTournaments.vue ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdminTournaments_vue_vue_type_template_id_6f7325b6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminTournaments.vue?vue&type=template&id=6f7325b6& */ "./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=template&id=6f7325b6&");
+/* harmony import */ var _AdminTournaments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminTournaments.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AdminTournaments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdminTournaments_vue_vue_type_template_id_6f7325b6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AdminTournaments_vue_vue_type_template_id_6f7325b6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/pages/tournaments/AdminTournaments.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournaments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminTournaments.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournaments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=template&id=6f7325b6&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=template&id=6f7325b6& ***!
+  \*************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournaments_vue_vue_type_template_id_6f7325b6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminTournaments.vue?vue&type=template&id=6f7325b6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/pages/tournaments/AdminTournaments.vue?vue&type=template&id=6f7325b6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournaments_vue_vue_type_template_id_6f7325b6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminTournaments_vue_vue_type_template_id_6f7325b6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

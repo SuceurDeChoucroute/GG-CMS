@@ -30,6 +30,8 @@ import AdminGames from './components/admin/pages/games/AdminGames.vue'
 import AdminGameShow from './components/admin/pages/games/AdminGameShow.vue'
 import AdminGameCreate from './components/admin/pages/games/AdminGameCreate.vue'
 
+import AdminTournaments from './components/admin/pages/tournaments/AdminTournaments.vue'
+
 const routes = [
     // Dashboard
     { name: "index", path: '/', component: AdminDashboard },
@@ -48,6 +50,9 @@ const routes = [
     { name: "games", path: '/games', component: AdminGames },
     { name: "game.show", path: '/game/show/:id', component: AdminGameShow },
     { name: "game.create", path: '/game/create', component: AdminGameCreate },
+
+    // Tournaments
+    { name: "tournaments", path: '/tournaments', component: AdminTournaments },
 ]
 
 const router = new VueRouter({
