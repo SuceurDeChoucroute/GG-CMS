@@ -32,6 +32,13 @@
                         <span>Teams</span> 
                     </router-link>
                 </li>
+
+                <li>
+                    <router-link :to="{ name: 'games' }">
+                        <i class="fas fa-gamepad"></i>
+                        <span>Games</span> 
+                    </router-link>
+                </li>
             </ul>
         </section>
     </aside>
