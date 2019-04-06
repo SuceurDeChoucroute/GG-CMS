@@ -6,6 +6,7 @@ $factory->define(App\Game::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->sentence(10),
+        'places' => 5,
         'image' => $faker->imageUrl(640, 480, 'cats', true),
     ];
 });
