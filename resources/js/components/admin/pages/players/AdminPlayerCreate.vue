@@ -112,7 +112,6 @@ export default {
         createPlayer() {
             axios.post('/api/players', this.player)
             .then(response => {
-                console.log(response.data)
                 this.loading = false
 
                 this.flashMessage.success({
@@ -121,6 +120,13 @@ export default {
                 })
 
                 this.$router.push({ name: 'player.show', params: {id: response.data.id} })
+            })
+            .catch(e => {
+                this.loading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
             })
         }
     }

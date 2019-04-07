@@ -169,8 +169,9 @@
                                                 Update
                                             </button>
 
-                                            <button type="button" class="btn btn-danger" @click="deletePlayer(player.id)">
-                                                <i class="fas fa-trash-alt"></i>
+                                            <button type="button" class="btn btn-danger" @click="deletePlayer()">
+                                                <i class="fas fa-sync fa-spin" v-show="loading"></i>
+                                                <i class="fas fa-trash-alt" v-show="!loading"></i>
                                                 Delete
                                             </button>
                                         </div>
@@ -254,7 +255,6 @@ export default {
                 })
             })
             .catch(e => {
-                console.log(e)
                 this.loading = false
                 this.flashMessage.error({
                     title: "Something went wrong",
@@ -277,7 +277,6 @@ export default {
                     })
                 })
                 .catch(e => {
-                    console.log(e)
                     this.loading = false
                     this.flashMessage.error({
                         title: "Something went wrong",

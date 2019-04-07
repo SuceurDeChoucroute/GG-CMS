@@ -2667,7 +2667,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/api/players', this.player).then(function (response) {
-        console.log(response.data);
         _this.loading = false;
 
         _this.flashMessage.success({
@@ -2680,6 +2679,13 @@ __webpack_require__.r(__webpack_exports__);
           params: {
             id: response.data.id
           }
+        });
+      }).catch(function (e) {
+        _this.loading = false;
+
+        _this.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please try again"
         });
       });
     }
@@ -2699,6 +2705,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../layouts/AdminContentHeader */ "./resources/js/components/admin/layouts/AdminContentHeader.vue");
 /* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
+//
 //
 //
 //
@@ -2952,7 +2959,6 @@ __webpack_require__.r(__webpack_exports__);
           message: "The player has been successfully updated"
         });
       }).catch(function (e) {
-        console.log(e);
         _this4.loading = false;
 
         _this4.flashMessage.error({
@@ -2975,7 +2981,6 @@ __webpack_require__.r(__webpack_exports__);
             message: "The player has been successfully deleted"
           });
         }).catch(function (e) {
-          console.log(e);
           _this5.loading = false;
 
           _this5.flashMessage.error({
@@ -42794,12 +42799,34 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.deletePlayer(_vm.player.id)
+                                      return _vm.deletePlayer()
                                     }
                                   }
                                 },
                                 [
-                                  _c("i", { staticClass: "fas fa-trash-alt" }),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: _vm.loading,
+                                        expression: "loading"
+                                      }
+                                    ],
+                                    staticClass: "fas fa-sync fa-spin"
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: !_vm.loading,
+                                        expression: "!loading"
+                                      }
+                                    ],
+                                    staticClass: "fas fa-trash-alt"
+                                  }),
                                   _vm._v(
                                     "\n                                            Delete\n                                        "
                                   )
