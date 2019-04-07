@@ -88,4 +88,9 @@ class TournamentController extends Controller
             'message' => 'Success',
         ]);
     }
+
+    public function teams(Tournament $tournament)
+    {
+        return $tournament->teams;
+    }
 }

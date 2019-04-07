@@ -29,7 +29,9 @@ Route::get('players/{player}/teams', 'PlayerController@teams')->name('players.te
 
 // Teams
 Route::resource('teams', 'TeamController');
-Route::get('teams/{team}/players', 'TeamController@players')->name('teams.games');
+Route::get('teams/{team}/players', 'TeamController@players')->name('teams.players');
+Route::get('teams/{team}/tournaments', 'TeamController@tournaments')->name('teams.tournaments');
 
 // Tournaments
 Route::resource('tournaments', 'TournamentController');
+Route::get('tournaments/{tournament}/teams', 'TournamentController@teams')->name('tournaments.teams');

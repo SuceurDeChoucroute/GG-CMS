@@ -10,4 +10,8 @@ class Tournament extends Model
         'name', 'description', 'game_id', 'start_date', 'end_date', 'places', 'cashprize', 'status', 'image',
     ];
     
+    public function teams()
+    {
+        return $this->belongsToMany('App\Team')->withPivot('place');
+    }
 }

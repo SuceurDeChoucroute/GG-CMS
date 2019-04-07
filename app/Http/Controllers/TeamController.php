@@ -83,4 +83,9 @@ class TeamController extends Controller
     {
         return $team->players;
     }
+
+    public function tournaments(Team $team)
+    {
+        return $team->tournaments;
+    }
 }
