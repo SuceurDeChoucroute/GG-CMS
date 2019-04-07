@@ -31,7 +31,7 @@
                                     <tr v-for="(game, key) in games" :key="key">
                                         <td>{{ game.name }}</td>
                                         <td>{{ game.description }}</td>
-                                        <td>{{ game.place }}</td>
+                                        <td>{{ game.places }}</td>
                                         <td>
                                             <router-link :to="{ name: 'game.show', params: {id: game.id} }" class="btn btn-primary">
                                                 <i class="fas fa-eye"></i>
@@ -62,16 +62,24 @@ export default {
     data() {
         return {
             loading: false,
-            games: [
-                { id: 1, name: "CS:GO", description: "An amazing FPS shooter", place: 5 },
-                { id: 2, name: "ForHonor", description: "Now you are an ultimate warrior", place: 4 },
-            ],
+            games: [],
         }
     },
 
     methods: {
-        
+        getGames() {
+            this.loading = true
+            axios.get('/api/games')
+            .then(response => {
+                this.games = response.data
+                this.loading = false
+            })
+        }
     },
+
+    mounted() {
+        this.getGames();
+    }
 }
 </script>
 

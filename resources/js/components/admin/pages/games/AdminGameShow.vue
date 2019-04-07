@@ -69,7 +69,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(player, key) in gamePlayers" :key="key">
+                                        <tr v-for="(player, key) in players" :key="key">
                                             <td> {{ player.pseudo }} </td>
                                             <td> {{ player.rank }} </td>
                                             <td class="text-center">
@@ -102,6 +102,15 @@
                                         </div>
                                     </div>
 
+                                    <!-- Places -->
+                                    <div class="form-group">
+                                        <label for="places" class="col-sm-2 control-label">Places</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number" min="1" step="1" class="form-control" id="places" placeholder="places" v-model="game.places" required>
+                                        </div>
+                                    </div>
+
                                     <!-- Image -->
                                     <div class="form-group">
                                         <label for="image" class="col-sm-2 control-label">Image</label>
@@ -119,8 +128,9 @@
                                                 Update
                                             </button>
 
-                                            <button type="button" class="btn btn-danger" @click="deleteGame(game.id)">
-                                                <i class="fas fa-trash-alt"></i>
+                                            <button type="button" class="btn btn-danger" @click="deleteGame()">
+                                                <i class="fas fa-sync fa-spin" v-show="loading"></i>
+                                                <i class="fas fa-trash-alt" v-show="!loading"></i>
                                                 Delete
                                             </button>
                                         </div>
@@ -148,26 +158,8 @@ export default {
     data() {
         return {
             loading: false,
-            game: {
-                id: this.$route.params.id,
-                name: "CS:GO",
-                description: "An amazing FPS shooter",
-                place: 5,
-                image: "http://i.imgur.com/VNk5wlL.png",
-            },
-            gameBeforeUpdate: {
-                id: this.$route.params.id,
-                name: "CS:GO",
-                description: "An amazing FPS shooter",
-                place: 5,
-                image: "http://i.imgur.com/VNk5wlL.png",
-            },
-            gamePlayers: [
-                {id: 1, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !", rank: "Eagle II"},
-                {id: 2, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !", rank: "Global Elite"},
-                {id: 6, pseudo: 'Gotaga'  , email: 'gotaga@example.com', description: "The french monster !", rank: "Sivler III"},
-                {id: 3, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !", rank: "Noob"},
-            ]
+            game: {},
+            players: []
         }
     },
 
@@ -177,49 +169,84 @@ export default {
             this.$router.push({name: 'games'});
         },
 
+        getGame() {
+            this.loading = true
+            let id = this.$route.params.id
+
+            axios.get('/api/games/' + id)
+            .then(response => {
+                this.loading = false
+                this.game = response.data
+            })
+        },
+
+        getPlayers() {
+            this.loading = true
+            let id = this.$route.params.id
+
+            axios.get('/api/games/' + id + '/players')
+            .then(response => {
+                this.loading = false
+                this.players = response.data
+            })
+        },
+
         // Update the game
         updateGame() {
             this.loading = true;
-            if (this.game.name != this.gameBeforeUpdate.name || 
-                this.game.description != this.gameBeforeUpdate.description ||
-                this.game.place != this.gameBeforeUpdate.place ||
-                this.game.image != this.gameBeforeUpdate.image) {
+            let id = this.$route.params.id
 
-                // Update player info before update
-                this.gameBeforeUpdate.name = this.game.name
-                this.gameBeforeUpdate.description = this.game.description
-                this.gameBeforeUpdate.place = this.game.place
-                this.gameBeforeUpdate.image = this.game.image
-                
+            axios.put('/api/games/' + id, this.game)
+            .then(response => {
+                this.loading = false;
+                this.games = response.data
                 this.flashMessage.success({
                     title: "Game updated !",
                     message: "The game has been successfully updated"
                 })
-            }
-            else {
+            })
+            .catch(e => {
+                this.loading = false;
                 this.flashMessage.error({
                     title: "You didn't change any fields !",
                     message: "You have to change a least one field to update the game"
                 })
-            }
-
-            this.loading = false;
+            })
         },
 
         // Delete the game
-        deleteGame(id) {
-            if (confirm("Are you sure you want to delete this team ? It's definitive")) {
-                this.flashMessage.success({
-                    title: "Game deleted !",
-                    message: "The game has been successfully deleted"
+        deleteGame() {
+            if (confirm("Are you sure you want to delete this game ? It's definitive")) {
+                let id = this.$route.params.id
+
+                axios.delete('/api/games/' + id)
+                .then(response => {
+                    this.loading = false;
+                    this.flashMessage.success({
+                        title: "Game deleted !",
+                        message: "The game has been successfully deleted"
+                    })
+                    this.goToGamesList();
                 })
-                this.goToGamesList();
+                .catch(e => {
+                    this.loading = false
+                    this.flashMessage.error({
+                        title: "Something went wrong",
+                        message: "Please try again"
+                    })
+                })              
             }
 
             // this.flashMessage.error({
             //     title: "Something went wrong",
             //     message: "Please try again"
+            // })
         },
+    },
+
+    mounted() {
+        this.getGame()
+        this.getPlayers()
     }
 }
 </script>

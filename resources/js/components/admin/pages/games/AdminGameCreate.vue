@@ -1,10 +1,10 @@
 <template>
     <div>
-        <!-- <admin-content-header page_name="Add player" ></admin-content-header> -->
+        <admin-content-header page_name="Add game" ></admin-content-header>
         <FlashMessage position="right bottom"></FlashMessage>
 
         <section class="content">
-            <button @click="goToGameList()" class="btn btn-primary">
+            <button @click="goToGamesList()" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i>
                 Return to game list
             </button>
@@ -35,14 +35,23 @@
                                     </div>
                                 </div>
 
-                                <!-- Image -->
-                                    <div class="form-group">
-                                        <label for="image" class="col-sm-2 control-label">Image</label>
+                                <!-- Places -->
+                                <div class="form-group">
+                                    <label for="places" class="col-sm-2 control-label">Places</label>
 
-                                        <div class="col-sm-10">
-                                            <input type="url" class="form-control" id="image" placeholder="https://..." v-model="game.image" required>
-                                        </div>
+                                    <div class="col-sm-10">
+                                        <input type="number" min="1" step="1" class="form-control" id="places" placeholder="places" v-model="game.places" required>
                                     </div>
+                                </div>
+
+                                <!-- Image -->
+                                <div class="form-group">
+                                    <label for="image" class="col-sm-2 control-label">Image</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="url" class="form-control" id="image" placeholder="https://..." v-model="game.image" required>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-8">
@@ -77,6 +86,7 @@ export default {
                 id: 99,
                 name: '',
                 description: '',
+                places: 1,
                 image: '',
             },
         }
@@ -89,11 +99,21 @@ export default {
 
         createGame() {
             this.loading = true
-            this.loading = false
-            this.$router.push({ name: 'game.show', params: {id: this.game.id} })
-            this.flashMessage.success({
-                title: "Game added !",
-                message: "The game has been successfully added"
+            axios.post('/api/games', this.game)
+            .then(response => {
+                this.loading = false
+                this.flashMessage.success({
+                    title: "Game added !",
+                    message: "The game has been successfully added"
+                })
+                this.$router.push({ name: 'game.show', params: {id: response.data.id} })
+            })
+            .catch(e => {
+                this.loading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
             })
         },
     },
