@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- <admin-content-header page_name="Add player" ></admin-content-header> -->
+        <admin-content-header page_name="Add team" ></admin-content-header>
         <FlashMessage position="right bottom"></FlashMessage>
 
         <section class="content">

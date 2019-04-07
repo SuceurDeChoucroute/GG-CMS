@@ -29,7 +29,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(player, key) in players" :key="key">
-                                        <td>{{ player.name }}</td>
+                                        <td>{{ player.pseudo }}</td>
                                         <td>{{ player.email }}</td>
                                         <td>{{ player.description }}</td>
                                         <td>

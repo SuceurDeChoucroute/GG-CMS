@@ -2166,6 +2166,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2178,6 +2187,7 @@ __webpack_require__.r(__webpack_exports__);
         id: 99,
         name: '',
         description: '',
+        places: 1,
         image: ''
       }
     };
@@ -2189,17 +2199,30 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createGame: function createGame() {
+      var _this = this;
+
       this.loading = true;
-      this.loading = false;
-      this.$router.push({
-        name: 'game.show',
-        params: {
-          id: this.game.id
-        }
-      });
-      this.flashMessage.success({
-        title: "Game added !",
-        message: "The game has been successfully added"
+      axios.post('/api/games', this.game).then(function (response) {
+        _this.loading = false;
+
+        _this.flashMessage.success({
+          title: "Game added !",
+          message: "The game has been successfully added"
+        });
+
+        _this.$router.push({
+          name: 'game.show',
+          params: {
+            id: response.data.id
+          }
+        });
+      }).catch(function (e) {
+        _this.loading = false;
+
+        _this.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please try again"
+        });
       });
     }
   }
@@ -2355,6 +2378,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2365,45 +2398,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      game: {
-        id: this.$route.params.id,
-        name: "CS:GO",
-        description: "An amazing FPS shooter",
-        place: 5,
-        image: "http://i.imgur.com/VNk5wlL.png"
-      },
-      gameBeforeUpdate: {
-        id: this.$route.params.id,
-        name: "CS:GO",
-        description: "An amazing FPS shooter",
-        place: 5,
-        image: "http://i.imgur.com/VNk5wlL.png"
-      },
-      gamePlayers: [{
-        id: 1,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !",
-        rank: "Eagle II"
-      }, {
-        id: 2,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !",
-        rank: "Global Elite"
-      }, {
-        id: 6,
-        pseudo: 'Gotaga',
-        email: 'gotaga@example.com',
-        description: "The french monster !",
-        rank: "Sivler III"
-      }, {
-        id: 3,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !",
-        rank: "Noob"
-      }]
+      game: {},
+      players: []
     };
   },
   methods: {
@@ -2413,42 +2409,82 @@ __webpack_require__.r(__webpack_exports__);
         name: 'games'
       });
     },
+    getGame: function getGame() {
+      var _this = this;
+
+      this.loading = true;
+      var id = this.$route.params.id;
+      axios.get('/api/games/' + id).then(function (response) {
+        _this.loading = false;
+        _this.game = response.data;
+      });
+    },
+    getPlayers: function getPlayers() {
+      var _this2 = this;
+
+      this.loading = true;
+      var id = this.$route.params.id;
+      axios.get('/api/games/' + id + '/players').then(function (response) {
+        _this2.loading = false;
+        _this2.players = response.data;
+      });
+    },
     // Update the game
     updateGame: function updateGame() {
-      this.loading = true;
+      var _this3 = this;
 
-      if (this.game.name != this.gameBeforeUpdate.name || this.game.description != this.gameBeforeUpdate.description || this.game.place != this.gameBeforeUpdate.place || this.game.image != this.gameBeforeUpdate.image) {
-        // Update player info before update
-        this.gameBeforeUpdate.name = this.game.name;
-        this.gameBeforeUpdate.description = this.game.description;
-        this.gameBeforeUpdate.place = this.game.place;
-        this.gameBeforeUpdate.image = this.game.image;
-        this.flashMessage.success({
+      this.loading = true;
+      var id = this.$route.params.id;
+      axios.put('/api/games/' + id, this.game).then(function (response) {
+        _this3.loading = false;
+        _this3.games = response.data;
+
+        _this3.flashMessage.success({
           title: "Game updated !",
           message: "The game has been successfully updated"
         });
-      } else {
-        this.flashMessage.error({
+      }).catch(function (e) {
+        _this3.loading = false;
+
+        _this3.flashMessage.error({
           title: "You didn't change any fields !",
           message: "You have to change a least one field to update the game"
         });
-      }
-
-      this.loading = false;
+      });
     },
     // Delete the game
-    deleteGame: function deleteGame(id) {
-      if (confirm("Are you sure you want to delete this team ? It's definitive")) {
-        this.flashMessage.success({
-          title: "Game deleted !",
-          message: "The game has been successfully deleted"
+    deleteGame: function deleteGame() {
+      var _this4 = this;
+
+      if (confirm("Are you sure you want to delete this game ? It's definitive")) {
+        var id = this.$route.params.id;
+        axios.delete('/api/games/' + id).then(function (response) {
+          _this4.loading = false;
+
+          _this4.flashMessage.success({
+            title: "Game deleted !",
+            message: "The game has been successfully deleted"
+          });
+
+          _this4.goToGamesList();
+        }).catch(function (e) {
+          _this4.loading = false;
+
+          _this4.flashMessage.error({
+            title: "Something went wrong",
+            message: "Please try again"
+          });
         });
-        this.goToGamesList();
       } // this.flashMessage.error({
       //     title: "Something went wrong",
       //     message: "Please try again"
+      // })
 
     }
+  },
+  mounted: function mounted() {
+    this.getGame();
+    this.getPlayers();
   }
 });
 
@@ -2526,20 +2562,23 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      games: [{
-        id: 1,
-        name: "CS:GO",
-        description: "An amazing FPS shooter",
-        place: 5
-      }, {
-        id: 2,
-        name: "ForHonor",
-        description: "Now you are an ultimate warrior",
-        place: 4
-      }]
+      games: []
     };
   },
-  methods: {}
+  methods: {
+    getGames: function getGames() {
+      var _this = this;
+
+      this.loading = true;
+      axios.get('/api/games').then(function (response) {
+        _this.games = response.data;
+        _this.loading = false;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getGames();
+  }
 });
 
 /***/ }),
@@ -40740,6 +40779,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("admin-content-header", { attrs: { page_name: "Add game" } }),
+      _vm._v(" "),
       _c("FlashMessage", { attrs: { position: "right bottom" } }),
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
@@ -40749,7 +40790,7 @@ var render = function() {
             staticClass: "btn btn-primary",
             on: {
               click: function($event) {
-                return _vm.goToGameList()
+                return _vm.goToGamesList()
               }
             }
           },
@@ -40857,6 +40898,48 @@ var render = function() {
                                 "description",
                                 $event.target.value
                               )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "places" }
+                        },
+                        [_vm._v("Places")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.game.places,
+                              expression: "game.places"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            min: "1",
+                            step: "1",
+                            id: "places",
+                            placeholder: "places",
+                            required: ""
+                          },
+                          domProps: { value: _vm.game.places },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.game, "places", $event.target.value)
                             }
                           }
                         })
@@ -41242,7 +41325,7 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.gamePlayers, function(player, key) {
+                          _vm._l(_vm.players, function(player, key) {
                             return _c("tr", { key: key }, [
                               _c("td", [
                                 _vm._v(" " + _vm._s(player.pseudo) + " ")
@@ -41392,6 +41475,52 @@ var render = function() {
                             "label",
                             {
                               staticClass: "col-sm-2 control-label",
+                              attrs: { for: "places" }
+                            },
+                            [_vm._v("Places")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-10" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.game.places,
+                                  expression: "game.places"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                min: "1",
+                                step: "1",
+                                id: "places",
+                                placeholder: "places",
+                                required: ""
+                              },
+                              domProps: { value: _vm.game.places },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.game,
+                                    "places",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-2 control-label",
                               attrs: { for: "image" }
                             },
                             [_vm._v("Image")]
@@ -41479,12 +41608,34 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.deleteGame(_vm.game.id)
+                                      return _vm.deleteGame()
                                     }
                                   }
                                 },
                                 [
-                                  _c("i", { staticClass: "fas fa-trash-alt" }),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: _vm.loading,
+                                        expression: "loading"
+                                      }
+                                    ],
+                                    staticClass: "fas fa-sync fa-spin"
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: !_vm.loading,
+                                        expression: "!loading"
+                                      }
+                                    ],
+                                    staticClass: "fas fa-trash-alt"
+                                  }),
                                   _vm._v(
                                     "\n                                            Delete\n                                        "
                                   )
@@ -41631,7 +41782,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(game.description))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(game.place))]),
+                            _c("td", [_vm._v(_vm._s(game.places))]),
                             _vm._v(" "),
                             _c(
                               "td",
@@ -41711,6 +41862,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("admin-content-header", { attrs: { page_name: "Add player" } }),
+      _vm._v(" "),
       _c("FlashMessage", { attrs: { position: "right bottom" } }),
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
@@ -42985,7 +43138,7 @@ var render = function() {
                         "tbody",
                         _vm._l(_vm.players, function(player, key) {
                           return _c("tr", { key: key }, [
-                            _c("td", [_vm._v(_vm._s(player.name))]),
+                            _c("td", [_vm._v(_vm._s(player.pseudo))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(player.email))]),
                             _vm._v(" "),
@@ -43069,6 +43222,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("admin-content-header", { attrs: { page_name: "Add team" } }),
+      _vm._v(" "),
       _c("FlashMessage", { attrs: { position: "right bottom" } }),
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
@@ -44096,6 +44251,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("admin-content-header", { attrs: { page_name: "Add tournament" } }),
+      _vm._v(" "),
       _c("FlashMessage", { attrs: { position: "right bottom" } }),
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
