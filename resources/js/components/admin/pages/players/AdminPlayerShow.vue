@@ -14,7 +14,7 @@
                     <div class="box box-primary">
                         <loader :color="'#337ab7'" v-show="loading"></loader>
                         <div class="box-body box-profile" v-show="!loading">
-                            <img class="profile-user-img img-responsive img-circle" src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" alt="User profile picture">
+                            <img class="profile-user-img img-responsive img-circle" :src="player.avatar" alt="User profile picture">
 
                             <h3 class="profile-username text-center"> {{ player.pseudo }} </h3>
                             <p class="text-muted text-center"> {{ player.email }} </p>
@@ -27,22 +27,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <!-- About me -->
-                    <!-- <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">About Me</h3>
-                        </div>
-                        <div class="box-body">
-                            <strong>Description</strong>
-
-                            <p class="text-muted">
-                                {{ player.description }}
-                            </p>
-
-                            <hr>
-                        </div>
-                    </div> -->
                 </div>
                 <div class="col-md-9">
                     <div class="nav-tabs-custom">
@@ -106,16 +90,17 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Game</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(team, key) in player.teams" :key="key">
+                                        <tr v-for="(team, key) in teams" :key="key">
                                             <td> {{ team.name }} </td>
-                                            <td> {{ team.game }} </td>
-                                            <td class="text-center">
-                                                <a href="#" class="btn btn-primary">
+                                            <td> {{ team.game_id }} </td>
+                                            <td>
+                                                <router-link :to="{ name: 'team.show', params: {id: team.id} }" class="btn btn-primary">
                                                     <i class="fas fa-eye"></i>
-                                                </a>
+                                                </router-link>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -124,22 +109,22 @@
                                 <hr>
                                 <h3> Player games </h3>
                                 <loader :color="'#337ab7'" v-show="loading"></loader>
-
                                 <table class="table table-striped table-hover" v-show="!loading">
                                     <thead>
                                         <tr>
                                             <th>Game</th>
                                             <th>Rank</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(game, key) in player.games" :key="key">
+                                        <tr v-for="(game, key) in games" :key="key">
                                             <td> {{ game.name }} </td>
                                             <td> {{ game.rank }} </td>
-                                            <td class="text-center">
-                                                <a href="#" class="btn btn-primary">
+                                            <td>
+                                                <router-link :to="{ name: 'game.show', params: {id: game.id} }" class="btn btn-primary">
                                                     <i class="fas fa-eye"></i>
-                                                </a>
+                                                </router-link>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -169,13 +154,13 @@
                                             <textarea id="description" cols="30" rows="5" class="form-control" style="resize: none;" v-model="player.description"></textarea>
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                         <label for="avatar" class="col-sm-2 control-label">Avatar</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="avatar" placeholder="Name">
+                                            <input type="url" class="form-control" id="avatar" placeholder="https://..." v-model="player.avatar">
                                         </div>
-                                    </div> -->
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button type="submit" class="btn btn-success">
@@ -213,35 +198,9 @@ export default {
     data() {
         return {
             loading: false,
-            player: {
-                id: this.$route.params.id,
-                name: "John Doe",
-                email: 'john.doe@example.com',
-                birth_date: '01/01/1999',
-                pseudo: "Amiral Choucroute",
-                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
-                teams: [
-                    { name: "ElPaso", game: "CS:GO" },
-                    { name: "Berzerker", game: "ForHonor" },
-                ],
-                games: [
-                    { name: "CS:GO", rank: "Eagle II" },
-                    { name: "ForHonor", rank: "Berserker" },
-                ],
-                tournamentsParticipation: [
-                    { tournament_name: "GG-LAN #8", place: "3rd" },
-                    { tournament_name: "GG-LAN #7", place: "5th" },
-                ]
-            },
-
-
-            playerBeforeUpdate: {
-                name: "John Doe",
-                email: 'john.doe@example.com',
-                birth_date: '01/01/1999',
-                pseudo: "Amiral Choucroute",
-                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
-            }
+            player: {},
+            teams: [],
+            games: [],
         }
     },
 
@@ -251,49 +210,91 @@ export default {
             this.$router.push({name: 'players'});
         },
 
+        // Get player info
+        getPlayer(id) {
+            this.loading = true
+            axios.get('/api/players/' + id)
+            .then(response => {
+                this.player = response.data
+                this.loading = false
+            })
+        },
+
+        // Get player teams
+        getTeams(id) {
+            this.loading = true
+            axios.get('/api/players/' + id + '/teams')
+            .then(response => {
+                this.teams = response.data
+                this.loading = false
+            })
+        },
+
+        // Get player games
+        getGames(id) {
+            this.loading = true
+            axios.get('/api/players/' + id + '/games')
+            .then(response => {
+                this.games = response.data
+                this.loading = false
+            })
+        },
+
         // Update the player
         updatePlayer() {
             this.loading = true;
-            if (this.player.name != this.playerBeforeUpdate.name || 
-                this.player.pseudo != this.playerBeforeUpdate.pseudo || 
-                this.player.description != this.playerBeforeUpdate.description) {
-
-                // Update player info before update
-                this.playerBeforeUpdate.name = this.player.name
-                this.playerBeforeUpdate.pseudo = this.player.pseudo
-                this.playerBeforeUpdate.description = this.player.description
-                
+            
+            axios.put('/api/players/' + this.player.id, this.player)
+            .then(response => {
+                this.player = response.data
+                this.loading = false
                 this.flashMessage.success({
                     title: "Player updated !",
                     message: "The player has been successfully updated"
                 })
-            }
-            else {
+            })
+            .catch(e => {
+                console.log(e)
+                this.loading = false
                 this.flashMessage.error({
-                    title: "You didn't change any fields !",
-                    message: "You have to change a least one field to update the player"
+                    title: "Something went wrong",
+                    message: "Please try again"
                 })
-            }
-
-            this.loading = false;
+            })
         },
 
-        deletePlayer(id) {
-
+        // Delete player
+        deletePlayer() {
             if (confirm("Are you sure you want to delete this player ? It's definitive")) {
-                this.flashMessage.success({
-                    title: "Players deleted !",
-                    message: "The player has been successfully deleted"
+                this.loading = true;
+            
+                axios.delete('/api/players/' + this.player.id)
+                .then(response => {
+                    this.loading = false
+                    this.flashMessage.success({
+                        title: "Players deleted !",
+                        message: "The player has been successfully deleted"
+                    })
                 })
+                .catch(e => {
+                    console.log(e)
+                    this.loading = false
+                    this.flashMessage.error({
+                        title: "Something went wrong",
+                        message: "Please try again"
+                    })
+                })
+                
                 this.goToPlayerList();
             }
-
-            // this.flashMessage.error({
-            //     title: "Something went wrong",
-            //     message: "Please try again"
-            // })
         },
-    }
+    },
+
+    mounted() {
+        this.getPlayer(this.$route.params.id)
+        this.getTeams(this.$route.params.id)
+        this.getGames(this.$route.params.id)
+    },
 }
 </script>
 

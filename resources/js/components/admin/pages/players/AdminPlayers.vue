@@ -60,25 +60,24 @@ export default {
     data() {
         return {
             loading: false,
-            player: {
-                id: 10,
-                name: "Pepito",
-                email: "pepito@example.com",
-                description: "Mucho pepito",
-            },
-            players: [
-                {id: 1, name: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                {id: 2, name: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                {id: 6, name: 'Gotaga'  , email: 'gotaga@example.com', description: "The french monster !"},
-                {id: 3, name: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                {id: 4, name: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                {id: 5, name: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-            ],
+            players: [],
         }
     },
 
     methods: {
+        getPlayers() {
+            this.loading = true
+            axios.get('/api/players')
+            .then(response => {
+                this.players = response.data
+                this.loading = false
+            })
+        }
     },
+
+    mounted() {
+        this.getPlayers();
+    }
 }
 </script>
 

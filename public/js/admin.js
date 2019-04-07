@@ -2647,13 +2647,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: false,
       player: {
-        id: 99,
         name: '',
-        birth_date: '',
-        pseudo: '',
         email: '',
+        pseudo: '',
+        avatar: '',
+        birth_date: '',
         description: '',
-        avatar: ''
+        password: 'secret'
       }
     };
   },
@@ -2664,15 +2664,23 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createPlayer: function createPlayer() {
-      this.$router.push({
-        name: 'player.show',
-        params: {
-          id: this.player.id
-        }
-      });
-      this.flashMessage.success({
-        title: "Players added !",
-        message: "The player has been successfully added"
+      var _this = this;
+
+      axios.post('/api/players', this.player).then(function (response) {
+        console.log(response.data);
+        _this.loading = false;
+
+        _this.flashMessage.success({
+          title: "Players added !",
+          message: "The player has been successfully added"
+        });
+
+        _this.$router.push({
+          name: 'player.show',
+          params: {
+            id: response.data.id
+          }
+        });
       });
     }
   }
@@ -2878,21 +2886,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2903,42 +2896,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      player: {
-        id: this.$route.params.id,
-        name: "John Doe",
-        email: 'john.doe@example.com',
-        birth_date: '01/01/1999',
-        pseudo: "Amiral Choucroute",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
-        teams: [{
-          name: "ElPaso",
-          game: "CS:GO"
-        }, {
-          name: "Berzerker",
-          game: "ForHonor"
-        }],
-        games: [{
-          name: "CS:GO",
-          rank: "Eagle II"
-        }, {
-          name: "ForHonor",
-          rank: "Berserker"
-        }],
-        tournamentsParticipation: [{
-          tournament_name: "GG-LAN #8",
-          place: "3rd"
-        }, {
-          tournament_name: "GG-LAN #7",
-          place: "5th"
-        }]
-      },
-      playerBeforeUpdate: {
-        name: "John Doe",
-        email: 'john.doe@example.com',
-        birth_date: '01/01/1999',
-        pseudo: "Amiral Choucroute",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!"
-      }
+      player: {},
+      teams: [],
+      games: []
     };
   },
   methods: {
@@ -2948,41 +2908,89 @@ __webpack_require__.r(__webpack_exports__);
         name: 'players'
       });
     },
+    // Get player info
+    getPlayer: function getPlayer(id) {
+      var _this = this;
+
+      this.loading = true;
+      axios.get('/api/players/' + id).then(function (response) {
+        _this.player = response.data;
+        _this.loading = false;
+      });
+    },
+    // Get player teams
+    getTeams: function getTeams(id) {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get('/api/players/' + id + '/teams').then(function (response) {
+        _this2.teams = response.data;
+        _this2.loading = false;
+      });
+    },
+    // Get player games
+    getGames: function getGames(id) {
+      var _this3 = this;
+
+      this.loading = true;
+      axios.get('/api/players/' + id + '/games').then(function (response) {
+        _this3.games = response.data;
+        _this3.loading = false;
+      });
+    },
     // Update the player
     updatePlayer: function updatePlayer() {
-      this.loading = true;
+      var _this4 = this;
 
-      if (this.player.name != this.playerBeforeUpdate.name || this.player.pseudo != this.playerBeforeUpdate.pseudo || this.player.description != this.playerBeforeUpdate.description) {
-        // Update player info before update
-        this.playerBeforeUpdate.name = this.player.name;
-        this.playerBeforeUpdate.pseudo = this.player.pseudo;
-        this.playerBeforeUpdate.description = this.player.description;
-        this.flashMessage.success({
+      this.loading = true;
+      axios.put('/api/players/' + this.player.id, this.player).then(function (response) {
+        _this4.player = response.data;
+        _this4.loading = false;
+
+        _this4.flashMessage.success({
           title: "Player updated !",
           message: "The player has been successfully updated"
         });
-      } else {
-        this.flashMessage.error({
-          title: "You didn't change any fields !",
-          message: "You have to change a least one field to update the player"
-        });
-      }
+      }).catch(function (e) {
+        console.log(e);
+        _this4.loading = false;
 
-      this.loading = false;
+        _this4.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please try again"
+        });
+      });
     },
-    deletePlayer: function deletePlayer(id) {
+    // Delete player
+    deletePlayer: function deletePlayer() {
+      var _this5 = this;
+
       if (confirm("Are you sure you want to delete this player ? It's definitive")) {
-        this.flashMessage.success({
-          title: "Players deleted !",
-          message: "The player has been successfully deleted"
+        this.loading = true;
+        axios.delete('/api/players/' + this.player.id).then(function (response) {
+          _this5.loading = false;
+
+          _this5.flashMessage.success({
+            title: "Players deleted !",
+            message: "The player has been successfully deleted"
+          });
+        }).catch(function (e) {
+          console.log(e);
+          _this5.loading = false;
+
+          _this5.flashMessage.error({
+            title: "Something went wrong",
+            message: "Please try again"
+          });
         });
         this.goToPlayerList();
-      } // this.flashMessage.error({
-      //     title: "Something went wrong",
-      //     message: "Please try again"
-      // })
-
+      }
     }
+  },
+  mounted: function mounted() {
+    this.getPlayer(this.$route.params.id);
+    this.getTeams(this.$route.params.id);
+    this.getGames(this.$route.params.id);
   }
 });
 
@@ -3059,46 +3067,23 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      player: {
-        id: 10,
-        name: "Pepito",
-        email: "pepito@example.com",
-        description: "Mucho pepito"
-      },
-      players: [{
-        id: 1,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 2,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 6,
-        name: 'Gotaga',
-        email: 'gotaga@example.com',
-        description: "The french monster !"
-      }, {
-        id: 3,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 4,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 5,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }]
+      players: []
     };
   },
-  methods: {}
+  methods: {
+    getPlayers: function getPlayers() {
+      var _this = this;
+
+      this.loading = true;
+      axios.get('/api/players').then(function (response) {
+        _this.players = response.data;
+        _this.loading = false;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getPlayers();
+  }
 });
 
 /***/ }),
@@ -41972,7 +41957,49 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "avatar" }
+                        },
+                        [_vm._v("Avatar")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-8" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.player.avatar,
+                              expression: "player.avatar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "url",
+                            id: "avatar",
+                            placeholder: "Avatar",
+                            required: ""
+                          },
+                          domProps: { value: _vm.player.avatar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.player,
+                                "avatar",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("div", { staticClass: "col-sm-offset-2 col-sm-8" }, [
@@ -42031,25 +42058,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
       _c("h3", { staticClass: "box-title" }, [_vm._v("Create player")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        { staticClass: "col-sm-2 control-label", attrs: { for: "avatar" } },
-        [_vm._v("Avatar")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-8" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "file", id: "avatar", required: "" }
-        })
-      ])
     ])
   }
 ]
@@ -42133,8 +42141,7 @@ var render = function() {
                     _c("img", {
                       staticClass: "profile-user-img img-responsive img-circle",
                       attrs: {
-                        src:
-                          "https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg",
+                        src: _vm.player.avatar,
                         alt: "User profile picture"
                       }
                     }),
@@ -42447,13 +42454,33 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.player.teams, function(team, key) {
+                          _vm._l(_vm.teams, function(team, key) {
                             return _c("tr", { key: key }, [
                               _c("td", [_vm._v(" " + _vm._s(team.name) + " ")]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(" " + _vm._s(team.game) + " ")]),
+                              _c("td", [
+                                _vm._v(" " + _vm._s(team.game_id) + " ")
+                              ]),
                               _vm._v(" "),
-                              _vm._m(2, true)
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: {
+                                        to: {
+                                          name: "team.show",
+                                          params: { id: team.id }
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-eye" })]
+                                  )
+                                ],
+                                1
+                              )
                             ])
                           }),
                           0
@@ -42491,17 +42518,35 @@ var render = function() {
                         staticClass: "table table-striped table-hover"
                       },
                       [
-                        _vm._m(3),
+                        _vm._m(2),
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.player.games, function(game, key) {
+                          _vm._l(_vm.games, function(game, key) {
                             return _c("tr", { key: key }, [
                               _c("td", [_vm._v(" " + _vm._s(game.name) + " ")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(" " + _vm._s(game.rank) + " ")]),
                               _vm._v(" "),
-                              _vm._m(4, true)
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: {
+                                        to: {
+                                          name: "game.show",
+                                          params: { id: game.id }
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-eye" })]
+                                  )
+                                ],
+                                1
+                              )
                             ])
                           }),
                           0
@@ -42660,6 +42705,49 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group" }, [
                           _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-2 control-label",
+                              attrs: { for: "avatar" }
+                            },
+                            [_vm._v("Avatar")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-10" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.player.avatar,
+                                  expression: "player.avatar"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "url",
+                                id: "avatar",
+                                placeholder: "https://..."
+                              },
+                              domProps: { value: _vm.player.avatar },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.player,
+                                    "avatar",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
                             "div",
                             { staticClass: "col-sm-offset-2 col-sm-10" },
                             [
@@ -42752,17 +42840,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Game")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-eye" })
+        _c("th", [_vm._v("Game")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   },
@@ -42774,17 +42854,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Game")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Rank")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-eye" })
+        _c("th", [_vm._v("Rank")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   }
@@ -60447,6 +60519,7 @@ var flashConfig = {
   strategy: "single"
 };
 Vue.use(_smartweb_vue_flash_message__WEBPACK_IMPORTED_MODULE_1___default.a, flashConfig);
+axios.defaults.baseURL = "http://ggcms.test";
 
 var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 

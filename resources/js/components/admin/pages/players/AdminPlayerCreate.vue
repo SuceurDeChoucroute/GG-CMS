@@ -66,7 +66,7 @@
                                     <label for="avatar" class="col-sm-2 control-label">Avatar</label>
 
                                     <div class="col-sm-8">
-                                        <input type="file" class="form-control" id="avatar" required>
+                                        <input type="url" class="form-control" id="avatar" placeholder="Avatar" v-model="player.avatar" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -93,13 +93,13 @@ export default {
         return {
             loading: false,
             player: {
-                id: 99,
                 name: '',
-                birth_date: '',
-                pseudo: '',
                 email: '',
-                description: '',
+                pseudo: '',
                 avatar: '',
+                birth_date: '',
+                description: '',
+                password: 'secret',
             }
         }
     },
@@ -110,10 +110,17 @@ export default {
         },
 
         createPlayer() {
-            this.$router.push({ name: 'player.show', params: {id: this.player.id} })
-            this.flashMessage.success({
-                title: "Players added !",
-                message: "The player has been successfully added"
+            axios.post('/api/players', this.player)
+            .then(response => {
+                console.log(response.data)
+                this.loading = false
+
+                this.flashMessage.success({
+                    title: "Players added !",
+                    message: "The player has been successfully added"
+                })
+
+                this.$router.push({ name: 'player.show', params: {id: response.data.id} })
             })
         }
     }
