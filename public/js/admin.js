@@ -2089,7 +2089,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      playersCount: 0
+      loading: false,
+      playersCount: 0,
+      teamsCount: 0
     };
   },
   methods: {
@@ -2101,10 +2103,20 @@ __webpack_require__.r(__webpack_exports__);
         _this.playersCount = response.data.length;
         _this.loading = false;
       });
+    },
+    getTeamsCount: function getTeamsCount() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get('/api/teams').then(function (response) {
+        _this2.teamsCount = response.data.length;
+        _this2.loading = false;
+      });
     }
   },
   mounted: function mounted() {
     this.getPlayersCount();
+    this.getTeamsCount();
   }
 });
 
@@ -40720,7 +40732,7 @@ var render = function() {
             _c("admin-box-stat", {
               attrs: {
                 classes: "bg-yellow",
-                number: "25",
+                number: _vm.teamsCount,
                 title: "Equipes",
                 icon: "fas fa-users",
                 link: "#"
