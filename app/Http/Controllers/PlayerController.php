@@ -46,7 +46,17 @@ class PlayerController extends Controller
      */
     public function show(User $player)
     {
-        return $player;
+        $teamGames = [];
+        foreach ($player->teams as $key => $team) {
+            array_push($teamGames, $team->game);
+        }
+
+        return [
+            'player' => $player,
+            'teams' => $player->teams,
+            'games' => $player->games,
+            'teamGames' => $teamGames,
+        ];
     }
 
     /**

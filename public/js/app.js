@@ -2933,6 +2933,7 @@ __webpack_require__.r(__webpack_exports__);
       loading: false,
       player: {},
       teams: [],
+      teamGames: [],
       games: []
     };
   },
@@ -2949,47 +2950,30 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       axios.get('/api/players/' + id).then(function (response) {
-        _this.player = response.data;
+        _this.player = response.data.player;
+        _this.teams = response.data.teams;
+        _this.teamGames = response.data.teamGames;
+        _this.games = response.data.games;
         _this.loading = false;
-      });
-    },
-    // Get player teams
-    getTeams: function getTeams(id) {
-      var _this2 = this;
-
-      this.loading = true;
-      axios.get('/api/players/' + id + '/teams').then(function (response) {
-        _this2.teams = response.data;
-        _this2.loading = false;
-      });
-    },
-    // Get player games
-    getGames: function getGames(id) {
-      var _this3 = this;
-
-      this.loading = true;
-      axios.get('/api/players/' + id + '/games').then(function (response) {
-        _this3.games = response.data;
-        _this3.loading = false;
       });
     },
     // Update the player
     updatePlayer: function updatePlayer() {
-      var _this4 = this;
+      var _this2 = this;
 
       this.loading = true;
       axios.put('/api/players/' + this.player.id, this.player).then(function (response) {
-        _this4.player = response.data;
-        _this4.loading = false;
+        _this2.player = response.data;
+        _this2.loading = false;
 
-        _this4.flashMessage.success({
+        _this2.flashMessage.success({
           title: "Player updated !",
           message: "The player has been successfully updated"
         });
       }).catch(function (e) {
-        _this4.loading = false;
+        _this2.loading = false;
 
-        _this4.flashMessage.error({
+        _this2.flashMessage.error({
           title: "Something went wrong",
           message: "Please try again"
         });
@@ -2997,21 +2981,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Delete player
     deletePlayer: function deletePlayer() {
-      var _this5 = this;
+      var _this3 = this;
 
       if (confirm("Are you sure you want to delete this player ? It's definitive")) {
         this.loading = true;
         axios.delete('/api/players/' + this.player.id).then(function (response) {
-          _this5.loading = false;
+          _this3.loading = false;
 
-          _this5.flashMessage.success({
+          _this3.flashMessage.success({
             title: "Players deleted !",
             message: "The player has been successfully deleted"
           });
         }).catch(function (e) {
-          _this5.loading = false;
+          _this3.loading = false;
 
-          _this5.flashMessage.error({
+          _this3.flashMessage.error({
             title: "Something went wrong",
             message: "Please try again"
           });
@@ -3022,8 +3006,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getPlayer(this.$route.params.id);
-    this.getTeams(this.$route.params.id);
-    this.getGames(this.$route.params.id);
   }
 });
 
@@ -64677,7 +64659,9 @@ var render = function() {
                               _c("td", [_vm._v(" " + _vm._s(team.name) + " ")]),
                               _vm._v(" "),
                               _c("td", [
-                                _vm._v(" " + _vm._s(team.game_id) + " ")
+                                _vm._v(
+                                  " " + _vm._s(_vm.teamGames[key].name) + " "
+                                )
                               ]),
                               _vm._v(" "),
                               _c(

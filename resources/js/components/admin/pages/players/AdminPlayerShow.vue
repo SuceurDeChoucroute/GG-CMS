@@ -96,7 +96,7 @@
                                     <tbody>
                                         <tr v-for="(team, key) in teams" :key="key">
                                             <td> {{ team.name }} </td>
-                                            <td> {{ team.game_id }} </td>
+                                            <td> {{ teamGames[key].name }} </td>
                                             <td>
                                                 <router-link :to="{ name: 'team.show', params: {id: team.id} }" class="btn btn-primary">
                                                     <i class="fas fa-eye"></i>
@@ -201,6 +201,7 @@ export default {
             loading: false,
             player: {},
             teams: [],
+            teamGames: [],
             games: [],
         }
     },
@@ -216,27 +217,10 @@ export default {
             this.loading = true
             axios.get('/api/players/' + id)
             .then(response => {
-                this.player = response.data
-                this.loading = false
-            })
-        },
-
-        // Get player teams
-        getTeams(id) {
-            this.loading = true
-            axios.get('/api/players/' + id + '/teams')
-            .then(response => {
-                this.teams = response.data
-                this.loading = false
-            })
-        },
-
-        // Get player games
-        getGames(id) {
-            this.loading = true
-            axios.get('/api/players/' + id + '/games')
-            .then(response => {
-                this.games = response.data
+                this.player = response.data.player
+                this.teams = response.data.teams
+                this.teamGames = response.data.teamGames
+                this.games = response.data.games
                 this.loading = false
             })
         },
@@ -291,8 +275,6 @@ export default {
 
     mounted() {
         this.getPlayer(this.$route.params.id)
-        this.getTeams(this.$route.params.id)
-        this.getGames(this.$route.params.id)
     },
 }
 </script>
