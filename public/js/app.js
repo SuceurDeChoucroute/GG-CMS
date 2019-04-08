@@ -2076,7 +2076,25 @@ __webpack_require__.r(__webpack_exports__);
     AdminContentHeader: _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__["default"],
     AdminBoxStat: _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mounted: function mounted() {}
+  data: function data() {
+    return {
+      playersCount: 0
+    };
+  },
+  methods: {
+    getPlayersCount: function getPlayersCount() {
+      var _this = this;
+
+      this.loading = true;
+      axios.get('/api/players').then(function (response) {
+        _this.playersCount = response.data.length;
+        _this.loading = false;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getPlayersCount();
+  }
 });
 
 /***/ }),
@@ -62752,7 +62770,7 @@ var render = function() {
             _c("admin-box-stat", {
               attrs: {
                 classes: "bg-aqua",
-                number: "200",
+                number: _vm.playersCount,
                 title: "Joueurs",
                 icon: "fas fa-user-check",
                 link: "#"
