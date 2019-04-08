@@ -2,7 +2,8 @@
     <div class="col-lg-3 col-xs-6">
         <div class="small-box" :class="classes">
             <div class="inner">
-                <h3> {{ number }} </h3>
+                <loader :color="'#337ab7'" v-show="loading"></loader>
+                <h3 v-show="!loading"> {{ number }} </h3>
 
                 <p> {{ title }} </p>
             </div>
@@ -17,15 +18,21 @@
 </template>
 
 <script>
+import Loader from 'vue-spinner/src/ScaleLoader.vue'
+
 export default {
+    components: {
+        Loader
+    },
+
     props: [
+        'loading',
         'classes',
         'number',
         'title',
         'icon',
         'link'
     ]
-
 }
 </script>
 

@@ -1763,6 +1763,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
 //
 //
 //
@@ -1781,8 +1782,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['classes', 'number', 'title', 'icon', 'link']
+  components: {
+    Loader: vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['loading', 'classes', 'number', 'title', 'icon', 'link']
 });
 
 /***/ }),
@@ -2078,7 +2084,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      loading: false,
+      loadingPlayersCount: false,
+      loadingTeamsCount: false,
       playersCount: 0,
       teamsCount: 0
     };
@@ -2087,19 +2094,19 @@ __webpack_require__.r(__webpack_exports__);
     getPlayersCount: function getPlayersCount() {
       var _this = this;
 
-      this.loading = true;
+      this.loadingPlayersCount = true;
       axios.get('/api/players').then(function (response) {
         _this.playersCount = response.data.length;
-        _this.loading = false;
+        _this.loadingPlayersCount = false;
       });
     },
     getTeamsCount: function getTeamsCount() {
       var _this2 = this;
 
-      this.loading = true;
+      this.loadingTeamsCount = true;
       axios.get('/api/teams').then(function (response) {
         _this2.teamsCount = response.data.length;
-        _this2.loading = false;
+        _this2.loadingTeamsCount = false;
       });
     }
   },
@@ -62302,11 +62309,41 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-lg-3 col-xs-6" }, [
     _c("div", { staticClass: "small-box", class: _vm.classes }, [
-      _c("div", { staticClass: "inner" }, [
-        _c("h3", [_vm._v(" " + _vm._s(_vm.number) + " ")]),
-        _vm._v(" "),
-        _c("p", [_vm._v(" " + _vm._s(_vm.title) + " ")])
-      ]),
+      _c(
+        "div",
+        { staticClass: "inner" },
+        [
+          _c("loader", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.loading,
+                expression: "loading"
+              }
+            ],
+            attrs: { color: "#337ab7" }
+          }),
+          _vm._v(" "),
+          _c(
+            "h3",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.loading,
+                  expression: "!loading"
+                }
+              ]
+            },
+            [_vm._v(" " + _vm._s(_vm.number) + " ")]
+          ),
+          _vm._v(" "),
+          _c("p", [_vm._v(" " + _vm._s(_vm.title) + " ")])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "icon" }, [_c("i", { class: _vm.icon })]),
       _vm._v(" "),
@@ -62782,6 +62819,7 @@ var render = function() {
             _c("admin-box-stat", {
               attrs: {
                 classes: "bg-aqua",
+                loading: _vm.loadingPlayersCount,
                 number: _vm.playersCount,
                 title: "Joueurs",
                 icon: "fas fa-user-check",
@@ -62792,6 +62830,7 @@ var render = function() {
             _c("admin-box-stat", {
               attrs: {
                 classes: "bg-yellow",
+                loading: _vm.loadingTeamsCount,
                 number: _vm.teamsCount,
                 title: "Equipes",
                 icon: "fas fa-users",
