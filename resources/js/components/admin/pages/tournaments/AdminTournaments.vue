@@ -32,16 +32,16 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(tournament, key) in tournaments" :key="key">
-                                        <td>{{ tournament.name }}</td>
-                                        <td>{{ tournament.game }}</td>
-                                        <td>{{ tournament.startDate }} | {{ tournament.endDate }}</td>
-                                        <td>{{ tournament.place }}</td>
-                                        <td>{{ tournament.cashprize }}</td>
-                                        <td v-if="tournament.status == 'Open'"><span class="label label-success">{{ tournament.status }}</span></td>
-                                        <td v-else-if="tournament.status == 'Closed'"><span class="label label-danger">{{ tournament.status }}</span></td>
-                                        <td v-else><span class="label label-warning">{{ tournament.status }}</span></td>
+                                        <td>{{ tournament.tournament.name }}</td>
+                                        <td>{{ tournament.game.name }}</td>
+                                        <td>{{ tournament.tournament.start_date }} | {{ tournament.end_date }}</td>
+                                        <td>{{ tournament.tournament.place }}</td>
+                                        <td>{{ tournament.tournament.cashprize }}</td>
+                                        <td v-if="tournament.tournament.status == 'Open'"><span class="label label-success">{{ tournament.tournament.status }}</span></td>
+                                        <td v-else-if="tournament.tournament.status == 'Closed'"><span class="label label-danger">{{ tournament.tournament.status }}</span></td>
+                                        <td v-else><span class="label label-warning">{{ tournament.tournament.status }}</span></td>
                                         <td>
-                                            <router-link :to="{ name: 'tournament.show', params: {id: tournament.id} }" class="btn btn-primary">
+                                            <router-link :to="{ name: 'tournament.show', params: {id: tournament.tournament.id} }" class="btn btn-primary">
                                                 <i class="fas fa-eye"></i>
                                             </router-link>
                                             
@@ -70,18 +70,24 @@ export default {
     data() {
         return {
             loading: false,
-            tournaments: [
-                { id: 1,name: 'GG-LAN #8', description: "New edition of GG-LAN", game: 'ForHonor', startDate: '01/01/1999', endDate: '02/01/1999', place: '10', cashprize: '500 €', status: 'Open' },
-                { id: 2,name: 'GG-LAN #7', description: "New edition of GG-LAN", game: 'CS:GO', startDate: '01/01/1999', endDate: '02/01/1999', place: '16', cashprize: '450 €', status: 'Closed' },
-                { id: 3,name: 'GG-LAN #6', description: "New edition of GG-LAN", game: 'CS:GO', startDate: '01/01/1999', endDate: '02/01/1999', place: '16', cashprize: '450 €', status: 'Finished' },
-                { id: 4,name: 'GG-LAN #5', description: "New edition of GG-LAN", game: 'CS:GO', startDate: '01/01/1999', endDate: '02/01/1999', place: '16', cashprize: '450 €', status: 'Finished' },
-            ],
+            tournaments: [],
         }
     },
 
     methods: {
-        
+        getTournaments() {
+            this.loading = true
+            axios.get('/api/tournaments')
+            .then(response => {
+                this.tournaments = response.data
+                this.loading = false
+            })
+        }
     },
+    
+    mounted() {
+        this.getTournaments()
+    }
 }
 </script>
 

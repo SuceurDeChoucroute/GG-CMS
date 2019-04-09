@@ -4113,6 +4113,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4123,66 +4143,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      tournament: {
-        id: this.$route.params.id,
-        name: 'GG-LAN #8',
-        description: "New edition of GG-LAN",
-        game: 'ForHonor',
-        startDate: '1999-01-01',
-        endDate: '1999-01-02',
-        place: '10',
-        cashprize: '500 €',
-        status: 'Open',
-        image: 'https://gglan.fr/storage/posts/KwPzfnoC2JiLSvYcG1z3WuGqF4PYVWDq5MGH1xqd.jpeg'
-      },
-      tournamentBeforeUpdate: {
-        id: this.$route.params.id,
-        name: 'GG-LAN #8',
-        description: "New edition of GG-LAN",
-        game: 'ForHonor',
-        startDate: '1999-01-01',
-        endDate: '1999-01-02',
-        place: '10',
-        cashprize: '500 €',
-        status: 'Open',
-        image: 'https://gglan.fr/storage/posts/KwPzfnoC2JiLSvYcG1z3WuGqF4PYVWDq5MGH1xqd.jpeg'
-      },
-      tournamentPlayers: [{
-        id: 1,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !",
-        rank: "Eagle II"
-      }, {
-        id: 2,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !",
-        rank: "Global Elite"
-      }, {
-        id: 6,
-        pseudo: 'Gotaga',
-        email: 'gotaga@example.com',
-        description: "The french monster !",
-        rank: "Sivler III"
-      }, {
-        id: 3,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !",
-        rank: "Noob"
-      }],
-      games: [{
-        id: 1,
-        name: "CS:GO",
-        description: "An amazing FPS shooter",
-        place: 5
-      }, {
-        id: 2,
-        name: "ForHonor",
-        description: "Now you are an ultimate warrior",
-        place: 4
-      }]
+      tournament: {},
+      tournamentGame: {},
+      players: [],
+      games: []
     };
   },
   methods: {
@@ -4192,47 +4156,78 @@ __webpack_require__.r(__webpack_exports__);
         name: 'tournaments'
       });
     },
-    // Update the tournament
-    updateTournament: function updateTournament() {
-      this.loading = true;
+    // Get tournament
+    getTournament: function getTournament() {
+      var _this = this;
 
-      if (this.tournamentBeforeUpdate.name != this.tournament.name || this.tournamentBeforeUpdate.description != this.tournament.description || this.tournamentBeforeUpdate.game != this.tournament.game || this.tournamentBeforeUpdate.startDate != this.tournament.startDate || this.tournamentBeforeUpdate.endDate != this.tournament.endDate || this.tournamentBeforeUpdate.place != this.tournament.place || this.tournamentBeforeUpdate.cashprize != this.tournament.cashprize || this.tournamentBeforeUpdate.status != this.tournament.status || this.tournamentBeforeUpdate.image != this.tournament.image) {
-        // Update tournament info before update
-        this.tournamentBeforeUpdate.name = this.tournament.name;
-        this.tournamentBeforeUpdate.description = this.tournament.description;
-        this.tournamentBeforeUpdate.game = this.tournament.game;
-        this.tournamentBeforeUpdate.startDate = this.tournament.startDate;
-        this.tournamentBeforeUpdate.endDate = this.tournament.endDate;
-        this.tournamentBeforeUpdate.place = this.tournament.place;
-        this.tournamentBeforeUpdate.cashprize = this.tournament.cashprize;
-        this.tournamentBeforeUpdate.status = this.tournament.status;
-        this.tournamentBeforeUpdate.image = this.tournament.image;
-        this.flashMessage.success({
+      var id = this.$route.params.id;
+      this.loading = true;
+      axios.get('/api/tournaments/' + id).then(function (response) {
+        _this.tournament = response.data.tournament;
+        _this.tournamentGame = response.data.tournamentGame;
+        _this.loading = false;
+      });
+    },
+    // Get games
+    getGames: function getGames() {
+      var _this2 = this;
+
+      axios.get('/api/games').then(function (response) {
+        _this2.games = response.data;
+      });
+    },
+    // Update tournament
+    updateTournament: function updateTournament() {
+      var _this3 = this;
+
+      var id = this.$route.params.id;
+      this.loading = true;
+      axios.put('/api/tournaments/' + id, this.tournament).then(function (response) {
+        _this3.tournament = response.data.tournament;
+        _this3.tournamentGame = response.data.tournamentGame;
+        _this3.loading = false;
+
+        _this3.flashMessage.success({
           title: "Tournament updated !",
           message: "The tournament has been successfully updated"
         });
-      } else {
-        this.flashMessage.error({
-          title: "You didn't change any fields !",
-          message: "You have to change a least one field to update the tournament"
-        });
-      }
+      }).catch(function (e) {
+        _this3.loading = false;
 
-      this.loading = false;
+        _this3.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please try again"
+        });
+      });
     },
     // Delete the tournament
-    deleteTournament: function deleteTournament(id) {
-      if (confirm("Are you sure you want to delete this tournament ? It's definitive")) {
-        this.flashMessage.success({
-          title: "Tournament deleted !",
-          message: "The tournament has been successfully deleted"
-        });
-        this.goToTournamentsList();
-      } // this.flashMessage.error({
-      //     title: "Something went wrong",
-      //     message: "Please try again"
+    deleteTournament: function deleteTournament() {
+      var _this4 = this;
 
+      var id = this.$route.params.id;
+
+      if (confirm("Are you sure you want to delete this tournament ? It's definitive")) {
+        axios.delete('/api/tournaments/' + id).then(function (response) {
+          _this4.flashMessage.success({
+            title: "Tournament deleted !",
+            message: "The tournament has been successfully deleted"
+          });
+
+          _this4.goToTournamentsList();
+        }).catch(function (e) {
+          _this4.loading = false;
+
+          _this4.flashMessage.error({
+            title: "Something went wrong",
+            message: "Please try again"
+          });
+        });
+      }
     }
+  },
+  mounted: function mounted() {
+    this.getTournament();
+    this.getGames();
   }
 });
 
@@ -4318,50 +4313,23 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      tournaments: [{
-        id: 1,
-        name: 'GG-LAN #8',
-        description: "New edition of GG-LAN",
-        game: 'ForHonor',
-        startDate: '01/01/1999',
-        endDate: '02/01/1999',
-        place: '10',
-        cashprize: '500 €',
-        status: 'Open'
-      }, {
-        id: 2,
-        name: 'GG-LAN #7',
-        description: "New edition of GG-LAN",
-        game: 'CS:GO',
-        startDate: '01/01/1999',
-        endDate: '02/01/1999',
-        place: '16',
-        cashprize: '450 €',
-        status: 'Closed'
-      }, {
-        id: 3,
-        name: 'GG-LAN #6',
-        description: "New edition of GG-LAN",
-        game: 'CS:GO',
-        startDate: '01/01/1999',
-        endDate: '02/01/1999',
-        place: '16',
-        cashprize: '450 €',
-        status: 'Finished'
-      }, {
-        id: 4,
-        name: 'GG-LAN #5',
-        description: "New edition of GG-LAN",
-        game: 'CS:GO',
-        startDate: '01/01/1999',
-        endDate: '02/01/1999',
-        place: '16',
-        cashprize: '450 €',
-        status: 'Finished'
-      }]
+      tournaments: []
     };
   },
-  methods: {}
+  methods: {
+    getTournaments: function getTournaments() {
+      var _this = this;
+
+      this.loading = true;
+      axios.get('/api/tournaments').then(function (response) {
+        _this.tournaments = response.data;
+        _this.loading = false;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getTournaments();
+  }
 });
 
 /***/ }),
@@ -66905,7 +66873,22 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("h3", { staticClass: "profile-username text-center" }, [
-                      _vm._v(" " + _vm._s(_vm.tournament.name) + " ")
+                      _vm._v(
+                        " \n                            " +
+                          _vm._s(_vm.tournament.name) +
+                          "\n                            "
+                      ),
+                      _vm.tournament.status == "Open"
+                        ? _c("span", { staticClass: "label label-success" }, [
+                            _vm._v(_vm._s(_vm.tournament.status))
+                          ])
+                        : _vm.tournament.status == "Closed"
+                        ? _c("span", { staticClass: "label label-danger" }, [
+                            _vm._v(_vm._s(_vm.tournament.status))
+                          ])
+                        : _c("span", { staticClass: "label label-warning" }, [
+                            _vm._v(_vm._s(_vm.tournament.status))
+                          ])
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-muted text-center" }, [
@@ -67098,7 +67081,7 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.tournamentPlayers, function(player, key) {
+                          _vm._l(_vm.players, function(player, key) {
                             return _c("tr", { key: key }, [
                               _c("td", [
                                 _vm._v(" " + _vm._s(player.pseudo) + " ")
@@ -67253,63 +67236,76 @@ var render = function() {
                             [_vm._v("Game")]
                           ),
                           _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "col-sm-10" },
-                            [
-                              _c("loader", {
+                          _c("div", { staticClass: "col-sm-10" }, [
+                            _c(
+                              "select",
+                              {
                                 directives: [
                                   {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.loading,
-                                    expression: "loading"
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.tournament.game_id,
+                                    expression: "tournament.game_id"
                                   }
                                 ],
-                                attrs: { color: "#337ab7" }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: !_vm.loading,
-                                      expression: "!loading"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    name: "game",
-                                    id: "game",
-                                    required: ""
-                                  }
+                                staticClass: "form-control",
+                                attrs: {
+                                  name: "game_id",
+                                  id: "game_id",
+                                  required: ""
                                 },
-                                [
-                                  _c(
-                                    "option",
-                                    { attrs: { disabled: "", selected: "" } },
-                                    [_vm._v("-- Please choose the game --")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.games, function(game, key) {
-                                    return _c(
-                                      "option",
-                                      {
-                                        key: key,
-                                        domProps: { value: game.id }
-                                      },
-                                      [_vm._v(" " + _vm._s(game.name) + " ")]
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.tournament,
+                                      "game_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
                                     )
-                                  })
-                                ],
-                                2
-                              )
-                            ],
-                            1
-                          )
+                                  }
+                                }
+                              },
+                              [
+                                _c("option", { attrs: { disabled: "" } }, [
+                                  _vm._v("-- Please choose the game --")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  {
+                                    attrs: { disabled: "", selected: "" },
+                                    domProps: { value: _vm.tournamentGame.id }
+                                  },
+                                  [
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(_vm.tournamentGame.name) +
+                                        " "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.games, function(game, key) {
+                                  return _c(
+                                    "option",
+                                    { key: key, domProps: { value: game.id } },
+                                    [_vm._v(" " + _vm._s(game.name) + " ")]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ])
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group" }, [
@@ -67328,8 +67324,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.tournament.startDate,
-                                  expression: "tournament.startDate"
+                                  value: _vm.tournament.start_date,
+                                  expression: "tournament.start_date"
                                 }
                               ],
                               staticClass: "form-control",
@@ -67338,7 +67334,7 @@ var render = function() {
                                 id: "startDate",
                                 required: ""
                               },
-                              domProps: { value: _vm.tournament.startDate },
+                              domProps: { value: _vm.tournament.start_date },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -67346,7 +67342,7 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     _vm.tournament,
-                                    "startDate",
+                                    "start_date",
                                     $event.target.value
                                   )
                                 }
@@ -67360,8 +67356,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.tournament.endDate,
-                                  expression: "tournament.endDate"
+                                  value: _vm.tournament.end_date,
+                                  expression: "tournament.end_date"
                                 }
                               ],
                               staticClass: "form-control",
@@ -67370,7 +67366,7 @@ var render = function() {
                                 id: "endDate",
                                 required: ""
                               },
-                              domProps: { value: _vm.tournament.endDate },
+                              domProps: { value: _vm.tournament.end_date },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -67378,7 +67374,7 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     _vm.tournament,
-                                    "endDate",
+                                    "end_date",
                                     $event.target.value
                                   )
                                 }
@@ -67392,9 +67388,9 @@ var render = function() {
                             "label",
                             {
                               staticClass: "col-sm-2 control-label",
-                              attrs: { for: "place" }
+                              attrs: { for: "places" }
                             },
-                            [_vm._v("Place")]
+                            [_vm._v("Places")]
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-10" }, [
@@ -67403,8 +67399,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.tournament.place,
-                                  expression: "tournament.place"
+                                  value: _vm.tournament.places,
+                                  expression: "tournament.places"
                                 }
                               ],
                               staticClass: "form-control",
@@ -67412,11 +67408,11 @@ var render = function() {
                                 type: "number",
                                 min: "0",
                                 step: "1",
-                                id: "place",
-                                placeholder: "Place",
+                                id: "places",
+                                placeholder: "Places",
                                 required: ""
                               },
-                              domProps: { value: _vm.tournament.place },
+                              domProps: { value: _vm.tournament.places },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -67424,7 +67420,7 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     _vm.tournament,
-                                    "place",
+                                    "places",
                                     $event.target.value
                                   )
                                 }
@@ -67474,6 +67470,85 @@ var render = function() {
                                 }
                               }
                             })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-2 control-label",
+                              attrs: { for: "game" }
+                            },
+                            [_vm._v("Game")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-10" }, [
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.tournament.status,
+                                    expression: "tournament.status"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  name: "game_id",
+                                  id: "game_id",
+                                  required: ""
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.tournament,
+                                      "status",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    attrs: { disabled: "", selected: "" },
+                                    domProps: { value: _vm.tournament.status }
+                                  },
+                                  [
+                                    _vm._v(
+                                      " " + _vm._s(_vm.tournament.status) + " "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Open" } }, [
+                                  _vm._v(" Open ")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Closed" } }, [
+                                  _vm._v(" Closed ")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Finished" } }, [
+                                  _vm._v(" Finished ")
+                                ])
+                              ]
+                            )
                           ])
                         ]),
                         _vm._v(" "),
@@ -67569,14 +67644,34 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.deleteTournament(
-                                        _vm.tournament.id
-                                      )
+                                      return _vm.deleteTournament()
                                     }
                                   }
                                 },
                                 [
-                                  _c("i", { staticClass: "fas fa-trash-alt" }),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: _vm.loading,
+                                        expression: "loading"
+                                      }
+                                    ],
+                                    staticClass: "fas fa-sync fa-spin"
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: !_vm.loading,
+                                        expression: "!loading"
+                                      }
+                                    ],
+                                    staticClass: "fas fa-trash-alt"
+                                  }),
                                   _vm._v(
                                     "\n                                            Delete\n                                        "
                                   )
@@ -67722,43 +67817,61 @@ var render = function() {
                         "tbody",
                         _vm._l(_vm.tournaments, function(tournament, key) {
                           return _c("tr", { key: key }, [
-                            _c("td", [_vm._v(_vm._s(tournament.name))]),
+                            _c("td", [
+                              _vm._v(_vm._s(tournament.tournament.name))
+                            ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(tournament.game))]),
+                            _c("td", [_vm._v(_vm._s(tournament.game.name))]),
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(
-                                _vm._s(tournament.startDate) +
+                                _vm._s(tournament.tournament.start_date) +
                                   " | " +
-                                  _vm._s(tournament.endDate)
+                                  _vm._s(tournament.end_date)
                               )
                             ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(tournament.place))]),
+                            _c("td", [
+                              _vm._v(_vm._s(tournament.tournament.place))
+                            ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(tournament.cashprize))]),
+                            _c("td", [
+                              _vm._v(_vm._s(tournament.tournament.cashprize))
+                            ]),
                             _vm._v(" "),
-                            tournament.status == "Open"
+                            tournament.tournament.status == "Open"
                               ? _c("td", [
                                   _c(
                                     "span",
                                     { staticClass: "label label-success" },
-                                    [_vm._v(_vm._s(tournament.status))]
+                                    [
+                                      _vm._v(
+                                        _vm._s(tournament.tournament.status)
+                                      )
+                                    ]
                                   )
                                 ])
-                              : tournament.status == "Closed"
+                              : tournament.tournament.status == "Closed"
                               ? _c("td", [
                                   _c(
                                     "span",
                                     { staticClass: "label label-danger" },
-                                    [_vm._v(_vm._s(tournament.status))]
+                                    [
+                                      _vm._v(
+                                        _vm._s(tournament.tournament.status)
+                                      )
+                                    ]
                                   )
                                 ])
                               : _c("td", [
                                   _c(
                                     "span",
                                     { staticClass: "label label-warning" },
-                                    [_vm._v(_vm._s(tournament.status))]
+                                    [
+                                      _vm._v(
+                                        _vm._s(tournament.tournament.status)
+                                      )
+                                    ]
                                   )
                                 ]),
                             _vm._v(" "),
@@ -67772,7 +67885,7 @@ var render = function() {
                                     attrs: {
                                       to: {
                                         name: "tournament.show",
-                                        params: { id: tournament.id }
+                                        params: { id: tournament.tournament.id }
                                       }
                                     }
                                   },

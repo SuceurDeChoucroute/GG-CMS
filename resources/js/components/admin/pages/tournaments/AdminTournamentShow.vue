@@ -16,7 +16,12 @@
                         <div class="box-body box-profile" v-show="!loading">
                             <img class="profile-user-img img-responsive img-circle" :src="tournament.image" alt="User profile picture">
 
-                            <h3 class="profile-username text-center"> {{ tournament.name }} </h3>
+                            <h3 class="profile-username text-center"> 
+                                {{ tournament.name }}
+                                <span v-if="tournament.status == 'Open'" class="label label-success">{{ tournament.status }}</span>
+                                <span v-else-if="tournament.status == 'Closed'" class="label label-danger">{{ tournament.status }}</span>
+                                <span v-else class="label label-warning">{{ tournament.status }}</span>
+                            </h3>
                             <p class="text-muted text-center">{{ tournament.description }} </p>
 
                         </div>
@@ -69,7 +74,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(player, key) in tournamentPlayers" :key="key">
+                                        <tr v-for="(player, key) in players" :key="key">
                                             <td> {{ player.pseudo }} </td>
                                             <td> {{ player.rank }} </td>
                                             <td class="text-center">
@@ -107,9 +112,9 @@
                                         <label for="game" class="col-sm-2 control-label">Game</label>
 
                                         <div class="col-sm-10">
-                                            <loader :color="'#337ab7'" v-show="loading"></loader>
-                                            <select name="game" id="game" class="form-control" v-show="!loading" required>
-                                                <option disabled selected>-- Please choose the game --</option>
+                                            <select name="game_id" id="game_id" class="form-control" v-model="tournament.game_id" required>
+                                                <option disabled>-- Please choose the game --</option>
+                                                <option disabled selected :value="tournamentGame.id"> {{ tournamentGame.name }} </option>
                                                 <option :value="game.id" v-for="(game, key) in games" :key="key"> {{ game.name }} </option>
                                             </select>
                                         </div>
@@ -120,20 +125,20 @@
                                         <label for="name" class="col-sm-2 control-label">Start & End Date</label>
 
                                         <div class="col-sm-5">
-                                            <input type="date" class="form-control" id="startDate" v-model="tournament.startDate" required>
+                                            <input type="date" class="form-control" id="startDate" v-model="tournament.start_date" required>
                                         </div>
                                         
                                         <div class="col-sm-5">
-                                            <input type="date" class="form-control" id="endDate" v-model="tournament.endDate" required>
+                                            <input type="date" class="form-control" id="endDate" v-model="tournament.end_date" required>
                                         </div>
                                     </div>
 
-                                    <!-- Place -->
+                                    <!-- Places -->
                                     <div class="form-group">
-                                        <label for="place" class="col-sm-2 control-label">Place</label>
+                                        <label for="places" class="col-sm-2 control-label">Places</label>
 
                                         <div class="col-sm-10">
-                                            <input type="number" min="0" step="1" class="form-control" id="place" placeholder="Place" v-model="tournament.place" required>
+                                            <input type="number" min="0" step="1" class="form-control" id="places" placeholder="Places" v-model="tournament.places" required>
                                         </div>
                                     </div>
 
@@ -143,6 +148,20 @@
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="cashprize" placeholder="Cashprize" v-model="tournament.cashprize" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Status -->
+                                    <div class="form-group">
+                                        <label for="game" class="col-sm-2 control-label">Game</label>
+
+                                        <div class="col-sm-10">
+                                            <select name="game_id" id="game_id" class="form-control" v-model="tournament.status" required>
+                                                <option disabled selected :value="tournament.status"> {{ tournament.status }} </option>
+                                                <option value="Open"> Open </option>
+                                                <option value="Closed"> Closed </option>
+                                                <option value="Finished"> Finished </option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -164,8 +183,9 @@
                                                 Update
                                             </button>
 
-                                            <button type="button" class="btn btn-danger" @click="deleteTournament(tournament.id)">
-                                                <i class="fas fa-trash-alt"></i>
+                                            <button type="button" class="btn btn-danger" @click="deleteTournament()">
+                                                <i class="fas fa-sync fa-spin" v-show="loading"></i>
+                                                <i class="fas fa-trash-alt" v-show="!loading"></i>
                                                 Delete
                                             </button>
                                         </div>
@@ -193,41 +213,10 @@ export default {
     data() {
         return {
             loading: false,
-            tournament: {
-                id: this.$route.params.id,
-                name: 'GG-LAN #8',
-                description: "New edition of GG-LAN",
-                game: 'ForHonor',
-                startDate: '1999-01-01',
-                endDate: '1999-01-02',
-                place: '10',
-                cashprize: '500 €',
-                status: 'Open',
-                image: 'https://gglan.fr/storage/posts/KwPzfnoC2JiLSvYcG1z3WuGqF4PYVWDq5MGH1xqd.jpeg',
-            },
-            tournamentBeforeUpdate: {
-                id: this.$route.params.id,
-                name: 'GG-LAN #8',
-                description: "New edition of GG-LAN",
-                game: 'ForHonor',
-                startDate: '1999-01-01',
-                endDate: '1999-01-02',
-                place: '10',
-                cashprize: '500 €',
-                status: 'Open',
-                image: 'https://gglan.fr/storage/posts/KwPzfnoC2JiLSvYcG1z3WuGqF4PYVWDq5MGH1xqd.jpeg',
-            },
-            tournamentPlayers: [
-                {id: 1, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !", rank: "Eagle II"},
-                {id: 2, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !", rank: "Global Elite"},
-                {id: 6, pseudo: 'Gotaga'  , email: 'gotaga@example.com', description: "The french monster !", rank: "Sivler III"},
-                {id: 3, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !", rank: "Noob"},
-            ],
-
-            games: [
-                { id: 1, name: "CS:GO", description: "An amazing FPS shooter", place: 5 },
-                { id: 2, name: "ForHonor", description: "Now you are an ultimate warrior", place: 4 },
-            ],
+            tournament: {},
+            tournamentGame: {},
+            players: [],
+            games: [],
         }
     },
 
@@ -237,59 +226,80 @@ export default {
             this.$router.push({name: 'tournaments'});
         },
 
-        // Update the tournament
-        updateTournament() {
-            this.loading = true;
-            if (this.tournamentBeforeUpdate.name != this.tournament.name ||
-                this.tournamentBeforeUpdate.description != this.tournament.description ||
-                this.tournamentBeforeUpdate.game != this.tournament.game ||
-                this.tournamentBeforeUpdate.startDate != this.tournament.startDate ||
-                this.tournamentBeforeUpdate.endDate != this.tournament.endDate ||
-                this.tournamentBeforeUpdate.place != this.tournament.place ||
-                this.tournamentBeforeUpdate.cashprize != this.tournament.cashprize ||
-                this.tournamentBeforeUpdate.status != this.tournament.status ||
-                this.tournamentBeforeUpdate.image != this.tournament.image) {
+        // Get tournament
+        getTournament() {
+            let id = this.$route.params.id
+            this.loading = true
 
-                // Update tournament info before update
-                this.tournamentBeforeUpdate.name = this.tournament.name
-                this.tournamentBeforeUpdate.description = this.tournament.description
-                this.tournamentBeforeUpdate.game = this.tournament.game
-                this.tournamentBeforeUpdate.startDate = this.tournament.startDate
-                this.tournamentBeforeUpdate.endDate = this.tournament.endDate
-                this.tournamentBeforeUpdate.place = this.tournament.place
-                this.tournamentBeforeUpdate.cashprize = this.tournament.cashprize
-                this.tournamentBeforeUpdate.status = this.tournament.status
-                this.tournamentBeforeUpdate.image = this.tournament.image
-                
+            axios.get('/api/tournaments/' + id)
+            .then(response => {
+                this.tournament = response.data.tournament
+                this.tournamentGame = response.data.tournamentGame
+
+                this.loading = false
+            })
+        },
+
+        // Get games
+        getGames() {
+            axios.get('/api/games')
+            .then(response => {
+                this.games = response.data
+            })
+        },
+
+        // Update tournament
+        updateTournament() {
+            let id = this.$route.params.id
+            this.loading = true;
+
+            axios.put('/api/tournaments/' + id, this.tournament)
+            .then(response => {
+                this.tournament = response.data.tournament
+                this.tournamentGame = response.data.tournamentGame
+
+                this.loading = false
                 this.flashMessage.success({
                     title: "Tournament updated !",
                     message: "The tournament has been successfully updated"
                 })
-            }
-            else {
+            })
+            .catch(e => {
+                this.loading = false
                 this.flashMessage.error({
-                    title: "You didn't change any fields !",
-                    message: "You have to change a least one field to update the tournament"
+                    title: "Something went wrong",
+                    message: "Please try again"
                 })
-            }
-
-            this.loading = false;
+            })
         },
 
         // Delete the tournament
-        deleteTournament(id) {
-            if (confirm("Are you sure you want to delete this tournament ? It's definitive")) {
-                this.flashMessage.success({
-                    title: "Tournament deleted !",
-                    message: "The tournament has been successfully deleted"
-                })
-                this.goToTournamentsList();
-            }
+        deleteTournament() {
+            let id = this.$route.params.id
 
-            // this.flashMessage.error({
-            //     title: "Something went wrong",
-            //     message: "Please try again"
+            if (confirm("Are you sure you want to delete this tournament ? It's definitive")) {
+                axios.delete('/api/tournaments/' + id)
+                .then(response => {
+                    this.flashMessage.success({
+                        title: "Tournament deleted !",
+                        message: "The tournament has been successfully deleted"
+                    })
+                    this.goToTournamentsList();
+                })
+                .catch(e => {
+                    this.loading = false
+                    this.flashMessage.error({
+                        title: "Something went wrong",
+                        message: "Please try again"
+                    })
+                })
+            }
         },
+    },
+
+    mounted() {
+        this.getTournament()
+        this.getGames()
     }
 }
 </script>

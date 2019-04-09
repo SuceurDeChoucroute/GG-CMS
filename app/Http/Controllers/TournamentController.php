@@ -14,7 +14,16 @@ class TournamentController extends Controller
      */
     public function index()
     {
-        return Tournament::all();
+        $tournaments = [];
+
+        foreach (Tournament::all() as $key => $tournament) {
+            array_push($tournaments, [
+                'tournament' => $tournament,
+                'game' => $tournament->game,
+            ]);
+        }
+
+        return $tournaments;
     }
 
     /**
@@ -48,7 +57,11 @@ class TournamentController extends Controller
      */
     public function show(Tournament $tournament)
     {
-        return $tournament;
+        return [
+            'tournament' => $tournament,
+            'tournamentGame' => $tournament->game,
+            'players' => $tournament->players,
+        ];
     }
 
     /**
@@ -71,7 +84,11 @@ class TournamentController extends Controller
         $tournament->image = $request->image;
         $tournament->save();
 
-        return $tournament;
+        return [
+            'tournament' => $tournament,
+            'tournamentGame' => $tournament->game,
+            'players' => $tournament->players,
+        ];
     }
 
     /**
