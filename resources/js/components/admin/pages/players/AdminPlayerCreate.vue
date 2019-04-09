@@ -62,11 +62,12 @@
                                     </div>
                                 </div>
 
+                                <!-- Avatar -->
                                 <div class="form-group">
                                     <label for="avatar" class="col-sm-2 control-label">Avatar</label>
 
                                     <div class="col-sm-8">
-                                        <input type="url" class="form-control" id="avatar" placeholder="Avatar" v-model="player.avatar" required>
+                                        <input type="url" class="form-control" id="avatar" placeholder="Avatar" v-model="player.avatar">
                                     </div>
                                 </div>
                                 <div class="form-group">

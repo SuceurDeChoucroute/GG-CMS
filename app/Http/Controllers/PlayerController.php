@@ -29,10 +29,16 @@ class PlayerController extends Controller
         $player->name = $request->name;
         $player->email = $request->email;
         $player->pseudo = $request->pseudo;
-        $player->avatar = $request->avatar;
         $player->description = $request->description;
         $player->birth_date = $request->birth_date;
         $player->password = bcrypt($request->password);
+        if (!$request->avatar) {
+            $player->avatar = "https://api.adorable.io/avatars/285/".$request->email;
+        }
+        else {
+            $player->avatar = $request->avatar;
+        }
+        
         $player->save();
 
         return $player;
@@ -70,8 +76,13 @@ class PlayerController extends Controller
     {
         $player->name = $request->name;
         $player->pseudo = $request->pseudo;
-        $player->avatar = $request->avatar;
         $player->description = $request->description;
+        if (!$request->avatar) {
+            $player->avatar = "https://api.adorable.io/avatars/285/".$request->email;
+        }
+        else {
+            $player->avatar = $request->avatar;
+        }
         $player->save();
 
         return $player;
