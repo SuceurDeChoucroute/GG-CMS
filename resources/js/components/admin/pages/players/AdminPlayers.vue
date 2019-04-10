@@ -38,13 +38,24 @@
                                         <td colspan="4" class="text-center"> No players registered ... </td>
                                     </tr>
                                     <tr v-else v-for="(player, key) in players" :key="key">
-                                        <td>{{ player.pseudo }}</td>
+                                        <td>
+                                            <span v-show="player.admin" class="badge bg-green" title="Admin"><i class="fas fa-user-shield"></i></span>
+                                            {{ player.pseudo }}
+                                        </td>
                                         <td>{{ player.email }}</td>
                                         <td>{{ player.description }}</td>
                                         <td>
                                             <router-link :to="{ name: 'player.show', params: {id: player.id} }" class="btn btn-primary">
                                                 <i class="fas fa-eye"></i>
                                             </router-link>
+
+                                            <button v-show="player.admin" class="btn btn-danger" @click="revokeAdmin(key)" title="Revoke all admin rights, the account will not be deleted">
+                                                <i class="far fa-times-circle"></i>
+                                            </button>
+
+                                            <button v-show="!player.admin" class="btn btn-success" @click="grantAdmin(key)" title="Grant player to admin">
+                                                <i class="fas fa-arrow-alt-circle-up"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -70,6 +81,7 @@ export default {
         return {
             loading: false,
             players: [],
+            admins: [],
         }
     },
 
@@ -81,11 +93,86 @@ export default {
                 this.players = response.data
                 this.loading = false
             })
-        }
+        },
+
+        getAdmins() {
+            this.loading = true
+            axios.get('/api/players/admins')
+            .then(response => {
+                this.admins = response.data
+                this.loading = false
+            })
+        },
+
+        // Revoke admin
+        revokeAdmin(key) {
+            if (confirm('Are you sure you want to revoke this admin ?')) {
+                this.loading = true
+
+                if (this.admins.length != 1) {
+                    axios.post('/api/players/'+ this.players[key].id +'/revokeAdmin')
+                    .then(response => {
+                        this.players[key].admin = 0;
+                        this.flashMessage.success({
+                            title: "Admin revoked !",
+                            message: "The admin has been successfully revoked"
+                        })
+                        
+                        // Update admins list
+                        this.getAdmins();
+
+                        this.loading = false
+                    })
+                    .catch(e => {
+                        this.flashMessage.error({
+                            title: "Something went wrong",
+                            message: "Please try again"
+                        })
+                        this.loading = false
+                    })
+                }
+                else {
+                    this.flashMessage.error({
+                        title: "Impossible to revoke !",
+                        message: "You can't revoke the only admin"
+                    })
+                    this.loading = false
+                }
+            }
+        },
+
+        // Grant admin
+        grantAdmin(key) {
+            if (confirm('Are you sure you want to grant this player to admin ?')) {
+                this.loading = true
+                
+                axios.post('/api/players/'+ this.players[key].id +'/grantAdmin')
+                .then(response => {
+                    this.players[key].admin = 1;
+                    this.flashMessage.success({
+                        title: "Player granted !",
+                        message: "The player has been successfully granted to admin"
+                    })
+
+                    // Update admins list
+                    this.getAdmins();
+
+                    this.loading = false
+                })
+                .catch(e => {
+                    this.flashMessage.error({
+                        title: "Something went wrong",
+                        message: "Please try again"
+                    })
+                    this.loading = false
+                })
+            }
+        },
     },
 
     mounted() {
         this.getPlayers();
+        this.getAdmins();
     }
 }
 </script>

@@ -16,7 +16,10 @@
                         <div class="box-body box-profile" v-show="!loading">
                             <img class="profile-user-img img-responsive img-circle" :src="player.avatar" alt="User profile picture">
 
-                            <h3 class="profile-username text-center"> {{ player.pseudo }} </h3>
+                            <h3 class="profile-username text-center"> 
+                                {{ player.pseudo }}
+                                <span v-show="player.admin" class="badge bg-green" title="Admin"><i class="fas fa-user-shield"></i></span>
+                            </h3>
                             <p class="text-muted text-center"> {{ player.email }} </p>
 
                             <ul class="list-group list-group-unbordered">
@@ -84,7 +87,8 @@
                                 <hr>
                                 <h3> Player teams </h3>
                                 <loader :color="'#337ab7'" v-show="loading"></loader>
-
+                                
+                                <!-- Player teams -->
                                 <table class="table table-striped table-hover" v-show="!loading">
                                     <thead>
                                         <tr>
@@ -109,6 +113,8 @@
                                 <hr>
                                 <h3> Player games </h3>
                                 <loader :color="'#337ab7'" v-show="loading"></loader>
+
+                                <!-- Player games -->
                                 <table class="table table-striped table-hover" v-show="!loading">
                                     <thead>
                                         <tr>

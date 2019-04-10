@@ -14,7 +14,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        return User::where('admin', false)->get();
+        return User::all();
     }
 
     /**
@@ -110,5 +110,37 @@ class PlayerController extends Controller
     public function teams(User $player)
     {
         return $player->teams;
+    }
+
+    public function admins()
+    {
+        $admins = [];
+        foreach (User::all() as $key => $player) {
+            if ($player->admin) {
+                array_push($admins, $player);
+            }
+        }
+
+        return $admins;
+    }
+
+    public function grantAdmin(User $player)
+    {
+        $player->admin = true;
+        $player->save();
+
+        return response()->json([
+            'message' => 'Player granted to admin !'
+        ]);
+    }
+
+    public function revokeAdmin(User $player)
+    {
+        $player->admin = false;
+        $player->save();
+
+        return response()->json([
+            'message' => 'Admin revoked !'
+        ]);
     }
 }

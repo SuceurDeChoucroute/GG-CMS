@@ -23,9 +23,12 @@ Route::get('games/{game}/players', 'GameController@players')->name('games.player
 Route::get('games/{game}/teams', 'GameController@teams')->name('games.teams');
 
 // Players
+Route::get('players/admins', 'PlayerController@admins')->name('players.admins');
 Route::resource('players', 'PlayerController');
 Route::get('players/{player}/games', 'PlayerController@games')->name('players.games');
 Route::get('players/{player}/teams', 'PlayerController@teams')->name('players.teams');
+Route::post('players/{player}/grantAdmin', 'PlayerController@grantAdmin')->name('players.admins.grant');
+Route::post('players/{player}/revokeAdmin', 'PlayerController@revokeAdmin')->name('players.admins.revoke');
 
 // Teams
 Route::resource('teams', 'TeamController');

@@ -2966,6 +2966,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3126,6 +3132,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3136,7 +3153,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      players: []
+      players: [],
+      admins: []
     };
   },
   methods: {
@@ -3148,10 +3166,85 @@ __webpack_require__.r(__webpack_exports__);
         _this.players = response.data;
         _this.loading = false;
       });
+    },
+    getAdmins: function getAdmins() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get('/api/players/admins').then(function (response) {
+        _this2.admins = response.data;
+        _this2.loading = false;
+      });
+    },
+    // Revoke admin
+    revokeAdmin: function revokeAdmin(key) {
+      var _this3 = this;
+
+      if (confirm('Are you sure you want to revoke this admin ?')) {
+        this.loading = true;
+
+        if (this.admins.length != 1) {
+          axios.post('/api/players/' + this.players[key].id + '/revokeAdmin').then(function (response) {
+            _this3.players[key].admin = 0;
+
+            _this3.flashMessage.success({
+              title: "Admin revoked !",
+              message: "The admin has been successfully revoked"
+            }); // Update admins list
+
+
+            _this3.getAdmins();
+
+            _this3.loading = false;
+          }).catch(function (e) {
+            _this3.flashMessage.error({
+              title: "Something went wrong",
+              message: "Please try again"
+            });
+
+            _this3.loading = false;
+          });
+        } else {
+          this.flashMessage.error({
+            title: "Impossible to revoke !",
+            message: "You can't revoke the only admin"
+          });
+          this.loading = false;
+        }
+      }
+    },
+    // Grant admin
+    grantAdmin: function grantAdmin(key) {
+      var _this4 = this;
+
+      if (confirm('Are you sure you want to grant this player to admin ?')) {
+        this.loading = true;
+        axios.post('/api/players/' + this.players[key].id + '/grantAdmin').then(function (response) {
+          _this4.players[key].admin = 1;
+
+          _this4.flashMessage.success({
+            title: "Player granted !",
+            message: "The player has been successfully granted to admin"
+          }); // Update admins list
+
+
+          _this4.getAdmins();
+
+          _this4.loading = false;
+        }).catch(function (e) {
+          _this4.flashMessage.error({
+            title: "Something went wrong",
+            message: "Please try again"
+          });
+
+          _this4.loading = false;
+        });
+      }
     }
   },
   mounted: function mounted() {
     this.getPlayers();
+    this.getAdmins();
   }
 });
 
@@ -64435,7 +64528,27 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("h3", { staticClass: "profile-username text-center" }, [
-                      _vm._v(" " + _vm._s(_vm.player.pseudo) + " ")
+                      _vm._v(
+                        " \n                            " +
+                          _vm._s(_vm.player.pseudo) +
+                          "\n                            "
+                      ),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.player.admin,
+                              expression: "player.admin"
+                            }
+                          ],
+                          staticClass: "badge bg-green",
+                          attrs: { title: "Admin" }
+                        },
+                        [_c("i", { staticClass: "fas fa-user-shield" })]
+                      )
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-muted text-center" }, [
@@ -65306,7 +65419,33 @@ var render = function() {
                               ])
                             : _vm._l(_vm.players, function(player, key) {
                                 return _c("tr", { key: key }, [
-                                  _c("td", [_vm._v(_vm._s(player.pseudo))]),
+                                  _c("td", [
+                                    _c(
+                                      "span",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: player.admin,
+                                            expression: "player.admin"
+                                          }
+                                        ],
+                                        staticClass: "badge bg-green",
+                                        attrs: { title: "Admin" }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-user-shield"
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(player.pseudo) +
+                                        "\n                                    "
+                                    )
+                                  ]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(player.email))]),
                                   _vm._v(" "),
@@ -65329,6 +65468,64 @@ var render = function() {
                                           }
                                         },
                                         [_c("i", { staticClass: "fas fa-eye" })]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value: player.admin,
+                                              expression: "player.admin"
+                                            }
+                                          ],
+                                          staticClass: "btn btn-danger",
+                                          attrs: {
+                                            title:
+                                              "Revoke all admin rights, the account will not be deleted"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.revokeAdmin(key)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "far fa-times-circle"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value: !player.admin,
+                                              expression: "!player.admin"
+                                            }
+                                          ],
+                                          staticClass: "btn btn-success",
+                                          attrs: {
+                                            title: "Grant player to admin"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.grantAdmin(key)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-arrow-alt-circle-up"
+                                          })
+                                        ]
                                       )
                                     ],
                                     1
