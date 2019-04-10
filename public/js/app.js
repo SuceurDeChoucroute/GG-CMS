@@ -2017,35 +2017,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      navs: [{
+        name: 'index',
+        icon: 'fa-tachometer-alt',
+        title: 'Dashboard'
+      }, {
+        name: 'players',
+        icon: 'fa-users',
+        title: 'Players'
+      }, {
+        name: 'teams',
+        icon: 'fa-user-friends',
+        title: 'Teams'
+      }, {
+        name: 'games',
+        icon: 'fa-gamepad',
+        title: 'Games'
+      }, {
+        name: 'tournaments',
+        icon: 'fa-trophy',
+        title: 'Tournaments'
+      }]
+    };
+  }
+});
 
 /***/ }),
 
@@ -2527,6 +2525,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../layouts/AdminContentHeader */ "./resources/js/components/admin/layouts/AdminContentHeader.vue");
 /* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
+//
+//
+//
 //
 //
 //
@@ -3122,6 +3123,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3240,6 +3244,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3249,13 +3266,14 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: false,
       team: {
-        id: 99,
         name: '',
-        description: '',
+        description: "",
         avatar: '',
-        captain: {}
+        game_id: '',
+        captain_id: ''
       },
-      players: []
+      players: [],
+      games: []
     };
   },
   methods: {
@@ -3265,55 +3283,70 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createTeam: function createTeam() {
-      this.$router.push({
-        name: 'team.show',
-        params: {
-          id: this.team.id
-        }
-      });
-      this.flashMessage.success({
-        title: "Team added !",
-        message: "The team has been successfully added"
+      var _this = this;
+
+      this.loading = true;
+      axios.post('/api/teams', this.team).then(function (response) {
+        _this.flashMessage.success({
+          title: "Team added !",
+          message: "The team has been successfully added"
+        });
+
+        _this.loading = false;
+
+        _this.$router.push({
+          name: 'team.show',
+          params: {
+            id: response.data.id
+          }
+        });
+      }).catch(function (e) {
+        console.log(e);
+
+        _this.flashMessage.error({
+          title: "Something went wrong",
+          message: "Unable to create the team, please try again"
+        });
+
+        _this.loading = false;
       });
     },
     getPlayers: function getPlayers() {
+      var _this2 = this;
+
       this.loading = true;
-      this.players = [{
-        id: 1,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 2,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 6,
-        pseudo: 'Gotaga',
-        email: 'gotaga@example.com',
-        description: "The french monster !"
-      }, {
-        id: 3,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 4,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }, {
-        id: 5,
-        pseudo: 'John Doe',
-        email: 'john.doe@example.com',
-        description: "I'm the best and i know it !"
-      }];
-      this.loading = false;
+      axios.get('/api/players').then(function (response) {
+        _this2.players = response.data;
+        _this2.loading = false;
+      }).catch(function (e) {
+        _this2.flashMessage.error({
+          title: "Something went wrong",
+          message: "Unable to retrieve the players list... Try to reload the page"
+        });
+
+        _this2.loading = false;
+      });
+    },
+    getGames: function getGames() {
+      var _this3 = this;
+
+      this.loading = true;
+      axios.get('/api/games').then(function (response) {
+        _this3.games = response.data;
+        _this3.loading = false;
+      }).catch(function (e) {
+        _this3.flashMessage.success({
+          title: "Something went wrong",
+          message: "Unable to retrieve the games list... Try to reload the page"
+        });
+
+        _this3.loading = false;
+      });
     }
   },
   mounted: function mounted() {
     this.getPlayers();
+    this.getGames();
   }
 });
 
@@ -3475,6 +3508,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3485,106 +3544,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      team: {
-        id: this.$route.params.id,
-        name: "Choucroute Powa",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
-        captain: {
-          id: 6,
-          pseudo: 'Gotaga',
-          email: 'gotaga@example.com',
-          description: "The french monster !"
-        },
-        players: [{
-          id: 1,
-          pseudo: 'John Doe',
-          email: 'john.doe@example.com',
-          description: "I'm the best and i know it !"
-        }, {
-          id: 2,
-          pseudo: 'John Doe',
-          email: 'john.doe@example.com',
-          description: "I'm the best and i know it !"
-        }, {
-          id: 6,
-          pseudo: 'Gotaga',
-          email: 'gotaga@example.com',
-          description: "The french monster !"
-        }, {
-          id: 3,
-          pseudo: 'John Doe',
-          email: 'john.doe@example.com',
-          description: "I'm the best and i know it !"
-        }, {
-          id: 4,
-          pseudo: 'John Doe',
-          email: 'john.doe@example.com',
-          description: "I'm the best and i know it !"
-        }],
-        tournamentsParticipation: [{
-          tournament_name: "GG-LAN #8",
-          place: "1st"
-        }, {
-          tournament_name: "GG-LAN #7",
-          place: "2nd"
-        }, {
-          tournament_name: "GG-LAN #6",
-          place: "3rd"
-        }, {
-          tournament_name: "GG-LAN #5",
-          place: "5th"
-        }]
-      },
-      teamBeforeUpdate: {
-        id: this.$route.params.id,
-        name: "Choucroute Powa",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
-        captain: {
-          id: 6,
-          pseudo: 'Gotaga',
-          email: 'gotaga@example.com',
-          description: "The french monster !"
-        },
-        players: [{
-          id: 1,
-          pseudo: 'John Doe',
-          email: 'john.doe@example.com',
-          description: "I'm the best and i know it !"
-        }, {
-          id: 2,
-          pseudo: 'John Doe',
-          email: 'john.doe@example.com',
-          description: "I'm the best and i know it !"
-        }, {
-          id: 6,
-          pseudo: 'Gotaga',
-          email: 'gotaga@example.com',
-          description: "The french monster !"
-        }, {
-          id: 3,
-          pseudo: 'John Doe',
-          email: 'john.doe@example.com',
-          description: "I'm the best and i know it !"
-        }, {
-          id: 4,
-          pseudo: 'John Doe',
-          email: 'john.doe@example.com',
-          description: "I'm the best and i know it !"
-        }],
-        tournamentsParticipation: [{
-          tournament_name: "GG-LAN #8",
-          place: "1st"
-        }, {
-          tournament_name: "GG-LAN #7",
-          place: "2nd"
-        }, {
-          tournament_name: "GG-LAN #6",
-          place: "3rd"
-        }, {
-          tournament_name: "GG-LAN #5",
-          place: "5th"
-        }]
-      }
+      team: {},
+      players: [],
+      game: {},
+      games: [],
+      participations: []
     };
   },
   methods: {
@@ -3594,40 +3558,98 @@ __webpack_require__.r(__webpack_exports__);
         name: 'teams'
       });
     },
-    // Update the team
-    updateTeam: function updateTeam() {
-      this.loading = true;
+    // Get team
+    getTeam: function getTeam() {
+      var _this = this;
 
-      if (this.team.name != this.teamBeforeUpdate.name || this.team.description != this.teamBeforeUpdate.description) {
-        // Update player info before update
-        this.teamBeforeUpdate.name = this.team.name;
-        this.teamBeforeUpdate.description = this.team.description;
-        this.flashMessage.success({
+      var id = this.$route.params.id;
+      this.loading = true;
+      axios.get('/api/teams/' + id).then(function (response) {
+        _this.team = response.data.team;
+        _this.players = response.data.players;
+        _this.game = response.data.game;
+        _this.participations = response.data.participations;
+        _this.loading = false;
+      }).catch(function (e) {
+        _this.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please try again"
+        });
+
+        _this.loading = false;
+      });
+    },
+    getGames: function getGames() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get('/api/games').then(function (response) {
+        _this2.loading = false;
+        _this2.games = response.data;
+      }).catch(function (e) {
+        _this2.loading = false;
+
+        _this2.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please try again"
+        });
+      });
+    },
+    // Update team
+    updateTeam: function updateTeam() {
+      var _this3 = this;
+
+      var id = this.$route.params.id;
+      this.loading = true;
+      axios.put('/api/teams/' + id, this.team).then(function (response) {
+        _this3.getTeam();
+
+        _this3.flashMessage.success({
           title: "Team updated !",
           message: "The team has been successfully updated"
         });
-      } else {
-        this.flashMessage.error({
-          title: "You didn't change any fields !",
-          message: "You have to change a least one field to update the team"
+
+        _this3.loading = false;
+      }).catch(function (e) {
+        _this3.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please try again"
+        });
+
+        _this3.loading = false;
+      });
+    },
+    // Delete team
+    deleteTeam: function deleteTeam() {
+      var _this4 = this;
+
+      if (confirm("Are you sure you want to delete this team ? It's definitive")) {
+        var id = this.$route.params.id;
+        axios.delete('/api/teams/' + id).then(function (response) {
+          _this4.loading = false;
+
+          _this4.flashMessage.success({
+            title: "Team deleted !",
+            message: "The team has been successfully deleted"
+          });
+
+          _this4.loading = true;
+
+          _this4.goToTeamsList();
+        }).catch(function (e) {
+          _this4.flashMessage.error({
+            title: "Something went wrong",
+            message: "Please try again"
+          });
+
+          _this4.loading = false;
         });
       }
-
-      this.loading = false;
-    },
-    // Delete the team
-    deleteTeam: function deleteTeam(id) {
-      if (confirm("Are you sure you want to delete this team ? It's definitive")) {
-        this.flashMessage.success({
-          title: "Team deleted !",
-          message: "The team has been successfully deleted"
-        });
-        this.goToTeamsList();
-      } // this.flashMessage.error({
-      //     title: "Something went wrong",
-      //     message: "Please try again"
-
     }
+  },
+  mounted: function mounted() {
+    this.getTeam();
+    this.getGames();
   }
 });
 
@@ -3701,6 +3723,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3711,53 +3744,22 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      teams: [{
-        id: 1,
-        name: "Berzerker",
-        players: 4,
-        game: "ForHonor"
-      }, {
-        id: 2,
-        name: "FritesAuFourSalé",
-        players: 5,
-        game: "CS:GO"
-      }, {
-        id: 3,
-        name: "No pain no choucroute",
-        players: 3,
-        game: "CS:GO"
-      }, {
-        id: 4,
-        name: "Enraged Warriors",
-        players: 2,
-        game: "ForHonor"
-      }, {
-        id: 5,
-        name: "Obvious Kill",
-        players: 5,
-        game: "CS:GO"
-      }, {
-        id: 6,
-        name: "No Beta Test",
-        players: 1,
-        game: "ForHonor"
-      }],
-      team: {
-        id: 99,
-        name: "Test Team",
-        players: 10,
-        game: "CS:GO"
-      }
+      teams: []
     };
   },
   methods: {
-    addTeam: function addTeam() {
-      this.teams.push(this.team);
-      this.flashMessage.success({
-        title: "Team added !",
-        message: "The team has been successfully added"
+    getTeams: function getTeams() {
+      var _this = this;
+
+      this.loading = true;
+      axios.get('/api/teams').then(function (response) {
+        _this.teams = response.data;
+        _this.loading = false;
       });
     }
+  },
+  mounted: function mounted() {
+    this.getTeams();
   }
 });
 
@@ -4279,6 +4281,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../layouts/AdminContentHeader */ "./resources/js/components/admin/layouts/AdminContentHeader.vue");
 /* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
+//
+//
+//
 //
 //
 //
@@ -62712,67 +62717,26 @@ var render = function() {
       _c(
         "ul",
         { staticClass: "sidebar-menu", attrs: { "data-widget": "tree" } },
-        [
-          _c(
+        _vm._l(_vm.navs, function(nav, key) {
+          return _c(
             "li",
+            {
+              key: key,
+              class: {
+                active: nav.name.includes(_vm.$route.name.split(".")[0])
+              }
+            },
             [
-              _c("router-link", { attrs: { to: { name: "index" } } }, [
-                _c("i", { staticClass: "fa fa-dashboard" }),
+              _c("router-link", { attrs: { to: { name: nav.name } } }, [
+                _c("i", { staticClass: "fas", class: nav.icon }),
                 _vm._v(" "),
-                _c("span", [_vm._v("Dashboard")])
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c("router-link", { attrs: { to: { name: "players" } } }, [
-                _c("i", { staticClass: "fa fa-users" }),
-                _vm._v(" "),
-                _c("span", [_vm._v("Players")])
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c("router-link", { attrs: { to: { name: "teams" } } }, [
-                _c("i", { staticClass: "fas fa-user-friends" }),
-                _vm._v(" "),
-                _c("span", [_vm._v("Teams")])
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c("router-link", { attrs: { to: { name: "games" } } }, [
-                _c("i", { staticClass: "fas fa-gamepad" }),
-                _vm._v(" "),
-                _c("span", [_vm._v("Games")])
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c("router-link", { attrs: { to: { name: "tournaments" } } }, [
-                _c("i", { staticClass: "fas fa-trophy" }),
-                _vm._v(" "),
-                _c("span", [_vm._v("Tournaments")])
+                _c("span", [_vm._v(" " + _vm._s(nav.title) + " ")])
               ])
             ],
             1
           )
-        ]
+        }),
+        0
       )
     ])
   ])
@@ -63928,36 +63892,51 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.games, function(game, key) {
-                          return _c("tr", { key: key }, [
-                            _c("td", [_vm._v(_vm._s(game.name))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(game.description))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(game.places))]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
+                        [
+                          !_vm.games.length
+                            ? _c("tr", [
                                 _c(
-                                  "router-link",
+                                  "td",
                                   {
-                                    staticClass: "btn btn-primary",
-                                    attrs: {
-                                      to: {
-                                        name: "game.show",
-                                        params: { id: game.id }
-                                      }
-                                    }
+                                    staticClass: "text-center",
+                                    attrs: { colspan: "4" }
                                   },
-                                  [_c("i", { staticClass: "fas fa-eye" })]
+                                  [_vm._v(" No games registered ... ")]
                                 )
-                              ],
-                              1
-                            )
-                          ])
-                        }),
-                        0
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm._l(_vm.games, function(game, key) {
+                            return _c("tr", { key: key }, [
+                              _c("td", [_vm._v(_vm._s(game.name))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(game.description))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(game.places))]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: {
+                                        to: {
+                                          name: "game.show",
+                                          params: { id: game.id }
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-eye" })]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          })
+                        ],
+                        2
                       )
                     ]
                   )
@@ -65313,36 +65292,51 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.players, function(player, key) {
-                          return _c("tr", { key: key }, [
-                            _c("td", [_vm._v(_vm._s(player.pseudo))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(player.email))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(player.description))]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
+                        [
+                          !_vm.players.length
+                            ? _c("tr", [
                                 _c(
-                                  "router-link",
+                                  "td",
                                   {
-                                    staticClass: "btn btn-primary",
-                                    attrs: {
-                                      to: {
-                                        name: "player.show",
-                                        params: { id: player.id }
-                                      }
-                                    }
+                                    staticClass: "text-center",
+                                    attrs: { colspan: "4" }
                                   },
-                                  [_c("i", { staticClass: "fas fa-eye" })]
+                                  [_vm._v(" No players registered ... ")]
                                 )
-                              ],
-                              1
-                            )
-                          ])
-                        }),
-                        0
+                              ])
+                            : _vm._l(_vm.players, function(player, key) {
+                                return _c("tr", { key: key }, [
+                                  _c("td", [_vm._v(_vm._s(player.pseudo))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(player.email))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(player.description))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          attrs: {
+                                            to: {
+                                              name: "player.show",
+                                              params: { id: player.id }
+                                            }
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fas fa-eye" })]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              })
+                        ],
+                        2
                       )
                     ]
                   )
@@ -65555,6 +65549,12 @@ var render = function() {
                             {
                               directives: [
                                 {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.team.captain_id,
+                                  expression: "team.captain_id"
+                                },
+                                {
                                   name: "show",
                                   rawName: "v-show",
                                   value: !_vm.loading,
@@ -65562,7 +65562,27 @@ var render = function() {
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: { name: "captain", id: "captain" }
+                              attrs: { name: "captain_id", id: "captain_id" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.team,
+                                    "captain_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
                             },
                             [
                               _c(
@@ -65586,7 +65606,136 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "game" }
+                        },
+                        [_vm._v("Game")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-8" },
+                        [
+                          _c("loader", {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.loading,
+                                expression: "loading"
+                              }
+                            ],
+                            attrs: { color: "#337ab7" }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: !_vm.loading,
+                                  expression: "!loading"
+                                },
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.team.game_id,
+                                  expression: "team.game_id"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                name: "game_id",
+                                id: "game_id",
+                                required: ""
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.team,
+                                    "game_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { disabled: "", selected: "" } },
+                                [_vm._v("-- Please choose the game --")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.games, function(game, key) {
+                                return _c(
+                                  "option",
+                                  { key: key, domProps: { value: game.id } },
+                                  [_vm._v(" " + _vm._s(game.name) + " ")]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "avatar" }
+                        },
+                        [_vm._v("Avatar")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-8" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.team.avatar,
+                              expression: "team.avatar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "url",
+                            id: "avatar",
+                            placeholder: "https://..."
+                          },
+                          domProps: { value: _vm.team.avatar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.team, "avatar", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("div", { staticClass: "col-sm-offset-2 col-sm-8" }, [
@@ -65645,30 +65794,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
       _c("h3", { staticClass: "box-title" }, [_vm._v("Create player")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        { staticClass: "col-sm-2 control-label", attrs: { for: "avatar" } },
-        [_vm._v("Avatar")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-8" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "url",
-            id: "avatar",
-            placeholder: "https://imgur.com",
-            required: ""
-          }
-        })
-      ])
     ])
   }
 ]
@@ -65752,8 +65877,7 @@ var render = function() {
                     _c("img", {
                       staticClass: "profile-user-img img-responsive img-circle",
                       attrs: {
-                        src:
-                          "https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg",
+                        src: _vm.team.avatar,
                         alt: "User profile picture"
                       }
                     }),
@@ -65763,53 +65887,63 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-muted text-center" }, [
-                      _vm._v(
-                        " Captain: " + _vm._s(_vm.team.captain.pseudo) + " "
-                      )
+                      _vm._v(" Game: " + _vm._s(_vm.game.name) + " ")
                     ]),
                     _vm._v(" "),
                     _c(
                       "ul",
                       { staticClass: "list-group list-group-unbordered" },
-                      _vm._l(_vm.team.tournamentsParticipation, function(
-                        participation,
-                        key
-                      ) {
+                      _vm._l(_vm.participations, function(participation, key) {
                         return _c(
                           "li",
                           { key: key, staticClass: "list-group-item" },
                           [
                             _c("b", [
-                              _vm._v(
-                                " " +
-                                  _vm._s(participation.tournament_name) +
-                                  " "
-                              )
+                              _vm._v(" " + _vm._s(participation.name) + " ")
                             ]),
                             _vm._v(" "),
                             _c("a", { staticClass: "pull-right" }, [
-                              _vm._v(
-                                " \n                                    " +
-                                  _vm._s(participation.place) +
-                                  " \n                                    "
-                              ),
-                              participation.place == "3rd"
-                                ? _c("i", {
-                                    staticClass: "fas fa-trophy text-danger"
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              participation.place == "2nd"
-                                ? _c("i", {
-                                    staticClass: "fas fa-trophy text-warning"
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              participation.place == "1st"
-                                ? _c("i", {
-                                    staticClass: "fas fa-trophy text-success"
-                                  })
-                                : _vm._e()
+                              participation.pivot.place == 3
+                                ? _c("span", [
+                                    _c(
+                                      "i",
+                                      {
+                                        staticClass: "fas fa-trophy text-danger"
+                                      },
+                                      [_vm._v("3rd")]
+                                    )
+                                  ])
+                                : participation.pivot.place == 2
+                                ? _c("span", [
+                                    _c(
+                                      "i",
+                                      {
+                                        staticClass:
+                                          "fas fa-trophy text-warning"
+                                      },
+                                      [_vm._v("2nd")]
+                                    )
+                                  ])
+                                : participation.pivot.place == 1
+                                ? _c("span", [
+                                    _c(
+                                      "i",
+                                      {
+                                        staticClass:
+                                          "fas fa-trophy text-success"
+                                      },
+                                      [_vm._v("1st")]
+                                    )
+                                  ])
+                                : _c("span", [
+                                    _c("i", { staticClass: "fas fa-trophy" }, [
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(participation.pivot.place) +
+                                          "th"
+                                      )
+                                    ])
+                                  ])
                             ])
                           ]
                         )
@@ -66003,7 +66137,7 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.team.players, function(player, key) {
+                          _vm._l(_vm.players, function(player, key) {
                             return _c("tr", { key: key }, [
                               _c("td", [
                                 _vm._v(" " + _vm._s(player.pseudo) + " ")
@@ -66150,6 +66284,146 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group" }, [
                           _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-2 control-label",
+                              attrs: { for: "game_id" }
+                            },
+                            [_vm._v("Game")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-sm-10" },
+                            [
+                              _c("loader", {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.loading,
+                                    expression: "loading"
+                                  }
+                                ],
+                                attrs: { color: "#337ab7" }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: !_vm.loading,
+                                      expression: "!loading"
+                                    },
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.team.game_id,
+                                      expression: "team.game_id"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    name: "game_id",
+                                    id: "game_id",
+                                    required: ""
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.team,
+                                        "game_id",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    { attrs: { disabled: "", selected: "" } },
+                                    [_vm._v("-- Please choose the game --")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.games, function(game, key) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: key,
+                                        domProps: { value: game.id }
+                                      },
+                                      [_vm._v(" " + _vm._s(game.name) + " ")]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-2 control-label",
+                              attrs: { for: "avatar" }
+                            },
+                            [_vm._v("Avatar")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-10" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.team.avatar,
+                                  expression: "team.avatar"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "url",
+                                id: "avatar",
+                                placeholder: "https://..."
+                              },
+                              domProps: { value: _vm.team.avatar },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.team,
+                                    "avatar",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
                             "div",
                             { staticClass: "col-sm-offset-2 col-sm-10" },
                             [
@@ -66196,12 +66470,34 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.deleteTeam(_vm.team.id)
+                                      return _vm.deleteTeam()
                                     }
                                   }
                                 },
                                 [
-                                  _c("i", { staticClass: "fas fa-trash-alt" }),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: _vm.loading,
+                                        expression: "loading"
+                                      }
+                                    ],
+                                    staticClass: "fas fa-sync fa-spin"
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: !_vm.loading,
+                                        expression: "!loading"
+                                      }
+                                    ],
+                                    staticClass: "fas fa-trash-alt"
+                                  }),
                                   _vm._v(
                                     "\n                                            Delete\n                                        "
                                   )
@@ -66366,36 +66662,89 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.teams, function(team, key) {
-                          return _c("tr", { key: key }, [
-                            _c("td", [_vm._v(_vm._s(team.name))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(team.players))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(team.game))]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
+                        [
+                          !_vm.teams.length
+                            ? _c("tr", [
                                 _c(
-                                  "router-link",
+                                  "td",
                                   {
-                                    staticClass: "btn btn-primary",
-                                    attrs: {
-                                      to: {
-                                        name: "team.show",
-                                        params: { id: team.id }
-                                      }
-                                    }
+                                    staticClass: "text-center",
+                                    attrs: { colspan: "5" }
                                   },
-                                  [_c("i", { staticClass: "fas fa-eye" })]
+                                  [_vm._v(" No teams registered ... ")]
                                 )
-                              ],
-                              1
-                            )
-                          ])
-                        }),
-                        0
+                              ])
+                            : _vm._l(_vm.teams, function(team, key) {
+                                return _c("tr", { key: key }, [
+                                  _c("td", [_vm._v(_vm._s(team.team.name))]),
+                                  _vm._v(" "),
+                                  team.players == team.game.places
+                                    ? _c("td", [
+                                        _c(
+                                          "span",
+                                          { staticClass: "badge bg-green" },
+                                          [_vm._v(" Full ")]
+                                        )
+                                      ])
+                                    : _c("td", [
+                                        _vm._v(
+                                          _vm._s(team.players) +
+                                            " / " +
+                                            _vm._s(team.game.places) +
+                                            " "
+                                        )
+                                      ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(team.game.name))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          attrs: {
+                                            to: {
+                                              name: "player.show",
+                                              params: { id: team.captain.id }
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(team.captain.pseudo) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          attrs: {
+                                            to: {
+                                              name: "team.show",
+                                              params: { id: team.team.id }
+                                            }
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fas fa-eye" })]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              })
+                        ],
+                        2
                       )
                     ]
                   )
@@ -66422,6 +66771,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Players")]),
         _vm._v(" "),
         _c("th", [_vm._v("Game")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Captain")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
@@ -67989,88 +68340,120 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.tournaments, function(tournament, key) {
-                          return _c("tr", { key: key }, [
-                            _c("td", [
-                              _vm._v(_vm._s(tournament.tournament.name))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(tournament.game.name))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(tournament.tournament.start_date) +
-                                  " | " +
-                                  _vm._s(tournament.tournament.end_date)
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(tournament.tournament.places))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(tournament.tournament.cashprize))
-                            ]),
-                            _vm._v(" "),
-                            tournament.tournament.status == "Open"
-                              ? _c("td", [
-                                  _c(
-                                    "span",
-                                    { staticClass: "label label-success" },
-                                    [
-                                      _vm._v(
-                                        _vm._s(tournament.tournament.status)
-                                      )
-                                    ]
-                                  )
-                                ])
-                              : tournament.tournament.status == "Closed"
-                              ? _c("td", [
-                                  _c(
-                                    "span",
-                                    { staticClass: "label label-danger" },
-                                    [
-                                      _vm._v(
-                                        _vm._s(tournament.tournament.status)
-                                      )
-                                    ]
-                                  )
-                                ])
-                              : _c("td", [
-                                  _c(
-                                    "span",
-                                    { staticClass: "label label-warning" },
-                                    [
-                                      _vm._v(
-                                        _vm._s(tournament.tournament.status)
-                                      )
-                                    ]
-                                  )
-                                ]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
+                        [
+                          !_vm.tournaments.length
+                            ? _c("tr", [
                                 _c(
-                                  "router-link",
+                                  "td",
                                   {
-                                    staticClass: "btn btn-primary",
-                                    attrs: {
-                                      to: {
-                                        name: "tournament.show",
-                                        params: { id: tournament.tournament.id }
-                                      }
-                                    }
+                                    staticClass: "text-center",
+                                    attrs: { colspan: "7" }
                                   },
-                                  [_c("i", { staticClass: "fas fa-eye" })]
+                                  [_vm._v(" No tournaments registered ... ")]
                                 )
-                              ],
-                              1
-                            )
-                          ])
-                        }),
-                        0
+                              ])
+                            : _vm._l(_vm.tournaments, function(
+                                tournament,
+                                key
+                              ) {
+                                return _c("tr", { key: key }, [
+                                  _c("td", [
+                                    _vm._v(_vm._s(tournament.tournament.name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(tournament.game.name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(tournament.tournament.start_date) +
+                                        " | " +
+                                        _vm._s(tournament.tournament.end_date)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(tournament.tournament.places))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(tournament.tournament.cashprize)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  tournament.tournament.status == "Open"
+                                    ? _c("td", [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass: "label label-success"
+                                          },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                tournament.tournament.status
+                                              )
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    : tournament.tournament.status == "Closed"
+                                    ? _c("td", [
+                                        _c(
+                                          "span",
+                                          { staticClass: "label label-danger" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                tournament.tournament.status
+                                              )
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    : _c("td", [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass: "label label-warning"
+                                          },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                tournament.tournament.status
+                                              )
+                                            )
+                                          ]
+                                        )
+                                      ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          attrs: {
+                                            to: {
+                                              name: "tournament.show",
+                                              params: {
+                                                id: tournament.tournament.id
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fas fa-eye" })]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              })
+                        ],
+                        2
                       )
                     ]
                   )

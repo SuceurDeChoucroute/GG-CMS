@@ -20,6 +20,11 @@ class Team extends Model
         return $this->belongsToMany('App\User')->withPivot('captain');
     }
 
+    public function captain()
+    {
+        return $this->players()->where('captain', true);
+    }
+
     public function tournaments()
     {
         return $this->belongsToMany('App\Tournament')->withPivot('place');

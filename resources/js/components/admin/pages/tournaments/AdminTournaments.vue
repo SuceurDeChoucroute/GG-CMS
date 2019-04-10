@@ -37,7 +37,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(tournament, key) in tournaments" :key="key">
+                                    <tr v-if="!tournaments.length">
+                                        <td colspan="7" class="text-center"> No tournaments registered ... </td>
+                                    </tr>
+                                    <tr v-else v-for="(tournament, key) in tournaments" :key="key">
                                         <td>{{ tournament.tournament.name }}</td>
                                         <td>{{ tournament.game.name }}</td>
                                         <td>{{ tournament.tournament.start_date }} | {{ tournament.tournament.end_date }}</td>

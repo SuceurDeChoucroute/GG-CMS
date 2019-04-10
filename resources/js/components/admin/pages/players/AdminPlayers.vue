@@ -34,7 +34,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(player, key) in players" :key="key">
+                                    <tr v-if="!players.length">
+                                        <td colspan="4" class="text-center"> No players registered ... </td>
+                                    </tr>
+                                    <tr v-else v-for="(player, key) in players" :key="key">
                                         <td>{{ player.pseudo }}</td>
                                         <td>{{ player.email }}</td>
                                         <td>{{ player.description }}</td>

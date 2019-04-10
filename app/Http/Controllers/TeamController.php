@@ -14,7 +14,17 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return Team::all();
+        $teams = [];
+
+        foreach (Team::all() as $key => $team) {
+            array_push($teams, [
+                'team' => $team,
+                'players' => count($team->players),
+                'game' => $team->game,
+                'captain' => $team->captain[0],
+            ]);
+        }
+        return $teams;
     }
 
     /**
@@ -28,9 +38,16 @@ class TeamController extends Controller
         $team = new Team;
         $team->name = $request->name;
         $team->description = $request->description;
-        $team->avatar = $request->avatar;
         $team->game_id = $request->game_id;
+        if (!$request->avatar) {
+            $team->avatar = "https://api.adorable.io/avatars/285/".$request->name;
+        }
+        else {
+            $team->avatar = $request->avatar;
+        }
         $team->save();
+
+        $team->players()->attach($request->captain_id, ['captain' => true]);
 
         return $team;
     }
@@ -43,7 +60,12 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        return $team;
+        return [
+            'team' => $team,
+            'players' => $team->players,
+            'game' => $team->game,
+            'participations' => $team->tournaments
+        ];
     }
 
     /**

@@ -34,6 +34,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr v-if="!games.length">
+                                        <td colspan="4" class="text-center"> No games registered ... </td>
+                                    </tr>
                                     <tr v-for="(game, key) in games" :key="key">
                                         <td>{{ game.name }}</td>
                                         <td>{{ game.description }}</td>
