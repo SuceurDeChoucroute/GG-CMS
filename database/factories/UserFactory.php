@@ -19,7 +19,7 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'pseudo' => $faker->name,
-        'avatar' => $faker->imageUrl(640, 480, 'cats', true),
+        'avatar' => $faker->imageUrl(480, 480, 'cats', true),
         'description' => $faker->sentence(10),
         'birth_date' => '1999-01-01',
         'admin' => false,
