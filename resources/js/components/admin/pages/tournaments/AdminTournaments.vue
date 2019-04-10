@@ -10,11 +10,17 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">
                                 Tournaments
+                            </h3>
+                            <div class="box-tools pull-right">
                                 <router-link :to="{ name: 'tournament.create'}" class="btn btn-success">
                                     <i class="fas fa-plus"></i>
                                     Add
                                 </router-link>
-                            </h3>
+                                <button class="btn btn-info" @click="getTournaments()">
+                                    <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i>
+                                    Refresh
+                                </button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <loader :color="'#337ab7'" v-show="loading"></loader>
@@ -34,8 +40,8 @@
                                     <tr v-for="(tournament, key) in tournaments" :key="key">
                                         <td>{{ tournament.tournament.name }}</td>
                                         <td>{{ tournament.game.name }}</td>
-                                        <td>{{ tournament.tournament.start_date }} | {{ tournament.end_date }}</td>
-                                        <td>{{ tournament.tournament.place }}</td>
+                                        <td>{{ tournament.tournament.start_date }} | {{ tournament.tournament.end_date }}</td>
+                                        <td>{{ tournament.tournament.places }}</td>
                                         <td>{{ tournament.tournament.cashprize }}</td>
                                         <td v-if="tournament.tournament.status == 'Open'"><span class="label label-success">{{ tournament.tournament.status }}</span></td>
                                         <td v-else-if="tournament.tournament.status == 'Closed'"><span class="label label-danger">{{ tournament.tournament.status }}</span></td>
@@ -81,6 +87,13 @@ export default {
             .then(response => {
                 this.tournaments = response.data
                 this.loading = false
+            })
+            .catch(e => {
+                this.loading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please refresh the page"
+                })
             })
         }
     },

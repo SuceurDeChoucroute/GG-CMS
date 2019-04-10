@@ -10,11 +10,17 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">
                                 Games
+                            </h3>
+                            <div class="box-tools pull-right">
                                 <router-link :to="{ name: 'game.create'}" class="btn btn-success">
                                     <i class="fas fa-plus"></i>
                                     Add
                                 </router-link>
-                            </h3>
+                                <button class="btn btn-info" @click="getGames()">
+                                    <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i>
+                                    Refresh
+                                </button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <loader :color="'#337ab7'" v-show="loading"></loader>
