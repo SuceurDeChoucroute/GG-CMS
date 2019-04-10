@@ -14,19 +14,27 @@
                     <div class="box box-primary">
                         <loader :color="'#337ab7'" v-show="loading"></loader>
                         <div class="box-body box-profile" v-show="!loading">
-                            <img class="profile-user-img img-responsive img-circle" src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" alt="User profile picture">
+                            <img class="profile-user-img img-responsive img-circle" :src="team.avatar" alt="User profile picture">
 
                             <h3 class="profile-username text-center"> {{ team.name }} </h3>
-                            <p class="text-muted text-center"> Captain: {{ team.captain.pseudo }} </p>
+                            <p class="text-muted text-center"> Game: {{ game.name }} </p>
 
                             <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item" v-for="(participation, key) in team.tournamentsParticipation" :key="key">
-                                    <b> {{ participation.tournament_name }} </b> 
+                                <li class="list-group-item" v-for="(participation, key) in participations" :key="key">
+                                    <b> {{ participation.name }} </b> 
                                     <a class="pull-right"> 
-                                        {{ participation.place }} 
-                                        <i class="fas fa-trophy text-danger" v-if="participation.place == '3rd'"></i>
-                                        <i class="fas fa-trophy text-warning" v-if="participation.place == '2nd'"></i>
-                                        <i class="fas fa-trophy text-success" v-if="participation.place == '1st'"></i>
+                                        <span v-if="participation.pivot.place == 3">
+                                            <i class="fas fa-trophy text-danger" >3rd</i>
+                                        </span>
+                                        <span v-else-if="participation.pivot.place == 2">
+                                            <i class="fas fa-trophy text-warning" >2nd</i>
+                                        </span>
+                                        <span v-else-if="participation.pivot.place == 1">
+                                            <i class="fas fa-trophy text-success" >1st</i>
+                                        </span>
+                                        <span v-else>
+                                            <i class="fas fa-trophy" > {{ participation.pivot.place }}th</i>
+                                        </span>
                                     </a>
                                 </li>
                             </ul>
@@ -80,7 +88,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(player, key) in team.players" :key="key">
+                                        <tr v-for="(player, key) in players" :key="key">
                                             <td> {{ player.pseudo }} </td>
                                             <td> {{ player.description }} </td>
                                             <td class="text-center">
@@ -112,13 +120,30 @@
                                             <textarea id="description" cols="30" rows="5" class="form-control" style="resize: none;" v-model="team.description" required></textarea>
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group">
+
+                                    <!-- Game -->
+                                    <div class="form-group">
+                                        <label for="game_id" class="col-sm-2 control-label">Game</label>
+
+                                        <div class="col-sm-10">
+                                            <loader :color="'#337ab7'" v-show="loading"></loader>
+                                            <select name="game_id" id="game_id" class="form-control" v-show="!loading"  v-model="team.game_id" required>
+                                                <option disabled selected>-- Please choose the game --</option>
+                                                <option :value="game.id" v-for="(game, key) in games" :key="key"> {{ game.name }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Avatar -->
+                                    <div class="form-group">
                                         <label for="avatar" class="col-sm-2 control-label">Avatar</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="avatar" placeholder="Name">
+                                            <input type="url" class="form-control" id="avatar" placeholder="https://..." v-model="team.avatar">
                                         </div>
-                                    </div> -->
+                                    </div>
+
+                                    <!-- Update & Delete button -->
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button type="submit" class="btn btn-success">
@@ -127,8 +152,9 @@
                                                 Update
                                             </button>
 
-                                            <button type="button" class="btn btn-danger" @click="deleteTeam(team.id)">
-                                                <i class="fas fa-trash-alt"></i>
+                                            <button type="button" class="btn btn-danger" @click="deleteTeam()">
+                                                <i class="fas fa-sync fa-spin" v-show="loading"></i>
+                                                <i class="fas fa-trash-alt" v-show="!loading"></i>
                                                 Delete
                                             </button>
                                         </div>
@@ -156,44 +182,11 @@ export default {
     data() {
         return {
             loading: false,
-            team: {
-                id: this.$route.params.id,
-                name: "Choucroute Powa",
-                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
-                captain: {id: 6, pseudo: 'Gotaga'  , email: 'gotaga@example.com', description: "The french monster !"},
-                players: [
-                    {id: 1, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                    {id: 2, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                    {id: 6, pseudo: 'Gotaga'  , email: 'gotaga@example.com', description: "The french monster !"},
-                    {id: 3, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                    {id: 4, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                ],
-                tournamentsParticipation: [
-                    { tournament_name: "GG-LAN #8", place: "1st" },
-                    { tournament_name: "GG-LAN #7", place: "2nd" },
-                    { tournament_name: "GG-LAN #6", place: "3rd" },
-                    { tournament_name: "GG-LAN #5", place: "5th" },
-                ]
-            },
-            teamBeforeUpdate: {
-                id: this.$route.params.id,
-                name: "Choucroute Powa",
-                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, mollitia!",
-                captain: {id: 6, pseudo: 'Gotaga'  , email: 'gotaga@example.com', description: "The french monster !"},
-                players: [
-                    {id: 1, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                    {id: 2, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                    {id: 6, pseudo: 'Gotaga'  , email: 'gotaga@example.com', description: "The french monster !"},
-                    {id: 3, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                    {id: 4, pseudo: 'John Doe', email: 'john.doe@example.com', description: "I'm the best and i know it !"},
-                ],
-                tournamentsParticipation: [
-                    { tournament_name: "GG-LAN #8", place: "1st" },
-                    { tournament_name: "GG-LAN #7", place: "2nd" },
-                    { tournament_name: "GG-LAN #6", place: "3rd" },
-                    { tournament_name: "GG-LAN #5", place: "5th" },
-                ]
-            },
+            team: {},
+            players: [],
+            game: {},
+            games: [],
+            participations: [],
         }
     },
 
@@ -203,45 +196,96 @@ export default {
             this.$router.push({name: 'teams'});
         },
 
-        // Update the team
-        updateTeam() {
-            this.loading = true;
-            if (this.team.name != this.teamBeforeUpdate.name || 
-                this.team.description != this.teamBeforeUpdate.description) {
+        // Get team
+        getTeam() {
+            let id = this.$route.params.id
+            this.loading = true
 
-                // Update player info before update
-                this.teamBeforeUpdate.name = this.team.name
-                this.teamBeforeUpdate.description = this.team.description
-                
+            axios.get('/api/teams/' + id)
+            .then(response => {
+                this.team = response.data.team
+                this.players = response.data.players
+                this.game = response.data.game
+                this.participations = response.data.participations
+                this.loading = false
+            })
+            .catch(e => {
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
+                this.loading = false
+            })
+        },
+
+        getGames() {
+            this.loading = true
+
+            axios.get('/api/games')
+            .then(response => {
+                this.loading = false
+                this.games = response.data
+            })
+            .catch(e => {
+                this.loading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
+            })
+        },
+
+        // Update team
+        updateTeam() {
+            let id = this.$route.params.id
+            this.loading = true;
+
+            axios.put('/api/teams/' + id, this.team)
+            .then(response => {
+                this.getTeam()
                 this.flashMessage.success({
                     title: "Team updated !",
                     message: "The team has been successfully updated"
                 })
-            }
-            else {
+                this.loading = false
+            })
+            .catch(e => {
                 this.flashMessage.error({
-                    title: "You didn't change any fields !",
-                    message: "You have to change a least one field to update the team"
+                    title: "Something went wrong",
+                    message: "Please try again"
                 })
-            }
-
-            this.loading = false;
+                this.loading = false
+            })
         },
 
-        // Delete the team
-        deleteTeam(id) {
+        // Delete team
+        deleteTeam() {
             if (confirm("Are you sure you want to delete this team ? It's definitive")) {
-                this.flashMessage.success({
-                    title: "Team deleted !",
-                    message: "The team has been successfully deleted"
+                let id = this.$route.params.id
+                axios.delete('/api/teams/' + id)
+                .then(response => {
+                    this.loading = false
+                    this.flashMessage.success({
+                        title: "Team deleted !",
+                        message: "The team has been successfully deleted"
+                    })
+                    this.loading = true
+                    this.goToTeamsList();
                 })
-                this.goToTeamsList();
+                .catch(e => {
+                    this.flashMessage.error({
+                        title: "Something went wrong",
+                        message: "Please try again"
+                    })
+                    this.loading = false
+                })
             }
-
-            // this.flashMessage.error({
-            //     title: "Something went wrong",
-            //     message: "Please try again"
         },
+    },
+
+    mounted() {
+        this.getTeam()
+        this.getGames()
     }
 }
 </script>

@@ -30,19 +30,30 @@
                                         <th>Name</th>
                                         <th>Players</th>
                                         <th>Game</th>
+                                        <th>Captain</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(team, key) in teams" :key="key">
-                                        <td>{{ team.name }}</td>
-                                        <td>{{ team.players }}</td>
-                                        <td>{{ team.game }}</td>
+                                    <tr v-if="!teams.length">
+                                        <td colspan="5" class="text-center"> No teams registered ... </td>
+                                    </tr>
+                                    <tr v-else v-for="(team, key) in teams" :key="key">
+                                        <td>{{ team.team.name }}</td>
+                                        <td v-if="team.players == team.game.places">
+                                            <span class="badge bg-green"> Full </span>
+                                        </td>
+                                        <td v-else>{{ team.players }} / {{ team.game.places }} </td>
+                                        <td>{{ team.game.name }}</td>
+                                        <td> 
+                                            <router-link :to="{ name: 'player.show', params: {id: team.captain.id} }">
+                                                {{ team.captain.pseudo }}
+                                            </router-link>
+                                        </td>
                                         <td>
-                                            <router-link :to="{ name: 'team.show', params: {id: team.id} }" class="btn btn-primary">
+                                            <router-link :to="{ name: 'team.show', params: {id: team.team.id} }" class="btn btn-primary">
                                                 <i class="fas fa-eye"></i>
                                             </router-link>
-                                            
                                         </td>
                                     </tr>
                                 </tbody>
@@ -68,32 +79,25 @@ export default {
     data() {
         return {
             loading: false,
-            teams: [
-                { id:1, name: "Berzerker", players: 4, game: "ForHonor" },
-                { id:2, name: "FritesAuFourSalé", players: 5, game: "CS:GO" },
-                { id:3, name: "No pain no choucroute", players: 3, game: "CS:GO" },
-                { id:4, name: "Enraged Warriors", players: 2, game: "ForHonor" },
-                { id:5, name: "Obvious Kill", players: 5, game: "CS:GO" },
-                { id:6, name: "No Beta Test", players: 1, game: "ForHonor" },
-            ],
-            team: {
-                id: 99,
-                name: "Test Team",
-                players: 10,
-                game: "CS:GO",
-            }
+            teams: [],
         }
     },
 
     methods: {
-        addTeam() {
-            this.teams.push(this.team)
-            this.flashMessage.success({
-                title: "Team added !",
-                message: "The team has been successfully added"
+        getTeams() {
+            this.loading = true
+            
+            axios.get('/api/teams')
+            .then(response => {
+                this.teams = response.data
+                this.loading = false
             })
         },
     },
+
+    mounted() {
+        this.getTeams()
+    }
 }
 </script>
 
