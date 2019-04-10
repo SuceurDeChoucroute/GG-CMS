@@ -22,6 +22,10 @@ class DatabaseSeeder extends Seeder
         $teams = factory(App\Team::class, 5)->create();
         $teams[0]->players()->attach($players[0]->id, ['captain' => true]);
         $teams[0]->players()->attach($players[1]->id);
+        $teams[1]->players()->attach($players[2]->id, ['captain' => true]);
+        $teams[2]->players()->attach($players[3]->id, ['captain' => true]);
+        $teams[3]->players()->attach($players[4]->id, ['captain' => true]);
+        $teams[4]->players()->attach($players[5]->id, ['captain' => true]);
 
         // Tournaments
         factory(App\Tournament::class, 5)->create();
