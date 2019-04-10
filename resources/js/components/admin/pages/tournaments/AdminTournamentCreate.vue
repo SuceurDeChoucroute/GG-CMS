@@ -41,7 +41,7 @@
 
                                     <div class="col-sm-10">
                                         <loader :color="'#337ab7'" v-show="loading"></loader>
-                                        <select name="game" id="game" class="form-control" v-show="!loading" required>
+                                        <select name="game_id" id="game_id" class="form-control" v-show="!loading"  v-model="tournament.game_id" required>
                                             <option disabled selected>-- Please choose the game --</option>
                                             <option :value="game.id" v-for="(game, key) in games" :key="key"> {{ game.name }} </option>
                                         </select>
@@ -53,20 +53,20 @@
                                     <label for="name" class="col-sm-2 control-label">Start & End Date</label>
 
                                     <div class="col-sm-5">
-                                        <input type="date" class="form-control" id="startDate" v-model="tournament.startDate" required>
+                                        <input type="date" class="form-control" id="startDate" v-model="tournament.start_date" required>
                                     </div>
                                     
                                     <div class="col-sm-5">
-                                        <input type="date" class="form-control" id="endDate" v-model="tournament.endDate" required>
+                                        <input type="date" class="form-control" id="endDate" v-model="tournament.end_date" required>
                                     </div>
                                 </div>
 
-                                <!-- Place -->
+                                <!-- Places -->
                                 <div class="form-group">
-                                    <label for="place" class="col-sm-2 control-label">Place</label>
+                                    <label for="places" class="col-sm-2 control-label">Places</label>
 
                                     <div class="col-sm-10">
-                                        <input type="number" min="0" step="1" class="form-control" id="place" placeholder="Place" v-model="tournament.place" required>
+                                        <input type="number" min="0" step="1" class="form-control" id="places" placesholder="Places" v-model="tournament.places" required>
                                     </div>
                                 </div>
 
@@ -119,21 +119,17 @@ export default {
         return {
             loading: false,
             tournament: {
-                id: 99,
                 name: '',
                 description: "",
-                game: '',
-                startDate: '',
-                endDate: '',
-                place: '',
+                game_id: '',
+                start_date: '',
+                end_date: '',
+                places: '',
                 cashprize: '',
-                status: '',
+                status: 'Closed',
                 image: '',
             },
-            games: [
-                { id: 1, name: "CS:GO", description: "An amazing FPS shooter", place: 5 },
-                { id: 2, name: "ForHonor", description: "Now you are an ultimate warrior", place: 4 },
-            ],
+            games: [],
         }
     },
 
@@ -143,13 +139,40 @@ export default {
         },
 
         createTournament() {
-            this.$router.push({ name: 'tournament.show', params: {id: this.tournament.id} })
-            this.flashMessage.success({
-                title: "Tournament added !",
-                message: "The tournament has been successfully added"
+            this.loading = true
+            axios.post('/api/tournaments', this.tournament)
+            .then(response => {
+                this.loading = false
+                this.tournament = response.data
+                
+                this.flashMessage.success({
+                    title: "Tournament added !",
+                    message: "The tournament has been successfully added"
+                })
+                this.$router.push({ name: 'tournament.show', params: {id: this.tournament.id} })
+            })
+            .catch(e => {
+                this.loading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
             })
         },
+
+        getGames() {
+            this.loading = true
+            axios.get('/api/games')
+            .then(response => {
+                this.games = response.data
+                this.loading = false
+            })
+        }
     },
+
+    mounted() {
+        this.getGames()
+    }
 }
 </script>
 

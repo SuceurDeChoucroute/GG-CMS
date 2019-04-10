@@ -2589,6 +2589,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3071,6 +3077,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../layouts/AdminContentHeader */ "./resources/js/components/admin/layouts/AdminContentHeader.vue");
 /* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3694,6 +3706,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3884,28 +3902,17 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: false,
       tournament: {
-        id: 99,
         name: '',
         description: "",
-        game: '',
-        startDate: '',
-        endDate: '',
-        place: '',
+        game_id: '',
+        start_date: '',
+        end_date: '',
+        places: '',
         cashprize: '',
-        status: '',
+        status: 'Closed',
         image: ''
       },
-      games: [{
-        id: 1,
-        name: "CS:GO",
-        description: "An amazing FPS shooter",
-        place: 5
-      }, {
-        id: 2,
-        name: "ForHonor",
-        description: "Now you are an ultimate warrior",
-        place: 4
-      }]
+      games: []
     };
   },
   methods: {
@@ -3915,17 +3922,45 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createTournament: function createTournament() {
-      this.$router.push({
-        name: 'tournament.show',
-        params: {
-          id: this.tournament.id
-        }
+      var _this = this;
+
+      this.loading = true;
+      axios.post('/api/tournaments', this.tournament).then(function (response) {
+        _this.loading = false;
+        _this.tournament = response.data;
+
+        _this.flashMessage.success({
+          title: "Tournament added !",
+          message: "The tournament has been successfully added"
+        });
+
+        _this.$router.push({
+          name: 'tournament.show',
+          params: {
+            id: _this.tournament.id
+          }
+        });
+      }).catch(function (e) {
+        _this.loading = false;
+
+        _this.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please try again"
+        });
       });
-      this.flashMessage.success({
-        title: "Tournament added !",
-        message: "The tournament has been successfully added"
+    },
+    getGames: function getGames() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get('/api/games').then(function (response) {
+        _this2.games = response.data;
+        _this2.loading = false;
       });
     }
+  },
+  mounted: function mounted() {
+    this.getGames();
   }
 });
 
@@ -4314,6 +4349,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4335,6 +4376,13 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/tournaments').then(function (response) {
         _this.tournaments = response.data;
         _this.loading = false;
+      }).catch(function (e) {
+        _this.loading = false;
+
+        _this.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please refresh the page"
+        });
       });
     }
   },
@@ -41736,13 +41784,16 @@ var render = function() {
           _c("div", { staticClass: "col-lg-12" }, [
             _c("div", { staticClass: "box box-primary" }, [
               _c("div", { staticClass: "box-header with-border" }, [
+                _c("h3", { staticClass: "box-title" }, [
+                  _vm._v(
+                    "\n                            Games\n                        "
+                  )
+                ]),
+                _vm._v(" "),
                 _c(
-                  "h3",
-                  { staticClass: "box-title" },
+                  "div",
+                  { staticClass: "box-tools pull-right" },
                   [
-                    _vm._v(
-                      "\n                            Games\n                            "
-                    ),
                     _c(
                       "router-link",
                       {
@@ -41753,6 +41804,27 @@ var render = function() {
                         _c("i", { staticClass: "fas fa-plus" }),
                         _vm._v(
                           "\n                                Add\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info",
+                        on: {
+                          click: function($event) {
+                            return _vm.getGames()
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fas fa-sync",
+                          class: { "fa-spin": _vm.loading }
+                        }),
+                        _vm._v(
+                          "\n                                Refresh\n                            "
                         )
                       ]
                     )
@@ -43097,13 +43169,16 @@ var render = function() {
           _c("div", { staticClass: "col-lg-12" }, [
             _c("div", { staticClass: "box box-primary" }, [
               _c("div", { staticClass: "box-header with-border" }, [
+                _c("h3", { staticClass: "box-title" }, [
+                  _vm._v(
+                    "\n                            Players\n                        "
+                  )
+                ]),
+                _vm._v(" "),
                 _c(
-                  "h3",
-                  { staticClass: "box-title" },
+                  "div",
+                  { staticClass: "box-tools pull-right" },
                   [
-                    _vm._v(
-                      "\n                            Players\n                            "
-                    ),
                     _c(
                       "router-link",
                       {
@@ -43114,6 +43189,27 @@ var render = function() {
                         _c("i", { staticClass: "fas fa-plus" }),
                         _vm._v(
                           "\n                                Add\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info",
+                        on: {
+                          click: function($event) {
+                            return _vm.getPlayers()
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fas fa-sync",
+                          class: { "fa-spin": _vm.loading }
+                        }),
+                        _vm._v(
+                          "\n                                Refresh\n                            "
                         )
                       ]
                     )
@@ -44126,13 +44222,16 @@ var render = function() {
           _c("div", { staticClass: "col-lg-12" }, [
             _c("div", { staticClass: "box box-primary" }, [
               _c("div", { staticClass: "box-header with-border" }, [
+                _c("h3", { staticClass: "box-title" }, [
+                  _vm._v(
+                    "\n                            Teams\n                        "
+                  )
+                ]),
+                _vm._v(" "),
                 _c(
-                  "h3",
-                  { staticClass: "box-title" },
+                  "div",
+                  { staticClass: "box-tools pull-right" },
                   [
-                    _vm._v(
-                      "\n                            Teams\n                            "
-                    ),
                     _c(
                       "router-link",
                       {
@@ -44143,6 +44242,27 @@ var render = function() {
                         _c("i", { staticClass: "fas fa-plus" }),
                         _vm._v(
                           "\n                                Add\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info",
+                        on: {
+                          click: function($event) {
+                            return _vm.getTeams()
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fas fa-sync",
+                          class: { "fa-spin": _vm.loading }
+                        }),
+                        _vm._v(
+                          "\n                                Refresh\n                            "
                         )
                       ]
                     )
@@ -44435,10 +44555,40 @@ var render = function() {
                                   rawName: "v-show",
                                   value: !_vm.loading,
                                   expression: "!loading"
+                                },
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.tournament.game_id,
+                                  expression: "tournament.game_id"
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: { name: "game", id: "game", required: "" }
+                              attrs: {
+                                name: "game_id",
+                                id: "game_id",
+                                required: ""
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.tournament,
+                                    "game_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
                             },
                             [
                               _c(
@@ -44478,8 +44628,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.tournament.startDate,
-                              expression: "tournament.startDate"
+                              value: _vm.tournament.start_date,
+                              expression: "tournament.start_date"
                             }
                           ],
                           staticClass: "form-control",
@@ -44488,7 +44638,7 @@ var render = function() {
                             id: "startDate",
                             required: ""
                           },
-                          domProps: { value: _vm.tournament.startDate },
+                          domProps: { value: _vm.tournament.start_date },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -44496,7 +44646,7 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.tournament,
-                                "startDate",
+                                "start_date",
                                 $event.target.value
                               )
                             }
@@ -44510,13 +44660,13 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.tournament.endDate,
-                              expression: "tournament.endDate"
+                              value: _vm.tournament.end_date,
+                              expression: "tournament.end_date"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { type: "date", id: "endDate", required: "" },
-                          domProps: { value: _vm.tournament.endDate },
+                          domProps: { value: _vm.tournament.end_date },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -44524,7 +44674,7 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.tournament,
-                                "endDate",
+                                "end_date",
                                 $event.target.value
                               )
                             }
@@ -44538,9 +44688,9 @@ var render = function() {
                         "label",
                         {
                           staticClass: "col-sm-2 control-label",
-                          attrs: { for: "place" }
+                          attrs: { for: "places" }
                         },
-                        [_vm._v("Place")]
+                        [_vm._v("Places")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-sm-10" }, [
@@ -44549,8 +44699,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.tournament.place,
-                              expression: "tournament.place"
+                              value: _vm.tournament.places,
+                              expression: "tournament.places"
                             }
                           ],
                           staticClass: "form-control",
@@ -44558,11 +44708,11 @@ var render = function() {
                             type: "number",
                             min: "0",
                             step: "1",
-                            id: "place",
-                            placeholder: "Place",
+                            id: "places",
+                            placesholder: "Places",
                             required: ""
                           },
-                          domProps: { value: _vm.tournament.place },
+                          domProps: { value: _vm.tournament.places },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -44570,7 +44720,7 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.tournament,
-                                "place",
+                                "places",
                                 $event.target.value
                               )
                             }
@@ -45695,13 +45845,16 @@ var render = function() {
           _c("div", { staticClass: "col-lg-12" }, [
             _c("div", { staticClass: "box box-primary" }, [
               _c("div", { staticClass: "box-header with-border" }, [
+                _c("h3", { staticClass: "box-title" }, [
+                  _vm._v(
+                    "\n                            Tournaments\n                        "
+                  )
+                ]),
+                _vm._v(" "),
                 _c(
-                  "h3",
-                  { staticClass: "box-title" },
+                  "div",
+                  { staticClass: "box-tools pull-right" },
                   [
-                    _vm._v(
-                      "\n                            Tournaments\n                            "
-                    ),
                     _c(
                       "router-link",
                       {
@@ -45712,6 +45865,27 @@ var render = function() {
                         _c("i", { staticClass: "fas fa-plus" }),
                         _vm._v(
                           "\n                                Add\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info",
+                        on: {
+                          click: function($event) {
+                            return _vm.getTournaments()
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fas fa-sync",
+                          class: { "fa-spin": _vm.loading }
+                        }),
+                        _vm._v(
+                          "\n                                Refresh\n                            "
                         )
                       ]
                     )
@@ -45767,12 +45941,12 @@ var render = function() {
                               _vm._v(
                                 _vm._s(tournament.tournament.start_date) +
                                   " | " +
-                                  _vm._s(tournament.end_date)
+                                  _vm._s(tournament.tournament.end_date)
                               )
                             ]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v(_vm._s(tournament.tournament.place))
+                              _vm._v(_vm._s(tournament.tournament.places))
                             ]),
                             _vm._v(" "),
                             _c("td", [
