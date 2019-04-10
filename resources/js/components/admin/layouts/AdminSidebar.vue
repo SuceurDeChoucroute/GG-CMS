@@ -12,38 +12,10 @@
             </div>
 
             <ul class="sidebar-menu" data-widget="tree">
-                <li>
-                    <router-link :to="{ name: 'index' }">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span> 
-                    </router-link>
-                </li>
-
-                <li>
-                    <router-link :to="{ name: 'players' }">
-                        <i class="fa fa-users"></i>
-                        <span>Players</span> 
-                    </router-link>
-                </li>
-
-                <li>
-                    <router-link :to="{ name: 'teams' }">
-                        <i class="fas fa-user-friends"></i>
-                        <span>Teams</span> 
-                    </router-link>
-                </li>
-
-                <li>
-                    <router-link :to="{ name: 'games' }">
-                        <i class="fas fa-gamepad"></i>
-                        <span>Games</span> 
-                    </router-link>
-                </li>
-
-                <li>
-                    <router-link :to="{ name: 'tournaments' }">
-                        <i class="fas fa-trophy"></i>
-                        <span>Tournaments</span> 
+                <li v-for="(nav, key) in navs" :key="key" :class="{ 'active':nav.name.includes($route.name.split('.')[0]) }">
+                    <router-link :to="{ name: nav.name }">
+                        <i class="fas" :class="nav.icon"></i>
+                        <span> {{ nav.title }} </span> 
                     </router-link>
                 </li>
             </ul>
@@ -53,7 +25,17 @@
 
 <script>
 export default {
-
+    data() {
+        return {
+            navs: [
+                { name: 'index', icon: 'fa-tachometer-alt', title: 'Dashboard'},
+                { name: 'players', icon: 'fa-users', title: 'Players'},
+                { name: 'teams', icon: 'fa-user-friends', title: 'Teams'},
+                { name: 'games', icon: 'fa-gamepad', title: 'Games'},
+                { name: 'tournaments', icon: 'fa-trophy', title: 'Tournaments'},
+            ]
+        }
+    },
 }
 </script>
 
