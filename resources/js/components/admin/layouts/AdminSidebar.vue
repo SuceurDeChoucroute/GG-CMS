@@ -34,6 +34,7 @@ export default {
                 { name: 'games', icon: 'fa-gamepad', title: 'Games'},
                 { name: 'tournaments', icon: 'fa-trophy', title: 'Tournaments'},
                 { name: 'posts', icon: 'fa-newspaper', title: 'Posts'},
+                { name: 'rules', icon: 'fa-align-left', title: 'Rules'},
             ]
         }
     },

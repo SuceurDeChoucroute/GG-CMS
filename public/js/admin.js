@@ -3926,6 +3926,28 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.loading = false;
       });
+    },
+    updateRules: function updateRules() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.put('/api/rules', this.rules).then(function (response) {
+        _this2.rules = response.data;
+
+        _this2.flashMessage.success({
+          title: "Rules updated !",
+          message: "The rules has been successfully updated"
+        });
+
+        _this2.loading = false;
+      }).catch(function (e) {
+        _this2.flashMessage.error({
+          title: "Something went wrong",
+          message: "Please try again"
+        });
+
+        _this2.loading = false;
+      });
     }
   },
   mounted: function mounted() {

@@ -41,3 +41,7 @@ Route::get('tournaments/{tournament}/teams', 'TournamentController@teams')->name
 
 // Posts
 Route::resource('posts', 'PostController');
+
+// Rules
+Route::get('rules', 'RuleController@show');
+Route::put('rules', 'RuleController@update');

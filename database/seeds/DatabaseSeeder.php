@@ -32,5 +32,8 @@ class DatabaseSeeder extends Seeder
 
         // Posts
         factory(App\Post::class, 5)->create();
+
+        // Rules
+        factory(App\Rule::class)->create();
     }
 }
