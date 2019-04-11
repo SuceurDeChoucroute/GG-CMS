@@ -38,3 +38,6 @@ Route::get('teams/{team}/tournaments', 'TeamController@tournaments')->name('team
 // Tournaments
 Route::resource('tournaments', 'TournamentController');
 Route::get('tournaments/{tournament}/teams', 'TournamentController@teams')->name('tournaments.teams');
+
+// Posts
+Route::resource('posts', 'PostController');

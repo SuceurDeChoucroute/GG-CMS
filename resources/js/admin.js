@@ -40,6 +40,7 @@ import AdminTournamentCreate from './components/admin/pages/tournaments/AdminTou
 import AdminPosts from './components/admin/pages/posts/AdminPosts.vue'
 import AdminPostCreate from './components/admin/pages/posts/AdminPostCreate.vue'
 import AdminPostEdit from './components/admin/pages/posts/AdminPostEdit.vue'
+import AdminPostShow from './components/admin/pages/posts/AdminPostShow.vue'
 
 const routes = [
     // Dashboard
@@ -69,6 +70,7 @@ const routes = [
     { name: "posts", path: '/posts', component: AdminPosts },
     { name: "post.create", path: '/post/create', component: AdminPostCreate },
     { name: "post.edit", path: '/post/edit/:id', component: AdminPostEdit },
+    { name: "post.show", path: '/post/show/:id', component: AdminPostShow },
 ]
 
 const router = new VueRouter({

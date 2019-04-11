@@ -1,6 +1,6 @@
 <template>
     <div>
-        <admin-content-header page_name="Add post" ></admin-content-header>
+        <admin-content-header page_name="Edit post" ></admin-content-header>
         <FlashMessage position="right bottom"></FlashMessage>
 
         <section class="content">
@@ -16,7 +16,8 @@
                             <h3 class="box-title">Create post</h3>
                         </div>
                         <div class="box-body">
-                            <form @submit.prevent="updatePost()" class="form-horizontal">
+                            <loader :color="'#337ab7'" v-show="loading"></loader>
+                            <form @submit.prevent="updatePost()" class="form-horizontal" v-show="!loading">
                                 <!-- Title -->
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Title</label>
@@ -28,9 +29,21 @@
 
                                 <!-- Content -->
                                 <div class="form-group">
-                                    <label for="description" class="col-sm-2 control-label">Description</label>
+                                    <label for="content" class="col-sm-2 control-label">Content</label>
                                     <div class="col-sm-8">
                                         <ckeditor :editor="editor" v-model="post.content"></ckeditor>
+                                    </div>
+                                </div>
+
+                                <!-- Visibility -->
+                                <div class="form-group">
+                                    <label for="visibility" class="col-sm-2 control-label">Visibility</label>
+
+                                    <div class="col-sm-8">
+                                        <select name="visibility" id="visibility" v-model="post.visibility" class="form-control">
+                                            <option value="public">public</option>
+                                            <option value="private">private</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -63,8 +76,13 @@
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import Loader from 'vue-spinner/src/ScaleLoader.vue'
 
 export default {
+    components: {
+        Loader
+    },
+
     data() {
         return {
             loading: false,
@@ -79,43 +97,45 @@ export default {
         },
 
         getPost() {
+            let id = this.$route.params.id;
             this.loading = true
 
-            this.post = {
-                id: 1,
-                title: 'GG-LAN #9',
-                content: "<h2>Annonce GG-LAN #9</h2>",
-                author: 'Thibaud',
-                visibility: 'private',
-                created_at: '2019-04-11',
-                image: 'https://pbs.twimg.com/profile_images/1006631933944778754/kc_0KO-Q_400x400.jpg',
-            }
+            axios.get('/api/posts/' + id)
+            .then(response => {
+                this.post = response.data
 
-            this.loading = false
-            // axios.post('/api/players', this.player)
-            // .then(response => {
-            //     this.loading = false
-
-            //     this.flashMessage.success({
-            //         title: "Players added !",
-            //         message: "The player has been successfully added"
-            //     })
-
-            //     this.$router.push({ name: 'player.show', params: {id: response.data.id} })
-            // })
-            // .catch(e => {
-            //     this.loading = false
-            //     this.flashMessage.error({
-            //         title: "Something went wrong",
-            //         message: "Please try again"
-            //     })
-            // })
+                this.loading = false
+            })
+            .catch(e => {
+                this.loading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
+            })
         },
 
         updatePost() {
+            let id = this.$route.params.id;
             this.loading = true
 
-            console.log(this.post)
+            axios.put('/api/posts/' + id, this.post)
+            .then(response => {
+                this.flashMessage.success({
+                    title: "Post updated !",
+                    message: "The post has been successfully updated"
+                })
+
+                this.loading = false
+                this.$router.push({ name: 'posts' })
+            })
+            .catch(e => {
+                this.loading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
+            })
 
             this.loading = false
         }

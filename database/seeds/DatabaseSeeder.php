@@ -29,5 +29,8 @@ class DatabaseSeeder extends Seeder
 
         // Tournaments
         factory(App\Tournament::class, 5)->create();
+
+        // Posts
+        factory(App\Post::class, 5)->create();
     }
 }

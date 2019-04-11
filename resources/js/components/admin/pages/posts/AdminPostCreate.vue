@@ -72,9 +72,7 @@ export default {
             post: {
                 title: '',
                 content: '',
-                author: 'NAME',
-                visibility: '',
-                date: '1999-01-01',
+                visibility: 'private',
                 image: '',
             }
         }
@@ -87,26 +85,24 @@ export default {
 
         createPost() {
             this.loading = true
-            console.log(this.post)
-            this.loading = false
-            // axios.post('/api/players', this.player)
-            // .then(response => {
-            //     this.loading = false
+            axios.post('/api/posts', this.post)
+            .then(response => {
+                this.flashMessage.success({
+                    title: "Post created !",
+                    message: "The post has been successfully created"
+                })
 
-            //     this.flashMessage.success({
-            //         title: "Players added !",
-            //         message: "The player has been successfully added"
-            //     })
+                this.loading = false
+                this.$router.push({ name: 'posts'})
+            })
+            .catch(e => {
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
 
-            //     this.$router.push({ name: 'player.show', params: {id: response.data.id} })
-            // })
-            // .catch(e => {
-            //     this.loading = false
-            //     this.flashMessage.error({
-            //         title: "Something went wrong",
-            //         message: "Please try again"
-            //     })
-            // })
+                this.loading = false
+            })
         }
     }
 }

@@ -28,7 +28,6 @@
                                 <thead>
                                     <tr>
                                         <th>Title</th>
-                                        <th>Author</th>
                                         <th>Date</th>
                                         <th>Visibility</th>
                                         <th>Actions</th>
@@ -40,7 +39,6 @@
                                     </tr>
                                     <tr v-else v-for="(post, key) in posts" :key="key">
                                         <td>{{ post.title }}</td>
-                                        <td>{{ post.author }}</td>
                                         <td>{{ post.created_at }}</td>
                                         <td>
                                             <span v-if="post.visibility == 'public'" class="badge bg-green">{{ post.visibility }}</span>
@@ -54,6 +52,10 @@
                                             <router-link :to="{ name: 'post.edit', params: {id: post.id} }" class="btn btn-success">
                                                 <i class="fas fa-edit"></i>
                                             </router-link>
+
+                                            <button class="btn btn-danger" @click="deletePost(key)">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -67,12 +69,10 @@
 </template>
 
 <script>
-import AdminContentHeader from './../../layouts/AdminContentHeader'
 import Loader from 'vue-spinner/src/ScaleLoader.vue'
 
 export default {
     components: {
-        AdminContentHeader,
         Loader
     },
 
@@ -86,18 +86,45 @@ export default {
     methods: {
         getPosts() {
             this.loading = true
-            
-            this.posts = [
-                {id: 1, title: 'TITLE', author: 'NAME', created_at:'1999-01-01', visibility: 'public'},
-                {id: 1, title: 'TITLE', author: 'NAME', created_at:'1999-01-01', visibility: 'private'},
-                {id: 1, title: 'TITLE', author: 'NAME', created_at:'1999-01-01', visibility: 'public'},
-                {id: 1, title: 'TITLE', author: 'NAME', created_at:'1999-01-01', visibility: 'private'},
-                {id: 1, title: 'TITLE', author: 'NAME', created_at:'1999-01-01', visibility: 'public'},
-            ]
 
-            this.loading = false
+            axios.get('/api/posts')
+            .then(response => {
+                this.posts = response.data
+                this.loading = false
+            })
+            .catch(e => {
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
+                this.loading = false
+            })
+        },
+        deletePost(key) {
+            let id = this.posts[key].id
+            if (confirm("Are you sure you want to delete this post ? It's definitive")) {
+                this.loading = true
+    
+                axios.delete('/api/posts/' + id)
+                .then(response => {
+                    this.getPosts()
+                    this.flashMessage.success({
+                        title: "Post deleted !",
+                        message: "The post has been successfully deleted"
+                    })
+                    this.loading = false
+                })
+                .catch(e => {
+                    this.flashMessage.error({
+                        title: "Something went wrong",
+                        message: "Please try again"
+                    })
+                    this.loading = false
+                })
+            }
         },
     },
+
 
     mounted() {
         this.getPosts()
