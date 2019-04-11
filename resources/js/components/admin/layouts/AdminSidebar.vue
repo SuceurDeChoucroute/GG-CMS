@@ -33,6 +33,7 @@ export default {
                 { name: 'teams', icon: 'fa-user-friends', title: 'Teams'},
                 { name: 'games', icon: 'fa-gamepad', title: 'Games'},
                 { name: 'tournaments', icon: 'fa-trophy', title: 'Tournaments'},
+                { name: 'posts', icon: 'fa-newspaper', title: 'Posts'},
             ]
         }
     },

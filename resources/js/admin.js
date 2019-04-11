@@ -4,8 +4,10 @@ window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
 import FlashMessage from '@smartweb/vue-flash-message';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 Vue.use(VueRouter);
+Vue.use(CKEditor);
 
 const flashConfig = {
     time: 5000,
@@ -35,6 +37,10 @@ import AdminTournaments from './components/admin/pages/tournaments/AdminTourname
 import AdminTournamentShow from './components/admin/pages/tournaments/AdminTournamentShow.vue'
 import AdminTournamentCreate from './components/admin/pages/tournaments/AdminTournamentCreate.vue'
 
+import AdminPosts from './components/admin/pages/posts/AdminPosts.vue'
+import AdminPostCreate from './components/admin/pages/posts/AdminPostCreate.vue'
+import AdminPostEdit from './components/admin/pages/posts/AdminPostEdit.vue'
+
 const routes = [
     // Dashboard
     { name: "index", path: '/', component: AdminDashboard },
@@ -58,6 +64,11 @@ const routes = [
     { name: "tournaments", path: '/tournaments', component: AdminTournaments },
     { name: "tournament.show", path: '/tournament/show/:id', component: AdminTournamentShow },
     { name: "tournament.create", path: '/tournament/create', component: AdminTournamentCreate },
+
+    // Posts
+    { name: "posts", path: '/posts', component: AdminPosts },
+    { name: "post.create", path: '/post/create', component: AdminPostCreate },
+    { name: "post.edit", path: '/post/edit/:id', component: AdminPostEdit },
 ]
 
 const router = new VueRouter({
