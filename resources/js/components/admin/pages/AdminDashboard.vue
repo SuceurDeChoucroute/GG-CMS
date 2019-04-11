@@ -6,8 +6,8 @@
             <div class="row">
                 <admin-box-stat classes="bg-aqua" :loading="loadingPlayersCount" :number="playersCount" title="Joueurs" icon="fas fa-user-check" link="#"></admin-box-stat>
                 <admin-box-stat classes="bg-yellow" :loading="loadingTeamsCount" :number="teamsCount" title="Equipes" icon="fas fa-users" link="#"></admin-box-stat>
+                <admin-box-stat classes="bg-red" :loading="loadingPostsCount" :number="postsCount" title="Articles" icon="fas fa-newspaper" link="#"></admin-box-stat>
                 <admin-box-stat classes="bg-green" number="53" title="Places vendu" icon="fas fa-shopping-cart" link="#"></admin-box-stat>
-                <admin-box-stat classes="bg-red" number="14" title="Articles" icon="fas fa-newspaper" link="#"></admin-box-stat>
             </div>
         </section>
     </div>
@@ -27,8 +27,10 @@ export default {
       return {
           loadingPlayersCount: false,
           loadingTeamsCount: false,
+          loadingPostsCount: false,
           playersCount: 0,
           teamsCount: 0,
+          postsCount: 0,
       }
   },
 
@@ -50,11 +52,21 @@ export default {
                 this.loadingTeamsCount = false
             })
       },
+
+      getPostsCount() {
+            this.loadingTeamsCount = true
+            axios.get('/api/posts')
+            .then(response => {
+                this.postsCount = response.data.length
+                this.loadingPostsCount = false
+            })
+      },
   },
 
   mounted() {
       this.getPlayersCount()
       this.getTeamsCount()
+      this.getPostsCount()
   }
 }
 </script>

@@ -2131,8 +2131,10 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loadingPlayersCount: false,
       loadingTeamsCount: false,
+      loadingPostsCount: false,
       playersCount: 0,
-      teamsCount: 0
+      teamsCount: 0,
+      postsCount: 0
     };
   },
   methods: {
@@ -2153,11 +2155,21 @@ __webpack_require__.r(__webpack_exports__);
         _this2.teamsCount = response.data.length;
         _this2.loadingTeamsCount = false;
       });
+    },
+    getPostsCount: function getPostsCount() {
+      var _this3 = this;
+
+      this.loadingTeamsCount = true;
+      axios.get('/api/posts').then(function (response) {
+        _this3.postsCount = response.data.length;
+        _this3.loadingPostsCount = false;
+      });
     }
   },
   mounted: function mounted() {
     this.getPlayersCount();
     this.getTeamsCount();
+    this.getPostsCount();
   }
 });
 
@@ -41412,20 +41424,21 @@ var render = function() {
             _vm._v(" "),
             _c("admin-box-stat", {
               attrs: {
-                classes: "bg-green",
-                number: "53",
-                title: "Places vendu",
-                icon: "fas fa-shopping-cart",
+                classes: "bg-red",
+                loading: _vm.loadingPostsCount,
+                number: _vm.postsCount,
+                title: "Articles",
+                icon: "fas fa-newspaper",
                 link: "#"
               }
             }),
             _vm._v(" "),
             _c("admin-box-stat", {
               attrs: {
-                classes: "bg-red",
-                number: "14",
-                title: "Articles",
-                icon: "fas fa-newspaper",
+                classes: "bg-green",
+                number: "53",
+                title: "Places vendu",
+                icon: "fas fa-shopping-cart",
                 link: "#"
               }
             })
