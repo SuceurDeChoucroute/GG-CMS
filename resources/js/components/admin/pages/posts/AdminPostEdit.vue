@@ -61,7 +61,7 @@
                                         <button type="submit" class="btn btn-success">
                                             <i class="fas fa-sync fa-spin" v-show="loading"></i>
                                             <i class="fas fa-check" v-show="!loading"></i>
-                                            Create
+                                            Update
                                         </button>
                                     </div>
                                 </div>
