@@ -44,10 +44,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        return [
-            'game' => $game,
-            'ranks' => $game->ranks,
-        ];
+        return $game;
     }
 
     /**

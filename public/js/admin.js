@@ -2533,8 +2533,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2546,8 +2544,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: false,
       game: {},
-      ranks: [],
-      players: []
+      players: [],
+      ranks: []
     };
   },
   methods: {
@@ -2557,6 +2555,7 @@ __webpack_require__.r(__webpack_exports__);
         name: 'games'
       });
     },
+    // Get game
     getGame: function getGame() {
       var _this = this;
 
@@ -2564,10 +2563,10 @@ __webpack_require__.r(__webpack_exports__);
       var id = this.$route.params.id;
       axios.get('/api/games/' + id).then(function (response) {
         _this.loading = false;
-        _this.game = response.data.game;
-        _this.ranks = response.data.ranks;
+        _this.game = response.data;
       });
     },
+    // Get game players
     getPlayers: function getPlayers() {
       var _this2 = this;
 
@@ -2578,48 +2577,59 @@ __webpack_require__.r(__webpack_exports__);
         _this2.players = response.data;
       });
     },
-    // Update the game
-    updateGame: function updateGame() {
+    // Get game ranks
+    getRanks: function getRanks() {
       var _this3 = this;
 
       this.loading = true;
       var id = this.$route.params.id;
-      axios.put('/api/games/' + id, this.game).then(function (response) {
+      axios.get('/api/games/' + id + '/ranks').then(function (response) {
+        _this3.ranks = response.data;
         _this3.loading = false;
-        _this3.games = response.data;
+      });
+    },
+    // Update game
+    updateGame: function updateGame() {
+      var _this4 = this;
 
-        _this3.flashMessage.success({
+      this.loading = true;
+      var id = this.$route.params.id;
+      axios.put('/api/games/' + id, this.game).then(function (response) {
+        _this4.loading = false;
+        _this4.games = response.data;
+
+        _this4.flashMessage.success({
           title: "Game updated !",
           message: "The game has been successfully updated"
         });
       }).catch(function (e) {
-        _this3.loading = false;
+        _this4.loading = false;
 
-        _this3.flashMessage.error({
+        _this4.flashMessage.error({
           title: "You didn't change any fields !",
           message: "You have to change a least one field to update the game"
         });
       });
     },
-    // Delete the game
+    // Delete game
     deleteGame: function deleteGame() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (confirm("Are you sure you want to delete this game ? It's definitive")) {
         var id = this.$route.params.id;
         axios.delete('/api/games/' + id).then(function (response) {
-          _this4.loading = false;
+          _this5.loading = false;
 
-          _this4.flashMessage.success({
+          _this5.flashMessage.success({
             title: "Game deleted !",
             message: "The game has been successfully deleted"
           });
 
-          _this4.goToGamesList();
+          _this5.goToGamesList();
         }).catch(function (e) {
-          _this4.loading = false;
+          _this5.loading = false;
 
-          _this4.flashMessage.error({
+          _this5.flashMessage.error({
             title: "Something went wrong",
             message: "Please try again"
           });
@@ -2629,11 +2639,40 @@ __webpack_require__.r(__webpack_exports__);
       //     message: "Please try again"
       // })
 
+    },
+    // Delete game rank
+    deleteRank: function deleteRank(key) {
+      var _this6 = this;
+
+      var rank = this.ranks[key];
+      var id = this.$route.params.id;
+
+      if (confirm("Are you sure you want to delete this rank ? It's definitive")) {
+        this.loading = true;
+        axios.delete('/api/games/' + id + '/ranks/' + rank.id).then(function (response) {
+          _this6.flashMessage.success({
+            title: 'Rank deleted !',
+            message: 'The rank has been successfully deleted'
+          });
+
+          _this6.getGame();
+
+          _this6.loading = false;
+        }).catch(function (e) {
+          _this6.flashMessage.error({
+            title: "Something went wrong",
+            message: "Please try again"
+          });
+
+          _this6.loading = false;
+        });
+      }
     }
   },
   mounted: function mounted() {
     this.getGame();
     this.getPlayers();
+    this.getRanks();
   }
 });
 
@@ -42343,12 +42382,28 @@ var render = function() {
                                     "router-link",
                                     {
                                       staticClass: "btn btn-success",
-                                      attrs: { to: { name: "rank.edit" } }
+                                      attrs: {
+                                        to: {
+                                          name: "rank.edit",
+                                          params: { id: rank.id }
+                                        }
+                                      }
                                     },
                                     [_c("i", { staticClass: "fas fa-edit" })]
                                   ),
                                   _vm._v(" "),
-                                  _vm._m(4, true)
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteRank(key)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-trash" })]
+                                  )
                                 ],
                                 1
                               )
@@ -42699,14 +42754,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-danger" }, [
-      _c("i", { staticClass: "fas fa-trash" })
     ])
   }
 ]

@@ -86,7 +86,6 @@
                             </div>
 
                             <div class="tab-pane" id="ranks">
-                                <!-- <h3> Game ranks </h3> -->
                                 <div class="box-header">
                                     <h3 class="box-title">
                                         Game ranks
@@ -100,7 +99,6 @@
                                 </div>
 
                                 <loader :color="'#337ab7'" v-show="loading"></loader>
-
                                 <table class="table table-striped table-hover" v-show="!loading">
                                     <thead>
                                         <tr>
@@ -116,10 +114,10 @@
                                                 <img :src="rank.image" alt="No image..." class="img-responsive img-rounded" style="max-width: 150px;">
                                             </td>
                                             <td class="text-center">
-                                                <router-link :to="{ name: 'rank.edit'}" class="btn btn-success">
+                                                <router-link :to="{ name: 'rank.edit', params: {id : rank.id}}" class="btn btn-success">
                                                     <i class="fas fa-edit"></i>
                                                 </router-link>
-                                                <button class="btn btn-danger">
+                                                <button class="btn btn-danger" @click="deleteRank(key)">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </td>
@@ -205,8 +203,8 @@ export default {
         return {
             loading: false,
             game: {},
+            players: [],
             ranks: [],
-            players: []
         }
     },
 
@@ -216,6 +214,7 @@ export default {
             this.$router.push({name: 'games'});
         },
 
+        // Get game
         getGame() {
             this.loading = true
             let id = this.$route.params.id
@@ -223,11 +222,11 @@ export default {
             axios.get('/api/games/' + id)
             .then(response => {
                 this.loading = false
-                this.game = response.data.game
-                this.ranks = response.data.ranks
+                this.game = response.data
             })
         },
 
+        // Get game players
         getPlayers() {
             this.loading = true
             let id = this.$route.params.id
@@ -239,7 +238,19 @@ export default {
             })
         },
 
-        // Update the game
+        // Get game ranks
+        getRanks() {
+            this.loading = true
+            let id = this.$route.params.id
+
+            axios.get('/api/games/' + id + '/ranks')
+            .then(response => {
+                this.ranks = response.data
+                this.loading = false
+            })
+        },
+
+        // Update game
         updateGame() {
             this.loading = true;
             let id = this.$route.params.id
@@ -262,7 +273,7 @@ export default {
             })
         },
 
-        // Delete the game
+        // Delete game
         deleteGame() {
             if (confirm("Are you sure you want to delete this game ? It's definitive")) {
                 let id = this.$route.params.id
@@ -290,11 +301,41 @@ export default {
             //     message: "Please try again"
             // })
         },
+
+        // Delete game rank
+        deleteRank(key) {
+            let rank = this.ranks[key]
+            let id = this.$route.params.id
+            if (confirm("Are you sure you want to delete this rank ? It's definitive")) {
+                this.loading = true
+
+                axios.delete('/api/games/' + id + '/ranks/' + rank.id)
+                .then(response => {
+                    this.flashMessage.success({
+                        title: 'Rank deleted !',
+                        message: 'The rank has been successfully deleted'
+                    })
+                    
+                    this.getGame()
+    
+                    this.loading = false
+                })
+                .catch(e => {
+                    this.flashMessage.error({
+                        title: "Something went wrong",
+                        message: "Please try again"
+                    })
+    
+                    this.loading = false
+                })
+            }
+        }
     },
 
     mounted() {
         this.getGame()
         this.getPlayers()
+        this.getRanks()
     }
 }
 </script>
