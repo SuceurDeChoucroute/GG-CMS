@@ -1799,6 +1799,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2105,41 +2107,50 @@ __webpack_require__.r(__webpack_exports__);
     AdminBoxStat: _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
+    var _this = this;
+
     return {
       loadingPlayersCount: false,
       loadingTeamsCount: false,
       loadingPostsCount: false,
       playersCount: 0,
       teamsCount: 0,
-      postsCount: 0
+      postsCount: 0,
+      interval: setInterval(function () {
+        _this.getPlayersCount();
+
+        _this.getTeamsCount();
+
+        _this.getPostsCount();
+      }, 5000)
     };
   },
   methods: {
     getPlayersCount: function getPlayersCount() {
-      var _this = this;
+      var _this2 = this;
 
       this.loadingPlayersCount = true;
       axios.get('/api/players').then(function (response) {
-        _this.playersCount = response.data.length;
-        _this.loadingPlayersCount = false;
+        _this2.playersCount = response.data.length;
+        _this2.loadingPlayersCount = false;
       });
     },
     getTeamsCount: function getTeamsCount() {
-      var _this2 = this;
-
-      this.loadingTeamsCount = true;
-      axios.get('/api/teams').then(function (response) {
-        _this2.teamsCount = response.data.length;
-        _this2.loadingTeamsCount = false;
-      });
-    },
-    getPostsCount: function getPostsCount() {
       var _this3 = this;
 
       this.loadingTeamsCount = true;
+      axios.get('/api/teams').then(function (response) {
+        _this3.teamsCount = response.data.length;
+        _this3.loadingTeamsCount = false;
+      });
+    },
+    getPostsCount: function getPostsCount() {
+      var _this4 = this;
+
+      this.loadingTeamsCount = true;
       axios.get('/api/posts').then(function (response) {
-        _this3.postsCount = response.data.length;
-        _this3.loadingPostsCount = false;
+        _this4.postsCount = response.data.length;
+        _this4.loadingPostsCount = false;
       });
     }
   },
@@ -2147,6 +2158,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getPlayersCount();
     this.getTeamsCount();
     this.getPostsCount();
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
   }
 });
 
@@ -63103,50 +63117,59 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-lg-3 col-xs-6" }, [
-    _c("div", { staticClass: "small-box", class: _vm.classes }, [
-      _c(
-        "div",
-        { staticClass: "inner" },
-        [
-          _c("loader", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.loading,
-                expression: "loading"
-              }
-            ],
-            attrs: { color: "#337ab7" }
-          }),
-          _vm._v(" "),
-          _c(
-            "h3",
-            {
+    _c(
+      "div",
+      { staticClass: "small-box", class: _vm.classes },
+      [
+        _c(
+          "div",
+          { staticClass: "inner" },
+          [
+            _c("loader", {
               directives: [
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: !_vm.loading,
-                  expression: "!loading"
+                  value: _vm.loading,
+                  expression: "loading"
                 }
-              ]
-            },
-            [_vm._v(" " + _vm._s(_vm.number) + " ")]
-          ),
-          _vm._v(" "),
-          _c("p", [_vm._v(" " + _vm._s(_vm.title) + " ")])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "icon" }, [_c("i", { class: _vm.icon })]),
-      _vm._v(" "),
-      _c("a", { staticClass: "small-box-footer", attrs: { href: _vm.link } }, [
-        _vm._v("More info "),
-        _c("i", { staticClass: "fas fa-arrow-circle-right" })
-      ])
-    ])
+              ],
+              attrs: { color: "#337ab7" }
+            }),
+            _vm._v(" "),
+            _c(
+              "h3",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.loading,
+                    expression: "!loading"
+                  }
+                ]
+              },
+              [_vm._v(" " + _vm._s(_vm.number) + " ")]
+            ),
+            _vm._v(" "),
+            _c("p", [_vm._v(" " + _vm._s(_vm.title) + " ")])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "icon" }, [_c("i", { class: _vm.icon })]),
+        _vm._v(" "),
+        _c(
+          "router-link",
+          { staticClass: "small-box-footer", attrs: { to: _vm.link } },
+          [
+            _vm._v("\n            More info "),
+            _c("i", { staticClass: "fas fa-arrow-circle-right" })
+          ]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -63577,7 +63600,7 @@ var render = function() {
                 number: _vm.playersCount,
                 title: "Joueurs",
                 icon: "fas fa-user-check",
-                link: "#"
+                link: "players"
               }
             }),
             _vm._v(" "),
@@ -63588,7 +63611,7 @@ var render = function() {
                 number: _vm.teamsCount,
                 title: "Equipes",
                 icon: "fas fa-users",
-                link: "#"
+                link: "teams"
               }
             }),
             _vm._v(" "),
@@ -63599,7 +63622,7 @@ var render = function() {
                 number: _vm.postsCount,
                 title: "Articles",
                 icon: "fas fa-newspaper",
-                link: "#"
+                link: "posts"
               }
             }),
             _vm._v(" "),

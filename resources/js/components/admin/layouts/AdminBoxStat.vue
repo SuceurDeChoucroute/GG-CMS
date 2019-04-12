@@ -12,7 +12,9 @@
                 <i :class="icon"></i>
             </div>
 
-            <a :href="link" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <router-link :to="link" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+            </router-link>
         </div>
     </div>
 </template>
