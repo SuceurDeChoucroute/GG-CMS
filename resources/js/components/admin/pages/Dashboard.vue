@@ -4,9 +4,9 @@
 
         <section class="content">
             <div class="row">
-                <admin-box-stat classes="bg-aqua" :loading="loadingPlayersCount" :number="playersCount" title="Joueurs" icon="fas fa-user-check" link="#"></admin-box-stat>
-                <admin-box-stat classes="bg-yellow" :loading="loadingTeamsCount" :number="teamsCount" title="Equipes" icon="fas fa-users" link="#"></admin-box-stat>
-                <admin-box-stat classes="bg-red" :loading="loadingPostsCount" :number="postsCount" title="Articles" icon="fas fa-newspaper" link="#"></admin-box-stat>
+                <admin-box-stat classes="bg-aqua" :loading="loadingPlayersCount" :number="playersCount" title="Joueurs" icon="fas fa-user-check" link="players"></admin-box-stat>
+                <admin-box-stat classes="bg-yellow" :loading="loadingTeamsCount" :number="teamsCount" title="Equipes" icon="fas fa-users" link="teams"></admin-box-stat>
+                <admin-box-stat classes="bg-red" :loading="loadingPostsCount" :number="postsCount" title="Articles" icon="fas fa-newspaper" link="posts"></admin-box-stat>
                 <admin-box-stat classes="bg-green" number="53" title="Places vendu" icon="fas fa-shopping-cart" link="#"></admin-box-stat>
             </div>
         </section>
@@ -25,12 +25,17 @@ export default {
 
   data() {
       return {
-          loadingPlayersCount: false,
-          loadingTeamsCount: false,
-          loadingPostsCount: false,
-          playersCount: 0,
-          teamsCount: 0,
-          postsCount: 0,
+            loadingPlayersCount: false,
+            loadingTeamsCount: false,
+            loadingPostsCount: false,
+            playersCount: 0,
+            teamsCount: 0,
+            postsCount: 0,
+            interval: setInterval(() => {
+                    this.getPlayersCount()
+                    this.getTeamsCount()
+                    this.getPostsCount()
+            }, 5000),
       }
   },
 
@@ -64,9 +69,13 @@ export default {
   },
 
   mounted() {
-      this.getPlayersCount()
-      this.getTeamsCount()
-      this.getPostsCount()
+        this.getPlayersCount()
+        this.getTeamsCount()
+        this.getPostsCount()
+  },
+
+  beforeDestroy() {
+      clearInterval(this.interval)
   }
 }
 </script>
