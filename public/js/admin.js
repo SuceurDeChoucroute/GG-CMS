@@ -63420,24 +63420,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _smartweb_vue_flash_message__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_smartweb_vue_flash_message__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _ckeditor_ckeditor5_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-vue */ "./node_modules/@ckeditor/ckeditor5-vue/dist/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_vue__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_admin_pages_Dashboard_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/admin/pages/Dashboard.vue */ "./resources/js/components/admin/pages/Dashboard.vue");
-/* harmony import */ var _components_admin_pages_players_Players_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/admin/pages/players/Players.vue */ "./resources/js/components/admin/pages/players/Players.vue");
-/* harmony import */ var _components_admin_pages_players_PlayerShow_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/admin/pages/players/PlayerShow.vue */ "./resources/js/components/admin/pages/players/PlayerShow.vue");
-/* harmony import */ var _components_admin_pages_players_PlayerCreate_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/admin/pages/players/PlayerCreate.vue */ "./resources/js/components/admin/pages/players/PlayerCreate.vue");
-/* harmony import */ var _components_admin_pages_teams_Teams_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/admin/pages/teams/Teams.vue */ "./resources/js/components/admin/pages/teams/Teams.vue");
-/* harmony import */ var _components_admin_pages_teams_TeamShow_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/admin/pages/teams/TeamShow.vue */ "./resources/js/components/admin/pages/teams/TeamShow.vue");
-/* harmony import */ var _components_admin_pages_teams_TeamCreate_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/admin/pages/teams/TeamCreate.vue */ "./resources/js/components/admin/pages/teams/TeamCreate.vue");
-/* harmony import */ var _components_admin_pages_games_Games_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/admin/pages/games/Games.vue */ "./resources/js/components/admin/pages/games/Games.vue");
-/* harmony import */ var _components_admin_pages_games_GameShow_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/admin/pages/games/GameShow.vue */ "./resources/js/components/admin/pages/games/GameShow.vue");
-/* harmony import */ var _components_admin_pages_games_GameCreate_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/admin/pages/games/GameCreate.vue */ "./resources/js/components/admin/pages/games/GameCreate.vue");
-/* harmony import */ var _components_admin_pages_tournaments_Tournaments_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/admin/pages/tournaments/Tournaments.vue */ "./resources/js/components/admin/pages/tournaments/Tournaments.vue");
-/* harmony import */ var _components_admin_pages_tournaments_TournamentShow_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/admin/pages/tournaments/TournamentShow.vue */ "./resources/js/components/admin/pages/tournaments/TournamentShow.vue");
-/* harmony import */ var _components_admin_pages_tournaments_TournamentCreate_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/admin/pages/tournaments/TournamentCreate.vue */ "./resources/js/components/admin/pages/tournaments/TournamentCreate.vue");
-/* harmony import */ var _components_admin_pages_posts_Posts_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/admin/pages/posts/Posts.vue */ "./resources/js/components/admin/pages/posts/Posts.vue");
-/* harmony import */ var _components_admin_pages_posts_PostCreate_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/admin/pages/posts/PostCreate.vue */ "./resources/js/components/admin/pages/posts/PostCreate.vue");
-/* harmony import */ var _components_admin_pages_posts_PostEdit_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/admin/pages/posts/PostEdit.vue */ "./resources/js/components/admin/pages/posts/PostEdit.vue");
-/* harmony import */ var _components_admin_pages_posts_PostShow_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/admin/pages/posts/PostShow.vue */ "./resources/js/components/admin/pages/posts/PostShow.vue");
-/* harmony import */ var _components_admin_pages_rules_Rules_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/admin/pages/rules/Rules.vue */ "./resources/js/components/admin/pages/rules/Rules.vue");
+/* harmony import */ var _components_admin_pages_Dashboard_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/admin/pages/Dashboard.vue */ "./resources/js/components/admin/pages/Dashboard.vue");
+/* harmony import */ var _components_admin_pages_players_Players_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/admin/pages/players/Players.vue */ "./resources/js/components/admin/pages/players/Players.vue");
+/* harmony import */ var _components_admin_pages_players_PlayerShow_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/admin/pages/players/PlayerShow.vue */ "./resources/js/components/admin/pages/players/PlayerShow.vue");
+/* harmony import */ var _components_admin_pages_players_PlayerCreate_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/admin/pages/players/PlayerCreate.vue */ "./resources/js/components/admin/pages/players/PlayerCreate.vue");
+/* harmony import */ var _components_admin_pages_teams_Teams_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/admin/pages/teams/Teams.vue */ "./resources/js/components/admin/pages/teams/Teams.vue");
+/* harmony import */ var _components_admin_pages_teams_TeamShow_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/admin/pages/teams/TeamShow.vue */ "./resources/js/components/admin/pages/teams/TeamShow.vue");
+/* harmony import */ var _components_admin_pages_teams_TeamCreate_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/admin/pages/teams/TeamCreate.vue */ "./resources/js/components/admin/pages/teams/TeamCreate.vue");
+/* harmony import */ var _components_admin_pages_games_Games_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/admin/pages/games/Games.vue */ "./resources/js/components/admin/pages/games/Games.vue");
+/* harmony import */ var _components_admin_pages_games_GameShow_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/admin/pages/games/GameShow.vue */ "./resources/js/components/admin/pages/games/GameShow.vue");
+/* harmony import */ var _components_admin_pages_games_GameCreate_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/admin/pages/games/GameCreate.vue */ "./resources/js/components/admin/pages/games/GameCreate.vue");
+/* harmony import */ var _components_admin_pages_tournaments_Tournaments_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/admin/pages/tournaments/Tournaments.vue */ "./resources/js/components/admin/pages/tournaments/Tournaments.vue");
+/* harmony import */ var _components_admin_pages_tournaments_TournamentShow_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/admin/pages/tournaments/TournamentShow.vue */ "./resources/js/components/admin/pages/tournaments/TournamentShow.vue");
+/* harmony import */ var _components_admin_pages_tournaments_TournamentCreate_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/admin/pages/tournaments/TournamentCreate.vue */ "./resources/js/components/admin/pages/tournaments/TournamentCreate.vue");
+/* harmony import */ var _components_admin_pages_posts_Posts_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/admin/pages/posts/Posts.vue */ "./resources/js/components/admin/pages/posts/Posts.vue");
+/* harmony import */ var _components_admin_pages_posts_PostCreate_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/admin/pages/posts/PostCreate.vue */ "./resources/js/components/admin/pages/posts/PostCreate.vue");
+/* harmony import */ var _components_admin_pages_posts_PostEdit_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/admin/pages/posts/PostEdit.vue */ "./resources/js/components/admin/pages/posts/PostEdit.vue");
+/* harmony import */ var _components_admin_pages_posts_PostShow_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/admin/pages/posts/PostShow.vue */ "./resources/js/components/admin/pages/posts/PostShow.vue");
+/* harmony import */ var _components_admin_pages_rules_Rules_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/admin/pages/rules/Rules.vue */ "./resources/js/components/admin/pages/rules/Rules.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -63480,81 +63480,81 @@ var routes = [// Dashboard
 {
   name: "index",
   path: '/',
-  component: _components_admin_pages_Dashboard_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+  component: _components_admin_pages_Dashboard_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, // Players
 {
   name: "players",
   path: '/players',
-  component: _components_admin_pages_players_Players_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
+  component: _components_admin_pages_players_Players_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
   name: "player.show",
   path: '/player/show/:id',
-  component: _components_admin_pages_players_PlayerShow_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
+  component: _components_admin_pages_players_PlayerShow_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
   name: "player.create",
   path: '/player/create',
-  component: _components_admin_pages_players_PlayerCreate_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _components_admin_pages_players_PlayerCreate_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, // Teams
 {
   name: "teams",
   path: '/teams',
-  component: _components_admin_pages_teams_Teams_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+  component: _components_admin_pages_teams_Teams_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, {
   name: "team.show",
   path: '/team/show/:id',
-  component: _components_admin_pages_teams_TeamShow_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+  component: _components_admin_pages_teams_TeamShow_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
 }, {
   name: "team.create",
   path: '/team/create',
-  component: _components_admin_pages_teams_TeamCreate_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+  component: _components_admin_pages_teams_TeamCreate_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, // Games
 {
   name: "games",
   path: '/games',
-  component: _components_admin_pages_games_Games_vue__WEBPACK_IMPORTED_MODULE_21__["default"]
+  component: _components_admin_pages_games_Games_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
 }, {
   name: "game.show",
   path: '/game/show/:id',
-  component: _components_admin_pages_games_GameShow_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
+  component: _components_admin_pages_games_GameShow_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
 }, {
   name: "game.create",
   path: '/game/create',
-  component: _components_admin_pages_games_GameCreate_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
+  component: _components_admin_pages_games_GameCreate_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
 }, // Tournaments
 {
   name: "tournaments",
   path: '/tournaments',
-  component: _components_admin_pages_tournaments_Tournaments_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+  component: _components_admin_pages_tournaments_Tournaments_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
 }, {
   name: "tournament.show",
   path: '/tournament/show/:id',
-  component: _components_admin_pages_tournaments_TournamentShow_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+  component: _components_admin_pages_tournaments_TournamentShow_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
 }, {
   name: "tournament.create",
   path: '/tournament/create',
-  component: _components_admin_pages_tournaments_TournamentCreate_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+  component: _components_admin_pages_tournaments_TournamentCreate_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
 }, // Posts
 {
   name: "posts",
   path: '/posts',
-  component: _components_admin_pages_posts_Posts_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+  component: _components_admin_pages_posts_Posts_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
 }, {
   name: "post.create",
   path: '/post/create',
-  component: _components_admin_pages_posts_PostCreate_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
+  component: _components_admin_pages_posts_PostCreate_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   name: "post.edit",
   path: '/post/edit/:id',
-  component: _components_admin_pages_posts_PostEdit_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+  component: _components_admin_pages_posts_PostEdit_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
 }, {
   name: "post.show",
   path: '/post/show/:id',
-  component: _components_admin_pages_posts_PostShow_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+  component: _components_admin_pages_posts_PostShow_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
 }, // Rules
 {
   name: "rules",
   path: '/rules',
-  component: _components_admin_pages_rules_Rules_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+  component: _components_admin_pages_rules_Rules_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes // short for `routes: routes`
