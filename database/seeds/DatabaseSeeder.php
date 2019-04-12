@@ -35,5 +35,8 @@ class DatabaseSeeder extends Seeder
 
         // Rules
         factory(App\Rule::class)->create();
+
+        // Ranks
+        factory(App\Rank::class, 50)->create();
     }
 }

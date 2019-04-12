@@ -21,6 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('games', 'GameController');
 Route::get('games/{game}/players', 'GameController@players')->name('games.players');
 Route::get('games/{game}/teams', 'GameController@teams')->name('games.teams');
+Route::get('games/{game}/ranks', 'GameController@ranks')->name('games.ranks');
+Route::post('games/{game}/ranks', 'GameController@addRank')->name('games.ranks.store');
+Route::delete('games/{game}/ranks/{rank}', 'GameController@deleteRank')->name('games.ranks.store');
 
 // Players
 Route::get('players/admins', 'PlayerController@admins')->name('players.admins');

@@ -2462,6 +2462,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2473,6 +2519,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: false,
       game: {},
+      ranks: [],
       players: []
     };
   },
@@ -2490,7 +2537,8 @@ __webpack_require__.r(__webpack_exports__);
       var id = this.$route.params.id;
       axios.get('/api/games/' + id).then(function (response) {
         _this.loading = false;
-        _this.game = response.data;
+        _this.game = response.data.game;
+        _this.ranks = response.data.ranks;
       });
     },
     getPlayers: function getPlayers() {
@@ -64039,6 +64087,8 @@ var render = function() {
               _c("ul", { staticClass: "nav nav-tabs" }, [
                 _vm._m(0),
                 _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
                 _c(
                   "li",
                   {
@@ -64210,7 +64260,7 @@ var render = function() {
                         staticClass: "table table-striped table-hover"
                       },
                       [
-                        _vm._m(1),
+                        _vm._m(2),
                         _vm._v(" "),
                         _c(
                           "tbody",
@@ -64241,6 +64291,108 @@ var render = function() {
                                     },
                                     [_c("i", { staticClass: "fas fa-eye" })]
                                   )
+                                ],
+                                1
+                              )
+                            ])
+                          }),
+                          0
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "tab-pane", attrs: { id: "ranks" } },
+                  [
+                    _c("div", { staticClass: "box-header" }, [
+                      _c("h3", { staticClass: "box-title" }, [
+                        _vm._v(
+                          "\n                                    Game ranks\n                                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "box-tools pull-right" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: { to: { name: "rank.create" } }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-plus" }),
+                              _vm._v(
+                                "\n                                        Add\n                                    "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("loader", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.loading,
+                          expression: "loading"
+                        }
+                      ],
+                      attrs: { color: "#337ab7" }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "table",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.loading,
+                            expression: "!loading"
+                          }
+                        ],
+                        staticClass: "table table-striped table-hover"
+                      },
+                      [
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.ranks, function(rank, key) {
+                            return _c("tr", { key: key }, [
+                              _c("td", [_vm._v(" " + _vm._s(rank.name) + " ")]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("img", {
+                                  staticClass: "img-responsive img-rounded",
+                                  staticStyle: { "max-width": "150px" },
+                                  attrs: { src: rank.image, alt: "No image..." }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "text-center" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-success",
+                                      attrs: { to: { name: "rank.edit" } }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-edit" })]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._m(4, true)
                                 ],
                                 1
                               )
@@ -64561,12 +64713,44 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "#ranks", "data-toggle": "tab" } }, [
+        _vm._v("Ranks")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Pseudo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Rank")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Image")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "btn btn-danger" }, [
+      _c("i", { staticClass: "fas fa-trash" })
     ])
   }
 ]

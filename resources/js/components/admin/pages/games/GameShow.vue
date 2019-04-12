@@ -28,6 +28,9 @@
                             <li class="active">
                                 <a href="#profile" data-toggle="tab">Profile</a>
                             </li>
+                            <li>
+                                <a href="#ranks" data-toggle="tab">Ranks</a>
+                            </li>
                             <li v-show="!loading">
                                 <a href="#settings" data-toggle="tab">Settings</a>
                             </li>
@@ -76,6 +79,49 @@
                                                 <router-link :to="{ name: 'player.show', params: {id: player.id} }" class="btn btn-primary">
                                                     <i class="fas fa-eye"></i>
                                                 </router-link>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="tab-pane" id="ranks">
+                                <!-- <h3> Game ranks </h3> -->
+                                <div class="box-header">
+                                    <h3 class="box-title">
+                                        Game ranks
+                                    </h3>
+                                    <div class="box-tools pull-right">
+                                        <router-link :to="{ name: 'rank.create'}" class="btn btn-success">
+                                            <i class="fas fa-plus"></i>
+                                            Add
+                                        </router-link>
+                                    </div>
+                                </div>
+
+                                <loader :color="'#337ab7'" v-show="loading"></loader>
+
+                                <table class="table table-striped table-hover" v-show="!loading">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Image</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(rank, key) in ranks" :key="key">
+                                            <td> {{ rank.name }} </td>
+                                            <td> 
+                                                <img :src="rank.image" alt="No image..." class="img-responsive img-rounded" style="max-width: 150px;">
+                                            </td>
+                                            <td class="text-center">
+                                                <router-link :to="{ name: 'rank.edit'}" class="btn btn-success">
+                                                    <i class="fas fa-edit"></i>
+                                                </router-link>
+                                                <button class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -159,6 +205,7 @@ export default {
         return {
             loading: false,
             game: {},
+            ranks: [],
             players: []
         }
     },
@@ -176,7 +223,8 @@ export default {
             axios.get('/api/games/' + id)
             .then(response => {
                 this.loading = false
-                this.game = response.data
+                this.game = response.data.game
+                this.ranks = response.data.ranks
             })
         },
 

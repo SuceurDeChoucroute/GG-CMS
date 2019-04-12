@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Rank;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -43,7 +44,10 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        return $game;
+        return [
+            'game' => $game,
+            'ranks' => $game->ranks,
+        ];
     }
 
     /**
@@ -92,5 +96,29 @@ class GameController extends Controller
     public function teams(Game $game)
     {
         return $game->teams;
+    }
+
+    public function ranks(Game $game) {
+        return $game->ranks;
+    }
+
+    public function addRank(Request $request, Game $game)
+    {
+        $rank = Rank::create([
+            'name' => $request->name,
+            'image' => $request->image,
+            'game_id' => $game->id,
+        ]);
+
+        return $rank;
+    }
+
+    public function deleteRank(Request $request, Game $game, Rank $rank)
+    {
+        $rank->delete();
+
+        return response()->json([
+            'message' => 'Success',
+        ]);
     }
 }
