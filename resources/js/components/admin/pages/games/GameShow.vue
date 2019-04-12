@@ -295,11 +295,6 @@ export default {
                     })
                 })              
             }
-
-            // this.flashMessage.error({
-            //     title: "Something went wrong",
-            //     message: "Please try again"
-            // })
         },
 
         // Delete game rank
@@ -316,7 +311,7 @@ export default {
                         message: 'The rank has been successfully deleted'
                     })
                     
-                    this.getGame()
+                    this.ranks.splice(key, 1);
     
                     this.loading = false
                 })

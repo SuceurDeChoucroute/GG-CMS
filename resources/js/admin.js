@@ -33,6 +33,8 @@ import Games from './components/admin/pages/games/Games.vue'
 import GameShow from './components/admin/pages/games/GameShow.vue'
 import GameCreate from './components/admin/pages/games/GameCreate.vue'
 
+import RankCreate from './components/admin/pages/games/RankCreate.vue'
+
 import Tournaments from './components/admin/pages/tournaments/Tournaments.vue'
 import TournamentShow from './components/admin/pages/tournaments/TournamentShow.vue'
 import TournamentCreate from './components/admin/pages/tournaments/TournamentCreate.vue'
@@ -43,6 +45,7 @@ import PostEdit from './components/admin/pages/posts/PostEdit.vue'
 import PostShow from './components/admin/pages/posts/PostShow.vue'
 
 import Rules from './components/admin/pages/rules/Rules.vue'
+
 
 const routes = [
     // Dashboard
@@ -63,6 +66,9 @@ const routes = [
     { name: "game.show", path: '/game/show/:id', component: GameShow },
     { name: "game.create", path: '/game/create', component: GameCreate },
 
+    // Ranks
+    { name: "rank.create", path: '/game/show/:id/rank/create', component: RankCreate },
+
     // Tournaments
     { name: "tournaments", path: '/tournaments', component: Tournaments },
     { name: "tournament.show", path: '/tournament/show/:id', component: TournamentShow },
@@ -76,6 +82,7 @@ const routes = [
 
     // Rules
     { name: "rules", path: '/rules', component: Rules },
+
 ]
 
 const router = new VueRouter({
