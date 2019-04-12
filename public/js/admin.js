@@ -2149,7 +2149,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.getTeamsCount();
 
         _this.getPostsCount();
-      }, 5000)
+      }, 15000)
     };
   },
   methods: {

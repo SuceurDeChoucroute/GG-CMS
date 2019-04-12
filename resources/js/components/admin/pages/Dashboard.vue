@@ -35,7 +35,7 @@ export default {
                     this.getPlayersCount()
                     this.getTeamsCount()
                     this.getPostsCount()
-            }, 5000),
+            }, 15000),
       }
   },
 
