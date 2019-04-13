@@ -19,4 +19,9 @@ class Game extends Model
     {
         return $this->hasMany('App\Team');
     }
+
+    public function ranks()
+    {
+        return $this->hasMany('App\Rank');
+    }
 }
