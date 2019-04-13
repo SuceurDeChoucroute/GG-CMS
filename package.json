@@ -24,6 +24,11 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "bootstrap-vue": "^2.0.0-rc.15"
+        "@ckeditor/ckeditor5-build-classic": "^12.1.0",
+        "@ckeditor/ckeditor5-vue": "^1.0.0-beta.1",
+        "@smartweb/vue-flash-message": "^0.4.1",
+        "bootstrap-vue": "^2.0.0-rc.15",
+        "vue-router": "^3.0.2",
+        "vue-spinner": "^1.0.3"
     }
 }
