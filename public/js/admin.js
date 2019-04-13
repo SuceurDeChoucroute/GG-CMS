@@ -2110,7 +2110,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../layouts/AdminContentHeader */ "./resources/js/components/admin/layouts/AdminContentHeader.vue");
-/* harmony import */ var _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../layouts/AdminBoxStat */ "./resources/js/components/admin/layouts/AdminBoxStat.vue");
 //
 //
 //
@@ -2126,69 +2125,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    AdminContentHeader: _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__["default"],
-    AdminBoxStat: _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_1__["default"]
+    AdminContentHeader: _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
-    var _this = this;
-
-    return {
-      loadingPlayersCount: false,
-      loadingTeamsCount: false,
-      loadingPostsCount: false,
-      playersCount: 0,
-      teamsCount: 0,
-      postsCount: 0,
-      interval: setInterval(function () {
-        _this.getPlayersCount();
-
-        _this.getTeamsCount();
-
-        _this.getPostsCount();
-      }, 15000)
-    };
+    return {};
   },
-  methods: {
-    getPlayersCount: function getPlayersCount() {
-      var _this2 = this;
-
-      this.loadingPlayersCount = true;
-      axios.get('/api/players').then(function (response) {
-        _this2.playersCount = response.data.length;
-        _this2.loadingPlayersCount = false;
-      });
-    },
-    getTeamsCount: function getTeamsCount() {
-      var _this3 = this;
-
-      this.loadingTeamsCount = true;
-      axios.get('/api/teams').then(function (response) {
-        _this3.teamsCount = response.data.length;
-        _this3.loadingTeamsCount = false;
-      });
-    },
-    getPostsCount: function getPostsCount() {
-      var _this4 = this;
-
-      this.loadingTeamsCount = true;
-      axios.get('/api/posts').then(function (response) {
-        _this4.postsCount = response.data.length;
-        _this4.loadingPostsCount = false;
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.getPlayersCount();
-    this.getTeamsCount();
-    this.getPostsCount();
-  },
-  beforeDestroy: function beforeDestroy() {
-    clearInterval(this.interval);
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -5527,6 +5472,162 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getTournaments();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../layouts/AdminBoxStat */ "./resources/js/components/admin/layouts/AdminBoxStat.vue");
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    AdminBoxStat: _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['timer'],
+  data: function data() {
+    var _this = this;
+
+    return {
+      loading: false,
+      count: 0,
+      interval: setInterval(function () {
+        _this.getCount();
+      }, this.timer)
+    };
+  },
+  methods: {
+    getCount: function getCount() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get('/api/players').then(function (response) {
+        _this2.count = response.data.length;
+        _this2.loading = false;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getCount();
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../layouts/AdminBoxStat */ "./resources/js/components/admin/layouts/AdminBoxStat.vue");
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    AdminBoxStat: _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['timer'],
+  data: function data() {
+    var _this = this;
+
+    return {
+      loading: false,
+      count: 0,
+      interval: setInterval(function () {
+        _this.getCount();
+      }, this.timer)
+    };
+  },
+  methods: {
+    getCount: function getCount() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get('/api/posts').then(function (response) {
+        _this2.count = response.data.length;
+        _this2.loading = false;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getCount();
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../layouts/AdminBoxStat */ "./resources/js/components/admin/layouts/AdminBoxStat.vue");
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    AdminBoxStat: _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['timer'],
+  data: function data() {
+    var _this = this;
+
+    return {
+      loading: false,
+      count: 0,
+      interval: setInterval(function () {
+        _this.getCount();
+      }, this.timer)
+    };
+  },
+  methods: {
+    getCount: function getCount() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get('/api/teams').then(function (response) {
+        _this2.count = response.data.length;
+        _this2.loading = false;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getCount();
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
   }
 });
 
@@ -41880,38 +41981,11 @@ var render = function() {
           "div",
           { staticClass: "row" },
           [
-            _c("admin-box-stat", {
-              attrs: {
-                classes: "bg-aqua",
-                loading: _vm.loadingPlayersCount,
-                number: _vm.playersCount,
-                title: "Joueurs",
-                icon: "fas fa-user-check",
-                link: "players"
-              }
-            }),
+            _c("players-stat-box", { attrs: { timer: "30000" } }),
             _vm._v(" "),
-            _c("admin-box-stat", {
-              attrs: {
-                classes: "bg-yellow",
-                loading: _vm.loadingTeamsCount,
-                number: _vm.teamsCount,
-                title: "Equipes",
-                icon: "fas fa-users",
-                link: "teams"
-              }
-            }),
+            _c("teams-stat-box", { attrs: { timer: "30000" } }),
             _vm._v(" "),
-            _c("admin-box-stat", {
-              attrs: {
-                classes: "bg-red",
-                loading: _vm.loadingPostsCount,
-                number: _vm.postsCount,
-                title: "Articles",
-                icon: "fas fa-newspaper",
-                link: "posts"
-              }
-            }),
+            _c("posts-stat-box", { attrs: { timer: "30000" } }),
             _vm._v(" "),
             _c("admin-box-stat", {
               attrs: {
@@ -49373,6 +49447,105 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=template&id=7ab0bf20&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=template&id=7ab0bf20& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("admin-box-stat", {
+    attrs: {
+      classes: "bg-aqua",
+      loading: _vm.loading,
+      number: _vm.count,
+      title: "Players",
+      icon: "fas fa-user-check",
+      link: "players"
+    }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=template&id=0a5dcb1f&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=template&id=0a5dcb1f& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("admin-box-stat", {
+    attrs: {
+      classes: "bg-red",
+      loading: _vm.loading,
+      number: _vm.count,
+      title: "Articles",
+      icon: "fas fa-newspaper",
+      link: "posts"
+    }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=template&id=b2347d48&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=template&id=b2347d48& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("admin-box-stat", {
+    attrs: {
+      classes: "bg-yellow",
+      loading: _vm.loading,
+      number: _vm.count,
+      title: "Equipes",
+      icon: "fas fa-users",
+      link: "teams"
+    }
+  })
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -64313,6 +64486,9 @@ var map = {
 	"./components/admin/pages/tournaments/TournamentCreate.vue": "./resources/js/components/admin/pages/tournaments/TournamentCreate.vue",
 	"./components/admin/pages/tournaments/TournamentShow.vue": "./resources/js/components/admin/pages/tournaments/TournamentShow.vue",
 	"./components/admin/pages/tournaments/Tournaments.vue": "./resources/js/components/admin/pages/tournaments/Tournaments.vue",
+	"./components/admin/stats/PlayersStatBox.vue": "./resources/js/components/admin/stats/PlayersStatBox.vue",
+	"./components/admin/stats/PostsStatBox.vue": "./resources/js/components/admin/stats/PostsStatBox.vue",
+	"./components/admin/stats/TeamsStatBox.vue": "./resources/js/components/admin/stats/TeamsStatBox.vue",
 	"./components/site/ExampleComponent.vue": "./resources/js/components/site/ExampleComponent.vue"
 };
 
@@ -66289,6 +66465,213 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tournaments_vue_vue_type_template_id_014afb9f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tournaments_vue_vue_type_template_id_014afb9f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/stats/PlayersStatBox.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/admin/stats/PlayersStatBox.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PlayersStatBox_vue_vue_type_template_id_7ab0bf20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PlayersStatBox.vue?vue&type=template&id=7ab0bf20& */ "./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=template&id=7ab0bf20&");
+/* harmony import */ var _PlayersStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlayersStatBox.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PlayersStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PlayersStatBox_vue_vue_type_template_id_7ab0bf20___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PlayersStatBox_vue_vue_type_template_id_7ab0bf20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/stats/PlayersStatBox.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlayersStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PlayersStatBox.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlayersStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=template&id=7ab0bf20&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=template&id=7ab0bf20& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlayersStatBox_vue_vue_type_template_id_7ab0bf20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PlayersStatBox.vue?vue&type=template&id=7ab0bf20& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/PlayersStatBox.vue?vue&type=template&id=7ab0bf20&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlayersStatBox_vue_vue_type_template_id_7ab0bf20___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlayersStatBox_vue_vue_type_template_id_7ab0bf20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/stats/PostsStatBox.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/admin/stats/PostsStatBox.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PostsStatBox_vue_vue_type_template_id_0a5dcb1f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PostsStatBox.vue?vue&type=template&id=0a5dcb1f& */ "./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=template&id=0a5dcb1f&");
+/* harmony import */ var _PostsStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PostsStatBox.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PostsStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PostsStatBox_vue_vue_type_template_id_0a5dcb1f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PostsStatBox_vue_vue_type_template_id_0a5dcb1f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/stats/PostsStatBox.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PostsStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PostsStatBox.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PostsStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=template&id=0a5dcb1f&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=template&id=0a5dcb1f& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostsStatBox_vue_vue_type_template_id_0a5dcb1f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PostsStatBox.vue?vue&type=template&id=0a5dcb1f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/PostsStatBox.vue?vue&type=template&id=0a5dcb1f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostsStatBox_vue_vue_type_template_id_0a5dcb1f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PostsStatBox_vue_vue_type_template_id_0a5dcb1f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/stats/TeamsStatBox.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/admin/stats/TeamsStatBox.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TeamsStatBox_vue_vue_type_template_id_b2347d48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TeamsStatBox.vue?vue&type=template&id=b2347d48& */ "./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=template&id=b2347d48&");
+/* harmony import */ var _TeamsStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TeamsStatBox.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TeamsStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TeamsStatBox_vue_vue_type_template_id_b2347d48___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TeamsStatBox_vue_vue_type_template_id_b2347d48___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/stats/TeamsStatBox.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./TeamsStatBox.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsStatBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=template&id=b2347d48&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=template&id=b2347d48& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsStatBox_vue_vue_type_template_id_b2347d48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./TeamsStatBox.vue?vue&type=template&id=b2347d48& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/stats/TeamsStatBox.vue?vue&type=template&id=b2347d48&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsStatBox_vue_vue_type_template_id_b2347d48___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsStatBox_vue_vue_type_template_id_b2347d48___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
