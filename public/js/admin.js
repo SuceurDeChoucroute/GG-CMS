@@ -2001,25 +2001,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['app_name', 'app_name_mini']
+  props: ['app_name', 'app_name_mini', 'user']
 });
 
 /***/ }),
@@ -2059,6 +2042,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
   data: function data() {
     return {
       navs: [{
@@ -2798,9 +2782,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    goToGamesList: function goToGamesList() {
+    goToGameShow: function goToGameShow() {
       this.$router.push({
-        name: 'games'
+        name: 'game.show',
+        params: {
+          id: this.rank.game_id
+        }
       });
     },
     createRank: function createRank() {
@@ -4908,6 +4895,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../layouts/AdminContentHeader */ "./resources/js/components/admin/layouts/AdminContentHeader.vue");
 /* harmony import */ var vue_spinner_src_ScaleLoader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-spinner/src/ScaleLoader.vue */ "./node_modules/vue-spinner/src/ScaleLoader.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -41663,123 +41654,14 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(0)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("nav", { staticClass: "navbar navbar-static-top" }, [
-      _c(
-        "a",
-        {
-          staticClass: "sidebar-toggle",
-          attrs: { href: "#", "data-toggle": "push-menu", role: "button" }
-        },
-        [_c("span", { staticClass: "sr-only" }, [_vm._v("Toggle navigation")])]
-      ),
+    _c("nav", { staticClass: "navbar navbar-static-top" }, [
+      _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "navbar-custom-menu" }, [
         _c("ul", { staticClass: "nav navbar-nav" }, [
-          _c("li", { staticClass: "dropdown messages-menu" }, [
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-toggle",
-                attrs: { href: "#", "data-toggle": "dropdown" }
-              },
-              [
-                _c("i", { staticClass: "fa fa-envelope-o" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "label label-success" }, [
-                  _vm._v("4")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("ul", { staticClass: "dropdown-menu" }, [
-              _c("li", { staticClass: "header" }, [
-                _vm._v("You have 4 messages")
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("ul", { staticClass: "menu" }, [
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("div", { staticClass: "pull-left" }, [
-                        _c("img", {
-                          staticClass: "img-circle",
-                          attrs: {
-                            src:
-                              "https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg",
-                            alt: "User Image"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("h4", [
-                        _vm._v(
-                          "\n                                        Support Team\n                                        "
-                        ),
-                        _c("small", [
-                          _c("i", { staticClass: "fa fa-clock-o" }),
-                          _vm._v(" 5 mins")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Why not buy a new awesome theme?")])
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "footer" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("See All Messages")])
-              ])
-            ])
-          ]),
+          _vm._m(1),
           _vm._v(" "),
-          _c("li", { staticClass: "dropdown notifications-menu" }, [
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-toggle",
-                attrs: { href: "#", "data-toggle": "dropdown" }
-              },
-              [
-                _c("i", { staticClass: "fa fa-bell-o" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "label label-warning" }, [
-                  _vm._v("10")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("ul", { staticClass: "dropdown-menu" }, [
-              _c("li", { staticClass: "header" }, [
-                _vm._v("You have 10 notifications")
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("ul", { staticClass: "menu" }, [
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-users text-aqua" }),
-                      _vm._v(
-                        " 5 new members joined today\n                                    "
-                      )
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "footer" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("View all")])
-              ])
-            ])
-          ]),
+          _vm._m(2),
           _vm._v(" "),
           _c("li", { staticClass: "dropdown user user-menu" }, [
             _c(
@@ -41799,7 +41681,7 @@ var staticRenderFns = [
                 }),
                 _vm._v(" "),
                 _c("span", { staticClass: "hidden-xs" }, [
-                  _vm._v("Alexander Pierce")
+                  _vm._v(" " + _vm._s(_vm.user.pseudo) + " ")
                 ])
               ]
             ),
@@ -41813,50 +41695,150 @@ var staticRenderFns = [
                       "https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg",
                     alt: "User Image"
                   }
-                })
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "user-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-4 text-center" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Followers")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-xs-4 text-center" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Sales")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-xs-4 text-center" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Friends")])
-                  ])
-                ])
+                }),
+                _vm._v(" "),
+                _c("p", [_vm._v(" " + _vm._s(_vm.user.pseudo) + " ")])
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "user-footer" }, [
-                _c("div", { staticClass: "pull-left" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-default btn-flat",
-                      attrs: { href: "#" }
-                    },
-                    [_vm._v("Profile")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "pull-right" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-default btn-flat",
-                      attrs: { href: "#" }
-                    },
-                    [_vm._v("Sign out")]
-                  )
-                ])
+                _c(
+                  "div",
+                  { staticClass: "pull-left" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-default btn-flat",
+                        attrs: {
+                          to: {
+                            name: "player.show",
+                            params: { id: _vm.user.id }
+                          }
+                        }
+                      },
+                      [_vm._v(" Profile ")]
+                    )
+                  ],
+                  1
+                )
               ])
             ])
           ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "sidebar-toggle",
+        attrs: { href: "#", "data-toggle": "push-menu", role: "button" }
+      },
+      [_c("span", { staticClass: "sr-only" }, [_vm._v("Toggle navigation")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "dropdown messages-menu" }, [
+      _c(
+        "a",
+        {
+          staticClass: "dropdown-toggle",
+          attrs: { href: "#", "data-toggle": "dropdown" }
+        },
+        [
+          _c("i", { staticClass: "fa fa-envelope-o" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "label label-success" }, [_vm._v("4")])
+        ]
+      ),
+      _vm._v(" "),
+      _c("ul", { staticClass: "dropdown-menu" }, [
+        _c("li", { staticClass: "header" }, [_vm._v("You have 4 messages")]),
+        _vm._v(" "),
+        _c("li", [
+          _c("ul", { staticClass: "menu" }, [
+            _c("li", [
+              _c("a", { attrs: { href: "#" } }, [
+                _c("div", { staticClass: "pull-left" }, [
+                  _c("img", {
+                    staticClass: "img-circle",
+                    attrs: {
+                      src:
+                        "https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg",
+                      alt: "User Image"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [
+                  _vm._v(
+                    "\n                                        Support Team\n                                        "
+                  ),
+                  _c("small", [
+                    _c("i", { staticClass: "fa fa-clock-o" }),
+                    _vm._v(" 5 mins")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v("Why not buy a new awesome theme?")])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "footer" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("See All Messages")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "dropdown notifications-menu" }, [
+      _c(
+        "a",
+        {
+          staticClass: "dropdown-toggle",
+          attrs: { href: "#", "data-toggle": "dropdown" }
+        },
+        [
+          _c("i", { staticClass: "fa fa-bell-o" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "label label-warning" }, [_vm._v("10")])
+        ]
+      ),
+      _vm._v(" "),
+      _c("ul", { staticClass: "dropdown-menu" }, [
+        _c("li", { staticClass: "header" }, [
+          _vm._v("You have 10 notifications")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("ul", { staticClass: "menu" }, [
+            _c("li", [
+              _c("a", { attrs: { href: "#" } }, [
+                _c("i", { staticClass: "fa fa-users text-aqua" }),
+                _vm._v(
+                  " 5 new members joined today\n                                    "
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "footer" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("View all")])
         ])
       ])
     ])
@@ -41885,7 +41867,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("aside", { staticClass: "main-sidebar" }, [
     _c("section", { staticClass: "sidebar" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "user-panel" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "pull-left info" }, [
+          _c("p", [_vm._v(" " + _vm._s(_vm.user.pseudo) + " ")])
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "ul",
@@ -41919,21 +41907,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "user-panel" }, [
-      _c("div", { staticClass: "pull-left image" }, [
-        _c("img", {
-          staticClass: "img-circle",
-          attrs: {
-            src:
-              "https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg",
-            alt: "User Image"
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "pull-left info" }, [
-        _c("p", [_vm._v(" User ")])
-      ])
+    return _c("div", { staticClass: "pull-left image" }, [
+      _c("img", {
+        staticClass: "img-circle",
+        attrs: {
+          src:
+            "https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg",
+          alt: "User Image"
+        }
+      })
     ])
   }
 ]
@@ -43298,13 +43280,13 @@ var render = function() {
             staticClass: "btn btn-primary",
             on: {
               click: function($event) {
-                return _vm.goToGamesList()
+                return _vm.goToGameShow()
               }
             }
           },
           [
             _c("i", { staticClass: "fas fa-arrow-left" }),
-            _vm._v("\n            Return to game list\n        ")
+            _vm._v("\n            Return to game\n        ")
           ]
         ),
         _vm._v(" "),
@@ -47738,7 +47720,30 @@ var render = function() {
                                         )
                                       ]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(team.game.name))]),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          attrs: {
+                                            to: {
+                                              name: "game.show",
+                                              params: { id: team.game.id }
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(team.game.name) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
                                   _vm._v(" "),
                                   _c(
                                     "td",
