@@ -2083,7 +2083,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../layouts/AdminContentHeader */ "./resources/js/components/admin/layouts/AdminContentHeader.vue");
-/* harmony import */ var _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../layouts/AdminBoxStat */ "./resources/js/components/admin/layouts/AdminBoxStat.vue");
 //
 //
 //
@@ -2099,12 +2098,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    AdminContentHeader: _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__["default"],
-    AdminBoxStat: _layouts_AdminBoxStat__WEBPACK_IMPORTED_MODULE_1__["default"]
+    AdminContentHeader: _layouts_AdminContentHeader__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {};

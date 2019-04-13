@@ -15,12 +15,10 @@
 
 <script>
 import AdminContentHeader from './../layouts/AdminContentHeader'
-import AdminBoxStat from './../layouts/AdminBoxStat'
 
 export default {
     components: {
         AdminContentHeader,
-        AdminBoxStat
   },
 
   data() {
