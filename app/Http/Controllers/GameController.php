@@ -99,6 +99,11 @@ class GameController extends Controller
         return $game->ranks;
     }
 
+    public function showRank(Game $game, Rank $rank)
+    {
+        return $rank;
+    }
+
     public function addRank(Request $request, Game $game)
     {
         $rank = Rank::create([
@@ -106,6 +111,15 @@ class GameController extends Controller
             'image' => $request->image,
             'game_id' => $game->id,
         ]);
+
+        return $rank;
+    }
+
+    public function updateRank(Request $request, Game $game, Rank $rank)
+    {
+        $rank->name = $request->name;
+        $rank->image = $request->image;
+        $rank->save();
 
         return $rank;
     }

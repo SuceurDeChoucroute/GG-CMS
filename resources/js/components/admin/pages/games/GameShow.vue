@@ -114,7 +114,7 @@
                                                 <img :src="rank.image" alt="No image..." class="img-responsive img-rounded" style="max-width: 150px;">
                                             </td>
                                             <td class="text-center">
-                                                <router-link :to="{ name: 'rank.edit', params: {id : rank.id}}" class="btn btn-success">
+                                                <router-link :to="{ name: 'rank.edit', params: {game: game.id, rank : rank.id}}" class="btn btn-success">
                                                     <i class="fas fa-edit"></i>
                                                 </router-link>
                                                 <button class="btn btn-danger" @click="deleteRank(key)">

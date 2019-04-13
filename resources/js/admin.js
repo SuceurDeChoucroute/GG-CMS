@@ -34,6 +34,7 @@ import GameShow from './components/admin/pages/games/GameShow.vue'
 import GameCreate from './components/admin/pages/games/GameCreate.vue'
 
 import RankCreate from './components/admin/pages/games/RankCreate.vue'
+import RankEdit from './components/admin/pages/games/RankEdit.vue'
 
 import Tournaments from './components/admin/pages/tournaments/Tournaments.vue'
 import TournamentShow from './components/admin/pages/tournaments/TournamentShow.vue'
@@ -68,6 +69,7 @@ const routes = [
 
     // Ranks
     { name: "rank.create", path: '/game/show/:id/rank/create', component: RankCreate },
+    { name: "rank.edit", path: '/game/show/:game/rank/edit/:rank', component: RankEdit },
 
     // Tournaments
     { name: "tournaments", path: '/tournaments', component: Tournaments },
