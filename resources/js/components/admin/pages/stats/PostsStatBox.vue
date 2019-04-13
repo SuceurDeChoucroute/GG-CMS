@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import AdminBoxStat from './../layouts/AdminBoxStat'
+import AdminBoxStat from './../../layouts/AdminBoxStat'
 
 export default {
     components: {
