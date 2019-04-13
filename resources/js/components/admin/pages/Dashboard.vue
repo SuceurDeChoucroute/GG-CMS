@@ -4,9 +4,9 @@
 
         <section class="content">
             <div class="row">
-                <admin-box-stat classes="bg-aqua" :loading="loadingPlayersCount" :number="playersCount" title="Joueurs" icon="fas fa-user-check" link="players"></admin-box-stat>
-                <admin-box-stat classes="bg-yellow" :loading="loadingTeamsCount" :number="teamsCount" title="Equipes" icon="fas fa-users" link="teams"></admin-box-stat>
-                <admin-box-stat classes="bg-red" :loading="loadingPostsCount" :number="postsCount" title="Articles" icon="fas fa-newspaper" link="posts"></admin-box-stat>
+                <players-stat-box timer="30000"></players-stat-box>
+                <teams-stat-box timer="30000"></teams-stat-box>
+                <posts-stat-box timer="30000"></posts-stat-box>
                 <admin-box-stat classes="bg-green" number="53" title="Places vendu" icon="fas fa-shopping-cart" link="#"></admin-box-stat>
             </div>
         </section>
@@ -25,58 +25,12 @@ export default {
 
   data() {
       return {
-            loadingPlayersCount: false,
-            loadingTeamsCount: false,
-            loadingPostsCount: false,
-            playersCount: 0,
-            teamsCount: 0,
-            postsCount: 0,
-            interval: setInterval(() => {
-                    this.getPlayersCount()
-                    this.getTeamsCount()
-                    this.getPostsCount()
-            }, 15000),
       }
   },
 
   methods: {
-      getPlayersCount() {
-            this.loadingPlayersCount = true
-            axios.get('/api/players')
-            .then(response => {
-                this.playersCount = response.data.length
-                this.loadingPlayersCount = false
-            })
-      },
 
-      getTeamsCount() {
-            this.loadingTeamsCount = true
-            axios.get('/api/teams')
-            .then(response => {
-                this.teamsCount = response.data.length
-                this.loadingTeamsCount = false
-            })
-      },
-
-      getPostsCount() {
-            this.loadingTeamsCount = true
-            axios.get('/api/posts')
-            .then(response => {
-                this.postsCount = response.data.length
-                this.loadingPostsCount = false
-            })
-      },
   },
-
-  mounted() {
-        this.getPlayersCount()
-        this.getTeamsCount()
-        this.getPostsCount()
-  },
-
-  beforeDestroy() {
-      clearInterval(this.interval)
-  }
 }
 </script>
 
