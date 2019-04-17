@@ -1,0 +1,31 @@
+language: php
+sudo: required
+dist: trusty
+
+php:
+    - 7.1
+    - 7.2
+    - 7.3
+
+addons:
+  chrome: stable
+
+services:
+    - mysql
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+install:
+    - cp .env.travis .env
+    - composer install --no-progress --no-interaction --prefer-dist --no-suggest
+    - mysql -e 'CREATE DATABASE homestead;'
+    - php artisan key:generate
+
+script:
+    - php artisan migrate:install
+    - php artisan migrate:fresh --seed
+    - vendor/bin/phpunit
+
+notifications:
+    email: false
