@@ -4,9 +4,9 @@
         <FlashMessage position="right bottom"></FlashMessage>
 
         <section class="content">
-            <button @click="goToGamesList()" class="btn btn-primary">
+            <button @click="goToGameShow()" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i>
-                Return to game list
+                Return to game
             </button>
 
             <div class="row">
@@ -73,8 +73,8 @@ export default {
     },
 
     methods: {
-        goToGamesList() {
-            this.$router.push({name: 'games'});
+        goToGameShow() {
+            this.$router.push({ name: 'game.show', params: {id: this.rank.game_id} })
         },
 
         createRank() {

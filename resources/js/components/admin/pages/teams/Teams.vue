@@ -44,7 +44,11 @@
                                             <span class="badge bg-green"> Full </span>
                                         </td>
                                         <td v-else>{{ team.players }} / {{ team.game.places }} </td>
-                                        <td>{{ team.game.name }}</td>
+                                        <td>
+                                            <router-link :to="{ name: 'game.show', params: {id: team.game.id} }">
+                                                {{ team.game.name }}
+                                            </router-link>
+                                        </td>
                                         <td> 
                                             <router-link :to="{ name: 'player.show', params: {id: team.captain.id} }">
                                                 {{ team.captain.pseudo }}

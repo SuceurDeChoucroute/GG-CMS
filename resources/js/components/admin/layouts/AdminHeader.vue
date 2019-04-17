@@ -71,41 +71,20 @@
                         <!-- User button avatar -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">Alexander Pierce</span>
+                            <span class="hidden-xs"> {{ user.pseudo }} </span>
                         </a>
 
                         <!-- User avatar -->
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="img-circle" alt="User Image">
-                                <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
-                                </p>
-                            </li>
-
-                            <!-- Menu -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
+                                <p> {{ user.pseudo }} </p>
                             </li>
 
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <router-link :to="{ name: 'player.show', params: {id: user.id} }" class="btn btn-default btn-flat"> Profile </router-link>
                                 </div>
                             </li>
                         </ul>
@@ -121,6 +100,7 @@ export default {
     props: [
         'app_name',
         'app_name_mini',
+        'user',
     ]
 }
 </script>
