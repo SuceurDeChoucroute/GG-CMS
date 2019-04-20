@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/Tenebreizh/GG-CMS.svg?branch=master)](https://travis-ci.org/Tenebreizh/GG-CMS)
-
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5c5f2920f25a497f8a9703be323fcbe9)](https://www.codacy.com/app/thibaud29/GG-CMS?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tenebreizh/GG-CMS&amp;utm_campaign=Badge_Grade)
 
 # GG-CMS [WIP]
