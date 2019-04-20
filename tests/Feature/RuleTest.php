@@ -13,15 +13,9 @@ class RuleTest extends TestCase
 
     public function testGetRules()
     {
-        $counter = count(Rule::all());
         $response = $this->get('/api/rules');
-
-        if ($counter == 1) {
-            $response->assertStatus(200);
-        }
-        else {
-            $response->assertStatus(201);
-        }
+        
+        $response->assertStatus(201);
     }
 
     public function testUpdateRules()
