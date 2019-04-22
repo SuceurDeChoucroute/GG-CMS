@@ -4239,7 +4239,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.loading = true;
-      axios.get('/api/players').then(function (response) {
+      axios.get('/api/players', {
+        mode: 'no-cors'
+      }).then(function (response) {
         _this2.count = response.data.length;
         _this2.loading = false;
       });

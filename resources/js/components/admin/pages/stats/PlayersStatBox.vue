@@ -27,7 +27,9 @@ export default {
   methods: {
       getCount() {
             this.loading = true
-            axios.get('/api/players')
+            axios.get('/api/players', {
+                mode: 'no-cors',
+            })
             .then(response => {
                 this.count = response.data.length
                 this.loading = false
