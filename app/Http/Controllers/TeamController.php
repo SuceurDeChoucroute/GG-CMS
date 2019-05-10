@@ -17,11 +17,19 @@ class TeamController extends Controller
         $teams = [];
 
         foreach (Team::all() as $key => $team) {
+            $captain = [];
+
+            try {
+                $captain = $team->captain[0];
+            } catch (\Throwable $th) {
+                $captain = null;
+            }
+
             array_push($teams, [
                 'team' => $team,
                 'players' => count($team->players),
                 'game' => $team->game,
-                'captain' => $team->captain[0],
+                'captain' => $captain,
             ]);
         }
         return $teams;

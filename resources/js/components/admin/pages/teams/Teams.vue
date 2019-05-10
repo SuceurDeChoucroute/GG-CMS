@@ -49,11 +49,12 @@
                                                 {{ team.game.name }}
                                             </router-link>
                                         </td>
-                                        <td> 
+                                        <td v-if="team.captain"> 
                                             <router-link :to="{ name: 'player.show', params: {id: team.captain.id} }">
                                                 {{ team.captain.pseudo }}
                                             </router-link>
                                         </td>
+                                        <td v-else></td>
                                         <td>
                                             <router-link :to="{ name: 'team.show', params: {id: team.team.id} }" class="btn btn-primary">
                                                 <i class="fas fa-eye"></i>

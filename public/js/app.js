@@ -4942,6 +4942,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69791,30 +69792,34 @@ var render = function() {
                                     1
                                   ),
                                   _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    [
-                                      _c(
-                                        "router-link",
-                                        {
-                                          attrs: {
-                                            to: {
-                                              name: "player.show",
-                                              params: { id: team.captain.id }
-                                            }
-                                          }
-                                        },
+                                  team.captain
+                                    ? _c(
+                                        "td",
                                         [
-                                          _vm._v(
-                                            "\n                                            " +
-                                              _vm._s(team.captain.pseudo) +
-                                              "\n                                        "
+                                          _c(
+                                            "router-link",
+                                            {
+                                              attrs: {
+                                                to: {
+                                                  name: "player.show",
+                                                  params: {
+                                                    id: team.captain.id
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                            " +
+                                                  _vm._s(team.captain.pseudo) +
+                                                  "\n                                        "
+                                              )
+                                            ]
                                           )
-                                        ]
+                                        ],
+                                        1
                                       )
-                                    ],
-                                    1
-                                  ),
+                                    : _c("td"),
                                   _vm._v(" "),
                                   _c(
                                     "td",

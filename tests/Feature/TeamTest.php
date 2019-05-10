@@ -171,4 +171,15 @@ class TeamTest extends TestCase
             'message' => "Success",
         ]);
     }
+
+    public function testTryingToFetchTeamsWithTeamWithoutPlayer()
+    {
+        $game = factory('App\Game')->create();
+        $team = factory('App\Team')->create([
+            'game_id' => $game->id,
+        ]);
+
+        $responseWithTeamWithoutPlayer = $this->get('api/teams');
+        $responseWithTeamWithoutPlayer->assertStatus(200);
+    }
 }
