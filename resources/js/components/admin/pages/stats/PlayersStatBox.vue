@@ -27,13 +27,15 @@ export default {
   methods: {
       getCount() {
             this.loading = true
-            axios.get('/api/players', {
-                mode: 'no-cors',
-            })
+            axios.get('/api/players')
             .then(response => {
                 this.count = response.data.length
                 this.loading = false
             })
+      },
+      
+      refresh() {
+          this.getCount();
       },
   },
 

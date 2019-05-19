@@ -33,6 +33,10 @@ export default {
                 this.loading = false
             })
       },
+
+      refresh() {
+          this.getCount();
+      },
   },
 
   mounted() {
