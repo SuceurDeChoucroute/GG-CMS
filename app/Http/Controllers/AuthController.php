@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public function user(Request $request) {
+        return $request->user();
+    }
+    
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -39,7 +43,7 @@ class AuthController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token];
+                $response = ['token' => $token, 'user' => $user];
                 return response($response, 200);
             } 
             else {

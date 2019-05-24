@@ -14,36 +14,35 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => ['json.response']], function () {
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
-    });
-
+    // Public routes
     Route::post('/login', 'AuthController@login')->name('login');
     Route::post('/register', 'AuthController@register')->name('register');
 
+    // Private routes
     Route::middleware('auth:api')->group(function() {
-
+        Route::get('/user', 'AuthController@user');
+        Route::get('/logout', 'AuthController@logout')->name('logout');
     });
     
     // Games
     Route::resource('games', 'GameController');
-    Route::get('games/{game}/players', 'GameController@players')->name('games.players');
-    Route::get('games/{game}/teams', 'GameController@teams')->name('games.teams');
+    Route::get('games/{game}/players', 'GameController@players')->name('games.players');// Private
+    Route::get('games/{game}/teams', 'GameController@teams')->name('games.teams');// Private
     
     // Ranks
-    Route::get('games/{game}/ranks', 'GameController@ranks')->name('games.ranks');
-    Route::get('games/{game}/ranks/{rank}', 'GameController@showRank')->name('games.ranks.show');
-    Route::post('games/{game}/ranks', 'GameController@addRank')->name('games.ranks.store');
-    Route::put('games/{game}/ranks/{rank}', 'GameController@updateRank')->name('games.ranks.update');
-    Route::delete('games/{game}/ranks/{rank}', 'GameController@deleteRank')->name('games.ranks.store');
+    Route::get('games/{game}/ranks', 'GameController@ranks')->name('games.ranks');// Private
+    Route::get('games/{game}/ranks/{rank}', 'GameController@showRank')->name('games.ranks.show');// Private
+    Route::post('games/{game}/ranks', 'GameController@addRank')->name('games.ranks.store');// Private
+    Route::put('games/{game}/ranks/{rank}', 'GameController@updateRank')->name('games.ranks.update');// Private
+    Route::delete('games/{game}/ranks/{rank}', 'GameController@deleteRank')->name('games.ranks.store');// Private
     
     // Players
-    Route::get('players/admins', 'PlayerController@admins')->name('players.admins');
+    Route::get('players/admins', 'PlayerController@admins')->name('players.admins');// Private
     Route::resource('players', 'PlayerController');
     Route::get('players/{player}/games', 'PlayerController@games')->name('players.games');
     Route::get('players/{player}/teams', 'PlayerController@teams')->name('players.teams');
-    Route::post('players/{player}/grantAdmin', 'PlayerController@grantAdmin')->name('players.admins.grant');
-    Route::post('players/{player}/revokeAdmin', 'PlayerController@revokeAdmin')->name('players.admins.revoke');
+    Route::post('players/{player}/grantAdmin', 'PlayerController@grantAdmin')->name('players.admins.grant');// Private
+    Route::post('players/{player}/revokeAdmin', 'PlayerController@revokeAdmin')->name('players.admins.revoke');// Private
     
     // Teams
     Route::resource('teams', 'TeamController');
@@ -59,6 +58,6 @@ Route::group(['middleware' => ['json.response']], function () {
     
     // Rules
     Route::get('rules', 'RuleController@show');
-    Route::put('rules', 'RuleController@update');
+    Route::put('rules', 'RuleController@update');// Private
 });
 

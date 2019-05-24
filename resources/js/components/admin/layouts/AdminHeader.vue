@@ -71,23 +71,29 @@
                         <!-- User button avatar -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="user-image" alt="User Image">
-                            <span class="hidden-xs"> {{ user.pseudo }} </span>
+                            <span class="hidden-xs" v-if="user"> {{ user.pseudo }} </span>
                         </a>
 
                         <!-- User avatar -->
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="img-circle" alt="User Image">
-                                <p> {{ user.pseudo }} </p>
+                                <p v-if="user"> {{ user.pseudo }} </p>
                             </li>
 
-                            <!-- Menu Footer-->
+                            <!-- Menu Footer -->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <router-link :to="{ name: 'player.show', params: {id: user.id} }" class="btn btn-default btn-flat"> Profile </router-link>
+                                    <router-link :to="{ name: 'player.show', params: {id: user.id} }" class="btn btn-default btn-flat" v-if="user"> Profile </router-link>
                                 </div>
                             </li>
                         </ul>
+
+                    </li>
+                    
+                    <!-- Go back to site -->
+                    <li>
+                        <a href="/"> <i class="fas fa-sign-out-alt"></i> </a>
                     </li>
                 </ul>
             </div>
@@ -100,8 +106,29 @@ export default {
     props: [
         'app_name',
         'app_name_mini',
-        'user',
-    ]
+    ],
+
+    data() {
+        return {
+            authenticated: auth.check(),
+            user: null
+        }
+    },
+
+    methods: {
+        getUser() {
+            axios.get('/api/user')
+            .then(response => {
+                this.user = response.data
+            })
+        },
+    },
+
+    mounted() {
+        if (this.authenticated) {
+            this.user = this.getUser()
+        }
+    }
 }
 </script>
 

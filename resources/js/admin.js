@@ -5,8 +5,10 @@ window.Vue = require('vue');
 import router from './router/router_admin.js';
 import FlashMessage from '@smartweb/vue-flash-message';
 import CKEditor from '@ckeditor/ckeditor5-vue';
+import auth from './auth/auth.js';
 
 Vue.use(CKEditor);
+window.auth = auth;
 
 const flashConfig = {
     time: 5000,
