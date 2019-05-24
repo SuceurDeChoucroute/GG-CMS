@@ -7,7 +7,7 @@
                     <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p> {{ user.pseudo }} </p>
+                    <p v-if="user"> {{ user.pseudo }} </p>
                 </div>
             </div>
 
@@ -24,13 +24,11 @@
 </template>
 
 <script>
-export default {
-    props: [
-        'user',
-    ],
-    
+export default {    
     data() {
         return {
+            authenticated: auth.check(),
+            user: null,
             navs: [
                 { name: 'index', icon: 'fa-tachometer-alt', title: 'Dashboard'},
                 { name: 'players', icon: 'fa-users', title: 'Players'},
@@ -42,6 +40,21 @@ export default {
             ]
         }
     },
+
+    methods: {
+        getUser() {
+            axios.get('/api/user')
+            .then(response => {
+                this.user = response.data
+            })
+        },
+    },
+
+    mounted() {
+        if (this.authenticated) {
+            this.user = this.getUser()
+        }
+    }
 }
 </script>
 

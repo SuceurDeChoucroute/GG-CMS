@@ -15,10 +15,10 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper" id="app">
         {{-- Header --}}
-        <admin-header app_name="{{ config('app.name') }}" app_name_mini="{{ config('app.name') }}" :user="{ id: 1, pseudo: 'Tenebreizh' }"></admin-header>
+        <admin-header app_name="{{ config('app.name') }}" app_name_mini="{{ config('app.name') }}"></admin-header>
         
         {{-- Sidebar --}}
-        <admin-sidebar :user="{ id: 1, pseudo: 'Tenebreizh' }"></admin-sidebar>
+        <admin-sidebar></admin-sidebar>
 
         {{-- Content --}}
         <div class="content-wrapper">

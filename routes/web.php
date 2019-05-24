@@ -13,8 +13,12 @@
 
 Route::get('/', function () {
     return view('site');
-});
+})->name('site');
 
 Route::get('/admin', function () {
     return view('admin');
+});
+
+Route::fallback(function() {
+    return redirect()->route('site');
 });
