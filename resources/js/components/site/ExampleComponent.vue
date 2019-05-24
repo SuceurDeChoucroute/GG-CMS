@@ -16,12 +16,19 @@
                         </button>
                     </span>
 
-                    <router-link :to="{name: 'login'}" v-else>
-                        <i class="fas fa-sign-in-alt"></i>
-                        Login
-                    </router-link>
+                    <span v-else>
+                        <router-link :to="{name: 'login'}" >
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </router-link>
 
-                    <!-- <a href="/admin" class="btn btn-primary" v-if="user.admin"> Go to admin </a> -->
+                        <router-link :to="{name: 'register'}" >
+                            <i class="fas fa-sign-in-alt"></i>
+                            Register
+                        </router-link>
+                    </span>
+
+                    <a href="/admin" class="btn btn-primary" v-if="isAdmin"> Go to admin </a>
                 </div>
             </div>
         </div>
@@ -43,6 +50,7 @@
                 axios.get('/api/user')
                 .then(response => {
                     this.user = response.data
+                    console.log(this.user.admin)
                 })
             },
 
@@ -66,6 +74,17 @@
         mounted() {
             if (this.authenticated) {
                 this.user = this.getUser()
+            }
+        },
+
+        computed: {
+            isAdmin() {
+                if (this.authenticated) {
+                    if (this.user && this.user.admin) {
+                        return true
+                    }
+                    return false
+                }
             }
         }
     }
