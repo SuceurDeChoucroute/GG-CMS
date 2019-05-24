@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function user(Request $request) {
         return $request->user();
     }
-    
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -60,7 +60,9 @@ class AuthController extends Controller
     public function logout (Request $request)
     {
         $token = $request->user()->token();
-        $token->revoke();
+        $token->each(function($token, $key) {
+            $token->delete();
+        });
 
         $response = 'You have been succesfully logged out!';
         return response($response, 200);

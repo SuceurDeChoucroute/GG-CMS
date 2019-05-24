@@ -28,12 +28,13 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-success">Login</button>
+                    <button type="submit" class="btn btn-success text-center" :disabled="loading">
+                        Login
+                        <b-spinner small variant="dark" label="Loading" v-show="loading"></b-spinner>
+                    </button>
                 </form>
             </div>
         </div>
-
-
     </div>
 </template>
 
@@ -58,15 +59,14 @@ export default {
 
             axios.post('/api/login', this.user)
             .then(response => {
+                this.loading = false
                 auth.login(response.data.token)
                 this.$router.push({name: 'home'})
             })
             .catch(response => {
+                this.loading = false
                 this.error = true
-                // console.log(response)
             });
-
-            this.loading = false
         }
     }
 }

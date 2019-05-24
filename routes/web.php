@@ -13,11 +13,12 @@
 
 Route::get('/', function () {
     return view('site');
-});
+})->name('site');
 
 Route::get('/admin', function () {
     return view('admin');
 });
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::fallback(function() {
+    return redirect()->route('site');
+});
