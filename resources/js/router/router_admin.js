@@ -68,7 +68,29 @@ const routes = [
     { name: "rules", path: '/rules', component: Rules },
 
 ];
-
-export default new Router({
-    routes,
+const router = new Router({
+    routes
 });
+
+router.beforeEach((to, from, next) => {
+    if (auth.check()) {
+        let user
+
+        user = axios.get('/api/user')
+        .then(response => {
+            user = response.data
+            if (user.admin) {
+                next();
+            }
+            else {
+                window.location.href = '/';
+            }
+            return;
+        })
+    }
+    else {
+        window.location.href = '/';
+    }
+})
+
+export default router;
