@@ -26,7 +26,13 @@ export default {
                 chart: {
                     id: 'teamsPercentage'
                 },
-                labels: ['Full', 'Incomplete']
+                labels: ['Full', 'Incomplete'],
+                legend: {
+                    show: true,
+                    labels: {
+                        useSeriesColors: true
+                    }
+                }
             },
             series: [0,0],
         }
