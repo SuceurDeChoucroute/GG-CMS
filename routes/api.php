@@ -76,6 +76,7 @@ Route::group(['middleware' => ['json.response']], function () {
     Route::get('players/{player}/teams', 'PlayerController@teams')->name('players.teams');
     
     // Teams
+    Route::get('teams/percentage', 'TeamController@teamPercentage')->name('teams.percentage');
     Route::resource('teams', 'TeamController')->only(['index', 'show']);
     Route::get('teams/{team}/players', 'TeamController@players')->name('teams.players');
     Route::get('teams/{team}/tournaments', 'TeamController@tournaments')->name('teams.tournaments');

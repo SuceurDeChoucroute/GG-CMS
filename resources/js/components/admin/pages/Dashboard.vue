@@ -9,6 +9,10 @@
                 <posts-stat-box timer="30000"></posts-stat-box>
                 <admin-box-stat classes="bg-green" number="53" title="Places vendu" icon="fas fa-shopping-cart" link="#"></admin-box-stat>
             </div>
+            
+            <div class="row">
+                <teams-percentage-stat></teams-percentage-stat>
+            </div>
         </section>
     </div>
 </template>
