@@ -110,4 +110,19 @@ class TournamentController extends Controller
     {
         return $tournament->teams;
     }
+
+    public function teamsPercentage()
+    {
+        $tournaments = Tournament::all()->where('status', 'Open');
+
+        $labels = [];
+        $values = [];
+
+        foreach ($tournaments as $tournament) {
+            array_push($labels, $tournament->name);
+            array_push($values, (count($tournament->teams) / $tournament->places) * 100);
+        }
+
+        return ['labels' => $labels, 'values' => $values];
+    }
 }

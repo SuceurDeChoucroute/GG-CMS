@@ -13,6 +13,7 @@
             <div class="row">
                 <teams-percentage-stat></teams-percentage-stat>
                 <players-per-games-stat></players-per-games-stat>
+                <tournaments-teams-percentage-stat></tournaments-teams-percentage-stat>
             </div>
         </section>
     </div>

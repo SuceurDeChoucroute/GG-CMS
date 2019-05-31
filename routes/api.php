@@ -85,6 +85,7 @@ Route::group(['middleware' => ['json.response']], function () {
     // Tournaments
     Route::resource('tournaments', 'TournamentController')->only(['index', 'show']);
     Route::get('tournaments/{tournament}/teams', 'TournamentController@teams')->name('tournaments.teams');
+    Route::get('tournaments/teams/percentage', 'TournamentController@teamsPercentage')->name('tournaments.teams.percentage');
     
     // Posts
     Route::resource('posts', 'PostController')->only(['index', 'show']);
