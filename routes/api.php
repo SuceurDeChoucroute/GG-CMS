@@ -37,6 +37,7 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('players/admins', 'PlayerController@admins')->name('players.admins');
         Route::post('players/{player}/grantAdmin', 'PlayerController@grantAdmin')->name('players.admins.grant');
         Route::post('players/{player}/revokeAdmin', 'PlayerController@revokeAdmin')->name('players.admins.revoke');
+        Route::post('players/{player}/visibility', 'PlayerController@changeVisibility')->name('players.admins.visibility'); 
         
         // Teams
         Route::resource('teams', 'TeamController')->only(['store', 'update', 'destroy']);
@@ -89,4 +90,3 @@ Route::group(['middleware' => ['json.response']], function () {
     // Rules
     Route::get('rules', 'RuleController@show')->name('rules.index');
 });
-

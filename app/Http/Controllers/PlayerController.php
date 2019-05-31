@@ -143,4 +143,14 @@ class PlayerController extends Controller
             'message' => 'Admin revoked !'
         ]);
     }
+
+    public function changeVisibility(User $player)
+    {
+        $player->visibility = !$player->visibility;
+        $player->save();
+
+        return response()->json([
+            'message' => 'Player visibility changed'
+        ]);
+    }
 }

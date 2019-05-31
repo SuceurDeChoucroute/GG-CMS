@@ -56,6 +56,11 @@
                                             <button v-show="!player.admin" class="btn btn-success" @click="grantAdmin(key)" title="Grant player to admin">
                                                 <i class="fas fa-arrow-alt-circle-up"></i>
                                             </button>
+
+                                            <button v-show="player.admin" :class="{ 'btn btn-danger': player.visibility, 'btn btn-success': !player.visibility}" @click="changeVisibility(key)" title="Change admin visibility">
+                                                <i class="fas fa-eye-slash" v-if="player.visibility"></i>
+                                                <i class="fas fa-eye" v-else></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -168,6 +173,35 @@ export default {
                 })
             }
         },
+
+        changeVisibility(key)
+        {
+            this.loading = true
+            axios.post('/api/players/' + this.players[key].id + '/visibility')
+            .then(response => {
+                this.loading = false
+                this.getPlayers()
+                if (this.players[key].visibility) {
+                    this.flashMessage.success({
+                        title: "Visibility changed !",
+                        message: "The admin is now visible"
+                    })
+                }
+                else {
+                    this.flashMessage.success({
+                        title: "Visibility changed !",
+                        message: "The admin is now not visible"
+                    })
+                }
+            })
+            .catch(e => {
+                this.loading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
+            })
+        }
     },
 
     mounted() {
