@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
+use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -42,6 +44,11 @@ class PostTest extends TestCase
 
     public function testCreatePostWithoutImage()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $response = $this->post('api/posts', [
             'title' => 'New post',
             'content' => 'Bla bla bla ...',
@@ -65,6 +72,11 @@ class PostTest extends TestCase
 
     public function testCreatePostWithImage()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $response = $this->post('api/posts', [
             'title' => 'New post',
             'content' => 'Bla bla bla ...',
@@ -91,6 +103,11 @@ class PostTest extends TestCase
 
     public function testUpdatepost()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $post = factory('App\Post')->create();
 
         $response = $this->put('api/posts/'.$post->id, [
@@ -126,6 +143,11 @@ class PostTest extends TestCase
 
     public function testDeletepost()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $post = factory('App\Post')->create();
 
         $response = $this->delete('api/posts/'.$post->id);

@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
+use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -43,6 +45,11 @@ class GameTest extends TestCase
 
     public function testCreateGame()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $response = $this->post('api/games', [
             'name' => 'Test',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, aliquid!',
@@ -69,6 +76,11 @@ class GameTest extends TestCase
 
     public function testUpdateGame()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $game = factory('App\Game')->create();
 
         $response = $this->put('api/games/'.$game->id, [
@@ -104,6 +116,11 @@ class GameTest extends TestCase
 
     public function testDeleteGame()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $game = factory('App\Game')->create();
 
         $response = $this->delete('api/games/'.$game->id);

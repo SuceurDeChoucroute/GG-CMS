@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
+use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -62,6 +64,11 @@ class RankTest extends TestCase
 
     public function testCreateRankWithoutImage()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $game = factory('App\Game')->create();
 
         $response = $this->post('/api/games/'. $game->id .'/ranks', [
@@ -82,6 +89,11 @@ class RankTest extends TestCase
 
     public function testCreateRankWithImage()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $game = factory('App\Game')->create();
 
         $response = $this->post('/api/games/'. $game->id .'/ranks', [
@@ -105,6 +117,11 @@ class RankTest extends TestCase
 
     public function testUpdateRankWithoutImage()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $game = factory('App\Game')->create();
         $rank = factory('App\Rank')->create([
             'game_id' => $game->id,
@@ -128,6 +145,11 @@ class RankTest extends TestCase
 
     public function testUpdateRankWithImage()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $game = factory('App\Game')->create();
         $rank = factory('App\Rank')->create([
             'game_id' => $game->id,
@@ -154,6 +176,11 @@ class RankTest extends TestCase
 
     public function testDeletRank()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $game = factory('App\Game')->create();
         $rank = factory('App\Rank')->create([
             'game_id' => $game->id,

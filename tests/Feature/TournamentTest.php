@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
+use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -60,6 +62,11 @@ class tournamentTest extends TestCase
 
     public function testCreateTournament()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $game = factory('App\Game')->create();
 
         $response = $this->post('api/tournaments', [
@@ -103,6 +110,11 @@ class tournamentTest extends TestCase
 
     public function testUpdateTournament()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $game = factory('App\Game')->create();
         $game2 = factory('App\Game')->create();
         $tournament = factory('App\Tournament')->create([
@@ -162,6 +174,11 @@ class tournamentTest extends TestCase
 
     public function testDeleteTournament()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+        
         $game = factory('App\Game')->create();
         $tournament = factory('App\Tournament')->create([
             'game_id' => $game->id,

@@ -22,7 +22,7 @@ install:
 script:
     - php artisan migrate:install
     - php artisan migrate:fresh --seed
-    - vendor/bin/phpunit
+    - vendor/bin/phpunit --exclude-group ignore
 
 notifications:
     email: false

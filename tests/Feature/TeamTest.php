@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
+use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Team;
@@ -30,6 +32,11 @@ class TeamTest extends TestCase
 
     public function testCreateTeamWithoutAvatar()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $game = factory('App\Game')->create();
         $player = factory('App\User')->create();
 
@@ -64,6 +71,11 @@ class TeamTest extends TestCase
 
     public function testCreateTeamWithAvatar()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $game = factory('App\Game')->create();
         $player = factory('App\User')->create();
 
@@ -116,6 +128,11 @@ class TeamTest extends TestCase
 
     public function testUpdateTeam()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $team = factory('App\Team')->create();
         $game = factory('App\Game')->create();
 
@@ -153,6 +170,11 @@ class TeamTest extends TestCase
 
     public function testDeleteTeam()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $team = factory('App\Team')->create();
 
         $response = $this->delete('api/teams/'.$team->id);

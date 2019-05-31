@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
+use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Rule;
@@ -20,6 +22,11 @@ class RuleTest extends TestCase
 
     public function testUpdateRules()
     {
+        Passport::actingAs(
+            factory(User::class)->create(['admin' => true]),
+            []
+        );
+
         $counter = count(Rule::all());
 
         if ($counter == 0) {
