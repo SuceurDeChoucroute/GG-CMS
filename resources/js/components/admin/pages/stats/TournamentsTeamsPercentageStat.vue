@@ -36,6 +36,12 @@ export default {
                             }
                         }
                     }
+                },
+                legend: {
+                    show: true,
+                    labels: {
+                        useSeriesColors: true
+                    }
                 }
             },
             series: [0,0],
