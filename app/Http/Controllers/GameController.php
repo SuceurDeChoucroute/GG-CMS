@@ -132,4 +132,20 @@ class GameController extends Controller
             'message' => 'Success',
         ]);
     }
+
+    public function playersPercentage()
+    {
+        $games = Game::all();
+
+        $countGames = count($games);
+        $labels = [];
+        $values = [];
+
+        foreach ($games as $game) {
+            array_push($labels, $game->name);
+            array_push($values, (count($game->players) / $countGames) * 100);
+        }
+
+        return ['labels' => $labels, 'values' => $values];
+    }
 }
