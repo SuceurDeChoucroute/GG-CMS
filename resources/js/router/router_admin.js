@@ -76,17 +76,18 @@ router.beforeEach((to, from, next) => {
     if (auth.check()) {
         let user
 
-        user = axios.get('/api/user')
+        axios.get('/api/user')
         .then(response => {
             user = response.data
             if (user.admin) {
                 next();
             }
-            else {
-                window.location.href = '/';
-            }
-            return;
         })
+        .catch(response => {
+            window.location.href = '/';
+        })
+        
+        return;
     }
     else {
         window.location.href = '/';
