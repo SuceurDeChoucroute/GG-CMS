@@ -6,7 +6,6 @@
                 <div class="box-tools pull-right">
                     <button class="btn btn-info" @click="getPercentage()">
                         <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i>
-                        <!-- Refresh -->
                     </button>
                 </div>
             </div>
