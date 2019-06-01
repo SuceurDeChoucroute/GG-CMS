@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tournament;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TournamentController extends Controller
@@ -109,5 +110,51 @@ class TournamentController extends Controller
     public function teams(Tournament $tournament)
     {
         return $tournament->teams;
+    }
+
+    public function teamsPercentage()
+    {
+        $tournaments = Tournament::all()->where('status', 'Open');
+
+        $labels = [];
+        $values = [];
+
+        foreach ($tournaments as $tournament) {
+            array_push($labels, $tournament->name);
+            array_push($values, (count($tournament->teams) / $tournament->places) * 100);
+        }
+
+        return ['labels' => $labels, 'values' => $values];
+    }
+
+    public function tournamentsDaysLeft()
+    {
+        $tournaments = Tournament::all()->where('status', 'Open');
+        $today = Carbon::now();
+
+        $labels = [];
+        $values = [];
+
+        foreach ($tournaments as $tournament) {
+            $tournamentDate = new Carbon($tournament->start_date);
+            array_push($labels, $tournament->name);
+            array_push($values, $today->diffInDays($tournamentDate));
+        }
+
+        return ['labels' => $labels, 'values' => $values];
+    }
+
+    public function tournamentsAverageFilling()
+    {
+        $tournaments = Tournament::all();
+        $countPlaces = 0;
+        $countTeams = 0;
+
+        foreach ($tournaments as $tournament) {
+            $countPlaces += $tournament->places;
+            $countTeams += count($tournament->teams);
+        }
+
+        return ($countTeams / $countPlaces) * 100;
     }
 }

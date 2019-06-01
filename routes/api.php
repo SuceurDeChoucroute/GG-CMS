@@ -65,6 +65,7 @@ Route::group(['middleware' => ['json.response']], function () {
     Route::resource('games', 'GameController')->only(['index', 'show']);
     Route::get('games/{game}/players', 'GameController@players')->name('games.players');
     Route::get('games/{game}/teams', 'GameController@teams')->name('games.teams');
+    Route::get('games/players/percentage', 'GameController@playersPercentage')->name('games.players.percentage');
     
     // Ranks
     Route::get('games/{game}/ranks', 'GameController@ranks')->name('games.ranks');
@@ -76,12 +77,16 @@ Route::group(['middleware' => ['json.response']], function () {
     Route::get('players/{player}/teams', 'PlayerController@teams')->name('players.teams');
     
     // Teams
+    Route::get('teams/percentage', 'TeamController@teamPercentage')->name('teams.percentage');
     Route::resource('teams', 'TeamController')->only(['index', 'show']);
     Route::get('teams/{team}/players', 'TeamController@players')->name('teams.players');
     Route::get('teams/{team}/tournaments', 'TeamController@tournaments')->name('teams.tournaments');
     
     // Tournaments
+    Route::get('tournaments/daysleft', 'TournamentController@tournamentsDaysLeft')->name('tournaments.daysleft');
     Route::resource('tournaments', 'TournamentController')->only(['index', 'show']);
+    Route::get('tournaments/players/average', 'TournamentController@tournamentsAverageFilling')->name('tournaments.players.average');
+    Route::get('tournaments/teams/percentage', 'TournamentController@teamsPercentage')->name('tournaments.teams.percentage');
     Route::get('tournaments/{tournament}/teams', 'TournamentController@teams')->name('tournaments.teams');
     
     // Posts

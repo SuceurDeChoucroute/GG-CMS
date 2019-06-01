@@ -118,4 +118,26 @@ class TeamController extends Controller
     {
         return $team->tournaments;
     }
+
+    public function teamPercentage() {
+        $teams = Team::all();
+
+        $countTeams = count($teams);
+        $full = 0;
+        $incomplete = 0;
+
+        foreach ($teams as $team) {
+            if (count($team->players) == $team->game->places) {
+                $full++;
+            }
+            else {
+                $incomplete++;
+            }
+        }
+        
+        $full = ($full / $countTeams) * 100;
+        $incomplete = ($incomplete / $countTeams) * 100;
+
+        return [$full, $incomplete];
+    }
 }
