@@ -7,7 +7,7 @@
                 <players-stat-box timer="120000"></players-stat-box>
                 <teams-stat-box timer="120000"></teams-stat-box>
                 <posts-stat-box timer="120000"></posts-stat-box>
-                <!-- <admin-box-stat classes="bg-green" number="53" title="Places vendu" icon="fas fa-shopping-cart" link="#"></admin-box-stat> -->
+                <tournaments-average-teams-stat-box></tournaments-average-teams-stat-box>
             </div>
             
             <div class="row">

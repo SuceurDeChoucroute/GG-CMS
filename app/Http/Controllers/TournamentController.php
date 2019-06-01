@@ -143,4 +143,18 @@ class TournamentController extends Controller
 
         return ['labels' => $labels, 'values' => $values];
     }
+
+    public function tournamentsAverageFilling()
+    {
+        $tournaments = Tournament::all();
+        $countPlaces = 0;
+        $countTeams = 0;
+
+        foreach ($tournaments as $tournament) {
+            $countPlaces += $tournament->places;
+            $countTeams += count($tournament->teams);
+        }
+
+        return ($countTeams / $countPlaces) * 100;
+    }
 }
