@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tournament;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TournamentController extends Controller
@@ -121,6 +122,23 @@ class TournamentController extends Controller
         foreach ($tournaments as $tournament) {
             array_push($labels, $tournament->name);
             array_push($values, (count($tournament->teams) / $tournament->places) * 100);
+        }
+
+        return ['labels' => $labels, 'values' => $values];
+    }
+
+    public function tournamentsDaysLeft()
+    {
+        $tournaments = Tournament::all()->where('status', 'Open');
+        $today = Carbon::now();
+
+        $labels = [];
+        $values = [];
+
+        foreach ($tournaments as $tournament) {
+            $tournamentDate = new Carbon($tournament->start_date);
+            array_push($labels, $tournament->name);
+            array_push($values, $today->diffInDays($tournamentDate));
         }
 
         return ['labels' => $labels, 'values' => $values];
