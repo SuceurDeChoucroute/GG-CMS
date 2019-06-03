@@ -21,7 +21,7 @@ class CreateTournamentsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('places');
-            $table->integer('cashprize');
+            $table->string('cashprize');
             $table->string('status');
             $table->text('image');
             $table->timestamps();
