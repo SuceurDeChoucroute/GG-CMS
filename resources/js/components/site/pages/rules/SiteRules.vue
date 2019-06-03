@@ -21,9 +21,11 @@ export default {
             axios.get('/api/rules')
             .then(response => {
                 this.rules = response.data.content
+                this.loading = false
             })
             .catch(() => {
                 alert('Something went wrong')
+                this.loading = false
             })
         }
     },
