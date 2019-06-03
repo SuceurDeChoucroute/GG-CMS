@@ -7,7 +7,7 @@
         <div class="col-lg-3 col-md-4 col-sm-4 col-6 mb-4" v-for="(team, key) in teams" :key="key" v-show="!loading">
             <div class="card">
                 <router-link :to="{name: 'team.show', params: {id: team.team.id}}">
-                    <img class="card-img-top" src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" alt="Team avatar">
+                    <img class="card-img-top" :src="team.team.avatar" alt="Team avatar">
                 </router-link>
                 <div class="card-body">
                     <h4 class="card-title"> 

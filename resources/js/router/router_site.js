@@ -14,6 +14,7 @@ import Rules from '../components/site/pages/rules/SiteRules.vue'
 
 // Teams
 import Teams from '../components/site/pages/teams/SiteTeams.vue'
+import TeamShow from '../components/site/pages/teams/SiteTeamShow.vue'
 
 const routes = [
     // Home
@@ -28,6 +29,8 @@ const routes = [
 
     // Teams
     { name: "teams", path: '/teams', component: Teams },
+    { name: "team.show", path: '/teams/:id', component: TeamShow },
+
 ];
 
 export default new Router({
