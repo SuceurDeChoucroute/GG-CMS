@@ -17,14 +17,13 @@
     
 
     <div id="app">
-        <router-link :to="{name: 'home'}">
-            <i class="fas fa-arrow-right"></i>
-            Home
-        </router-link>
+        <site-navbar></site-navbar>
 
-        <transition name="slide-fade" mode="out-in">
-            <router-view></router-view>
-        </transition>
+        <div class="container-fluid">
+            <transition name="slide-fade" mode="out-in">
+                <router-view></router-view>
+            </transition>
+        </div>
     </div>
 
 

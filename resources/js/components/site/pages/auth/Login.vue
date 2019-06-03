@@ -61,7 +61,7 @@ export default {
             .then(response => {
                 this.loading = false
                 auth.login(response.data.token)
-                this.$router.push({name: 'home'})
+                window.location.href = '/'
             })
             .catch(response => {
                 this.loading = false
