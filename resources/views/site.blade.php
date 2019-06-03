@@ -19,7 +19,7 @@
     <div id="app">
         <site-navbar></site-navbar>
 
-        <div class="container-fluid">
+        <div class="container-fluid mt-4 pl-4 pr-4">
             <transition name="slide-fade" mode="out-in">
                 <router-view></router-view>
             </transition>

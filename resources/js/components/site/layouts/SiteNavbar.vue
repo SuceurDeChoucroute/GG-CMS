@@ -6,6 +6,10 @@
         <div class="collapse navbar-collapse mr-auto" id="navbarDropdown">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
+                    <router-link :to="{name: 'teams'}" class="nav-link">Teams</router-link>
+                </li>
+
+                <li class="nav-item">
                     <router-link :to="{name: 'rules'}" class="nav-link">Rules</router-link>
                 </li>
             </ul>

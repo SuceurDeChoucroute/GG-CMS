@@ -12,6 +12,8 @@ import Register from '../components/site/pages/auth/Register.vue'
 // Rules
 import Rules from '../components/site/pages/rules/SiteRules.vue'
 
+// Teams
+import Teams from '../components/site/pages/teams/SiteTeams.vue'
 
 const routes = [
     // Home
@@ -24,6 +26,8 @@ const routes = [
     // Rules
     { name: "rules", path: '/rules', component: Rules },
 
+    // Teams
+    { name: "teams", path: '/teams', component: Teams },
 ];
 
 export default new Router({
