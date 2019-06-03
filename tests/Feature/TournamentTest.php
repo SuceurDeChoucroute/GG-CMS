@@ -30,7 +30,7 @@ class tournamentTest extends TestCase
             'start_date' => $tournament->start_date,
             'end_date' => $tournament->end_date,
             'places' => $tournament->places,
-            'cashprize' => $tournament->cashprize,
+            'cashprize' => strval($tournament->cashprize),
             'status' => $tournament->status,
             'image' => $tournament->image,
         ]);
@@ -54,7 +54,7 @@ class tournamentTest extends TestCase
             'start_date' => $tournament->start_date,
             'end_date' => $tournament->end_date,
             'places' => $tournament->places,
-            'cashprize' => $tournament->cashprize,
+            'cashprize' => strval($tournament->cashprize),
             'status' => $tournament->status,
             'image' => $tournament->image,
         ]);
@@ -76,7 +76,7 @@ class tournamentTest extends TestCase
             'start_date' => "1999-01-01",
             'end_date' => "1999-01-02",
             'places' => 15,
-            'cashprize' => 365,
+            'cashprize' => "365",
             'status' => 'Closed',
             'image' => "https://testimage.com",
         ]);
@@ -90,7 +90,7 @@ class tournamentTest extends TestCase
             'start_date' => "1999-01-01",
             'end_date' => "1999-01-02",
             'places' => 15,
-            'cashprize' => 365,
+            'cashprize' => "365",
             'status' => 'Closed',
             'image' => "https://testimage.com",
         ]);
@@ -102,7 +102,7 @@ class tournamentTest extends TestCase
             'start_date' => "1999-01-01",
             'end_date' => "1999-01-02",
             'places' => 15,
-            'cashprize' => 365,
+            'cashprize' => "365",
             'status' => 'Closed',
             'image' => "https://testimage.com",
         ]);
@@ -128,7 +128,7 @@ class tournamentTest extends TestCase
             'start_date' => "1999-01-01",
             'end_date' => "1999-01-02",
             'places' => 15,
-            'cashprize' => 365,
+            'cashprize' => "365",
             'status' => 'Closed',
             'image' => "https://testimage.com",
         ]);
@@ -154,7 +154,7 @@ class tournamentTest extends TestCase
             'start_date' => "1999-01-01",
             'end_date' => "1999-01-02",
             'places' => 15,
-            'cashprize' => 365,
+            'cashprize' => "365",
             'status' => 'Closed',
             'image' => "https://testimage.com",
         ]);
@@ -166,7 +166,7 @@ class tournamentTest extends TestCase
             'start_date' => "1999-01-01",
             'end_date' => "1999-01-02",
             'places' => 15,
-            'cashprize' => 365,
+            'cashprize' => "365",
             'status' => 'Closed',
             'image' => "https://testimage.com",
         ]);
