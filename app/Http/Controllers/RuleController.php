@@ -14,6 +14,11 @@ class RuleController extends Controller
      */
     public function show()
     {
+        $rules = Rule::all()->first();
+        if ($rules) {
+            return $rules;
+        }
+        
         return Rule::firstOrCreate([
             'content' => "",
         ]);
