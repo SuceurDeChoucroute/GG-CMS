@@ -124,7 +124,7 @@ export default {
                         })
                         
                         // Update admins list
-                        this.getAdmins();
+                        this.getPlayers();
 
                         this.loading = false
                     })
@@ -160,7 +160,7 @@ export default {
                     })
 
                     // Update admins list
-                    this.getAdmins();
+                    this.getPlayers();
 
                     this.loading = false
                 })
@@ -206,7 +206,6 @@ export default {
 
     mounted() {
         this.getPlayers();
-        this.getAdmins();
     }
 }
 </script>
