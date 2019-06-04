@@ -20,8 +20,22 @@
                         <b> {{ user.pseudo }} </b> <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a href="/admin" class="dropdown-item" v-if="isAdmin">Go to admin</a>
-                        <a href="#" class="dropdown-item" @click="logout()">Logout</a>
+                        <router-link :to="{name: 'player.parameters', params: {id: user.id}}" class="dropdown-item font-weight-bold">
+                            <i class="fas fa-cog"></i>
+                            Parameters
+                        </router-link>
+                        
+                        <a href="/admin" class="dropdown-item font-weight-bold" v-if="isAdmin">
+                            <i class="fas fa-user-shield"></i>
+                            Go to admin
+                        </a>
+                        
+                        <div class="dropdown-divider"></div>
+
+                        <a href="#" class="dropdown-item text-danger font-weight-bold" @click="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
                     </div>
                 </li>
 

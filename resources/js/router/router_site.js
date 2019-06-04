@@ -16,6 +16,9 @@ import Rules from '../components/site/pages/rules/SiteRules.vue'
 import Teams from '../components/site/pages/teams/SiteTeams.vue'
 import TeamShow from '../components/site/pages/teams/SiteTeamShow.vue'
 
+// Players
+import PlayerParameters from '../components/site/pages/players/SitePlayerParameters.vue'
+
 const routes = [
     // Home
     { name: "home", path: '/', component: SiteHome },
@@ -30,6 +33,9 @@ const routes = [
     // Teams
     { name: "teams", path: '/teams', component: Teams },
     { name: "team.show", path: '/teams/:id', component: TeamShow },
+
+    // Players
+    { name: "player.parameters", path: '/player/:id', component: PlayerParameters },
 
 ];
 
