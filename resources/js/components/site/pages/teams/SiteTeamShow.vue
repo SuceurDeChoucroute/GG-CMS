@@ -37,13 +37,13 @@
                     </div>
                     <div class="card-body p-0 text-center">
                         <table class="table mb-0 table-hover">
-                            <thead class="bg-light">
+                            <!-- <thead class="bg-light">
                                 <tr>
                                     <th scope="col" class="border-0">Player</th>
-                                    <!-- <th scope="col" class="border-0">Grade</th>
-                                    <th scope="col" class="border-0"></th> -->
+                                    <th scope="col" class="border-0">Grade</th>
+                                    <th scope="col" class="border-0"></th>
                                 </tr>
-                            </thead>
+                            </thead> -->
                             <tbody>
                                 <tr v-for="(player, key) in team.players" :key="key">
                                     <td>
