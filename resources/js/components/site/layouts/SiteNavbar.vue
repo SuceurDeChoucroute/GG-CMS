@@ -57,7 +57,6 @@
         </div>
     </div>
 </template>
-// :class="{ 'active':nav.name.includes($route.name.split('.')[0]) }"
 <script>
 export default {
         data() {
