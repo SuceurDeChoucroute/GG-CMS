@@ -5,12 +5,8 @@
         </router-link>
         <div class="collapse navbar-collapse mr-auto" id="navbarDropdown">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <router-link :to="{name: 'teams'}" class="nav-link">Teams</router-link>
-                </li>
-
-                <li class="nav-item">
-                    <router-link :to="{name: 'rules'}" class="nav-link">Rules</router-link>
+                <li class="nav-item" v-for="(nav, key) in navs" :key="key" :class="{ 'active':nav.name.includes($route.name.split('.')[0]) }">
+                    <router-link :to="{name: nav.name}" class="nav-link"> {{ nav.title }} </router-link>
                 </li>
             </ul>
 
@@ -61,14 +57,18 @@
         </div>
     </div>
 </template>
-
+// :class="{ 'active':nav.name.includes($route.name.split('.')[0]) }"
 <script>
 export default {
         data() {
             return {
                 loading: false,
                 authenticated: auth.check(),
-                user: null
+                user: null,
+                navs: [
+                    {name: 'teams', title:'Teams',},
+                    {name: 'rules', title:'Rules',}
+                ]
             }
         },
 
