@@ -11,8 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
-// TODO: Change name of app.js to site.js
-// TODO: Add admin.js
 mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/admin.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
+
+mix.styles([
+   'node_modules/bootstrap/dist/css/bootstrap.min.css',
+   'public/css/shards.min.css',
+   'public/css/shards-extras.min.css',
+], 'public/css/site.css')

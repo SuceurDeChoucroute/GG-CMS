@@ -102,6 +102,20 @@ class PlayerController extends Controller
         ], 200);
     }
 
+    public function addGame(User $player, Request $request)
+    {
+        $player->games()->attach($request->game_id);
+
+        return $player;
+    }
+
+    public function deleteGame(User $player, Request $request)
+    {
+        $player->games()->detach($request->game_id);
+
+        return $player;
+    }
+
     public function games(User $player)
     {
         return $player->games;

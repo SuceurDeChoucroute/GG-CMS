@@ -17,6 +17,11 @@ class PostController extends Controller
         return Post::all();
     }
 
+    public function index_site()
+    {
+        return Post::all()->where('visibility', 'public');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

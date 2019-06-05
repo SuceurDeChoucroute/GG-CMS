@@ -6,11 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/png" href=" {{ asset('/img/favicon.png') }} ">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="{{ asset('css/animation.css') }}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href=" {{ asset('css/shards.min.css') }} ">
-    <link rel="stylesheet" href=" {{ asset('css/shards-extras.min.css') }} ">
+        <link rel="stylesheet" href=" {{ asset('css/site.css') }} ">
     <title>Document</title>
 </head>
 <body>

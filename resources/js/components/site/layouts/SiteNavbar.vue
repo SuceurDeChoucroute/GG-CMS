@@ -5,12 +5,10 @@
         </router-link>
         <div class="collapse navbar-collapse mr-auto" id="navbarDropdown">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <router-link :to="{name: 'teams'}" class="nav-link">Teams</router-link>
-                </li>
-
-                <li class="nav-item">
-                    <router-link :to="{name: 'rules'}" class="nav-link">Rules</router-link>
+                <li class="nav-item" v-for="(nav, key) in navs" :key="key" :class="{ 'active':nav.name.includes($route.name.split('.')[0]) }">
+                    <router-link :to="{name: nav.name}" class="nav-link">
+                        <b>{{ nav.title }}</b>
+                    </router-link>
                 </li>
             </ul>
 
@@ -20,8 +18,22 @@
                         <b> {{ user.pseudo }} </b> <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a href="/admin" class="dropdown-item" v-if="isAdmin">Go to admin</a>
-                        <a href="#" class="dropdown-item" @click="logout()">Logout</a>
+                        <router-link :to="{name: 'player.parameters', params: {id: user.id}}" class="dropdown-item font-weight-bold">
+                            <i class="fas fa-cog"></i>
+                            Parameters
+                        </router-link>
+                        
+                        <a href="/admin" class="dropdown-item font-weight-bold" v-if="isAdmin">
+                            <i class="fas fa-user-shield"></i>
+                            Go to admin
+                        </a>
+                        
+                        <div class="dropdown-divider"></div>
+
+                        <a href="#" class="dropdown-item text-danger font-weight-bold" @click="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
                     </div>
                 </li>
 
@@ -47,14 +59,17 @@
         </div>
     </div>
 </template>
-
 <script>
 export default {
         data() {
             return {
                 loading: false,
                 authenticated: auth.check(),
-                user: null
+                user: null,
+                navs: [
+                    {name: 'teams', title:'Teams',},
+                    {name: 'rules', title:'Rules',}
+                ]
             }
         },
 
