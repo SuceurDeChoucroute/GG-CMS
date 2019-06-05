@@ -92,6 +92,7 @@ Route::group(['middleware' => ['json.response']], function () {
     Route::get('tournaments/{tournament}/teams', 'TournamentController@teams')->name('tournaments.teams');
     
     // Posts
+    Route::get('posts/public', 'PostController@index_site');
     Route::resource('posts', 'PostController')->only(['index', 'show']);
     
     // Rules
