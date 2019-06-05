@@ -6,7 +6,9 @@
         <div class="collapse navbar-collapse mr-auto" id="navbarDropdown">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item" v-for="(nav, key) in navs" :key="key" :class="{ 'active':nav.name.includes($route.name.split('.')[0]) }">
-                    <router-link :to="{name: nav.name}" class="nav-link"> {{ nav.title }} </router-link>
+                    <router-link :to="{name: nav.name}" class="nav-link">
+                        <b>{{ nav.title }}</b>
+                    </router-link>
                 </li>
             </ul>
 

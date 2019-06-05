@@ -11,7 +11,9 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4" v-for="(post, key) in posts" :key="key">
                         <div class="card card-small">
-                            <img class="card-img-top" :src="post.image" alt="Card image cap">
+                            <router-link :to="{name: 'post.show', params: {id: post.id}}">
+                                <img class="card-img-top" :src="post.image" alt="Card image cap">
+                            </router-link>
                             <div class="card-body">
                                 <h5 class="card-title"> {{ post.title }} </h5>
                                 <span class="text-muted"> {{ post.created_at }} </span>

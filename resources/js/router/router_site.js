@@ -19,6 +19,9 @@ import TeamShow from '../components/site/pages/teams/SiteTeamShow.vue'
 // Players
 import PlayerParameters from '../components/site/pages/players/SitePlayerParameters.vue'
 
+// Posts
+import PostShow from '../components/site/pages/posts/SitePostShow.vue'
+
 const routes = [
     // Home
     { name: "home", path: '/', component: SiteHome },
@@ -36,6 +39,9 @@ const routes = [
 
     // Players
     { name: "player.parameters", path: '/parameters/:id', component: PlayerParameters },
+
+    // Posts
+    { name: "post.show", path: '/posts/:id', component: PostShow},
 
 ];
 
