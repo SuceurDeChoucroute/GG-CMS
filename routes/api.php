@@ -36,6 +36,7 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::resource('players', 'PlayerController')->only(['store', 'update', 'destroy']);
         Route::get('players/admins', 'PlayerController@admins')->name('players.admins');
         Route::post('players/{player}/game', 'PlayerController@addGame')->name('players.addGame');
+        Route::delete('players/{player}/game', 'PlayerController@deleteGame')->name('players.deleteGame');
         Route::post('players/{player}/grantAdmin', 'PlayerController@grantAdmin')->name('players.admins.grant');
         Route::post('players/{player}/revokeAdmin', 'PlayerController@revokeAdmin')->name('players.admins.revoke');
         Route::post('players/{player}/visibility', 'PlayerController@changeVisibility')->name('players.admins.visibility'); 

@@ -101,11 +101,11 @@
                                             <td> {{ team.name }} </td>
                                             <td> {{ team.game.name }} </td>
                                             <td class="text-center" v-show="isUserProfile">
-                                                <router-link :to="{name: 'team.show', params: {id: team.id}}" class="btn btn-primary">
+                                                <router-link :to="{name: 'team.show', params: {id: team.id}}" class="btn btn-sm btn-pill btn-primary">
                                                     <i class="fas fa-eye"></i>
                                                 </router-link>
 
-                                                <button class="btn btn-danger" @click="deleteTeam(team.id)">
+                                                <button class="btn btn-sm btn-pill btn-danger" @click="deleteTeam(team.id)">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </td>
@@ -125,16 +125,20 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Name</th>
-                                            <th scope="col">Rank</th>
+                                            <!-- <th scope="col">Rank</th> -->
                                             <th scope="col" class="text-center" v-show="isUserProfile">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(game, key) in player.games" :key="key">
                                             <td> {{ game.name }} </td>
-                                            <td></td>
+                                            <!-- <td></td> -->
                                             <td class="text-center" v-show="isUserProfile">
-                                                <button class="btn btn-danger">
+                                                <!-- <button class="btn btn-sm btn-pill btn-success" data-toggle="modal" data-target="#editGame" v-show="isUserProfile" @click="editGame(game.id)">
+                                                    <i class="fas fa-edit"></i>
+                                                </button> -->
+
+                                                <button class="btn btn-sm btn-pill btn-danger" @click="deleteGame(game.id)">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </td>
@@ -188,6 +192,20 @@
                 </div>
             </form>
         </site-modal>
+
+        <site-modal id="editGame" header="Edit Game" confirmButton="Update" @clicked="updateGame()">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-lg-12">
+                        <label for="game_id">Rank</label>
+                        <select name="game_id" id="game_id" class="form-control" v-model="rankSelected" required>
+                            <option selected disabled>-- Please choose your --</option>
+                            <option :value="rank.id" v-for="(rank, key) in gameRanks" :key="key"> {{ rank.name }} </option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </site-modal>
     </div>
 </template>
 
@@ -206,7 +224,9 @@ export default {
             loading: false,
             player: {},
             games: [],
+            gameRanks: [],
             gameSelected: null,
+            rankSelected: null,
             newTeam: {
                 name: '',
                 description: '',
@@ -255,7 +275,7 @@ export default {
             this.loading = true
             axios.put('/api/players/' + this.$route.params.id, this.player.player)
             .then(response => {
-                this.$noty.success("Parameters successfully updated !")
+                this.$noty.success("Parameters updated !")
                 this.loading = false
             })
             .catch(response => {
@@ -268,7 +288,7 @@ export default {
             this.loading = true
             axios.post('/api/teams', this.newTeam)
             .then(response => {
-                this.$noty.success("Team successfully created !")
+                this.$noty.success("Team created !")
                 this.getPlayer()
                 this.loading = false
             })
@@ -280,9 +300,10 @@ export default {
 
         deleteTeam(id) {
             if (confirm("Are you sure you want to delete this team ?")) {
+                this.loading = true
                 axios.delete('/api/teams/' + id)
                 .then(() => {
-                    this.$noty.success("Team successfully deleted !")
+                    this.$noty.success("Team deleted !")
                     this.getPlayer()
                     this.loading = false
                 })
@@ -297,8 +318,44 @@ export default {
             this.loading = true
             axios.post('/api/players/' + this.player.player.id + '/game', { game_id: this.gameSelected})
             .then(response => {
-                this.$noty.success("Parameters successfully updated !")
+                this.$noty.success("Parameters updated !")
                 this.getPlayer()
+                this.loading = false
+            })
+            .catch(() => {
+                this.$noty.error("Something went wrong... Try again")
+                this.loading = false
+            })
+        },
+
+        editGame(id) {
+            this.getGameRanks(id)
+        },
+
+        updateGame(id) {
+        },
+
+        deleteGame(id) {
+            if (confirm("Are you sure you want to delete this game ?")) {
+                this.loading = true
+                axios.delete('/api/players/' + this.player.player.id + '/game', {game_id: id})
+                .then(response => {
+                    this.$noty.success("Game deleted !")
+                    this.getPlayer()
+                    this.loading = false
+                })
+                .catch(() => {
+                    this.$noty.error("Something went wrong... Try again")
+                    this.loading = false
+                })
+            }
+        },
+
+        getGameRanks(id) {
+            this.loading = true
+            axios.get('/api/games/' + id + '/ranks')
+            .then(response => {
+                this.gameRanks = response.data
                 this.loading = false
             })
             .catch(() => {

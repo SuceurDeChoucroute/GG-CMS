@@ -35,7 +35,7 @@ const routes = [
     { name: "team.show", path: '/teams/:id', component: TeamShow },
 
     // Players
-    { name: "player.parameters", path: '/player/:id', component: PlayerParameters },
+    { name: "player.parameters", path: '/parameters/:id', component: PlayerParameters },
 
 ];
 

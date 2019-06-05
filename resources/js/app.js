@@ -1,7 +1,5 @@
 require('./bootstrap');
 import BootstrapVue from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 import router from './router/router_site.js';
 import auth from './auth/auth.js';
 import VueNoty from 'vuejs-noty'

@@ -109,6 +109,13 @@ class PlayerController extends Controller
         return $player;
     }
 
+    public function deleteGame(User $player, Request $request)
+    {
+        $player->games()->detach($request->game_id);
+
+        return $player;
+    }
+
     public function games(User $player)
     {
         return $player->games;
