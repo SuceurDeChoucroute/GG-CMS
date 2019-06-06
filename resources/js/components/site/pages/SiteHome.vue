@@ -7,9 +7,9 @@
         </div>
 
         <div class="row" v-show="!loadingPage">
-            <div class="col-lg-10">
+            <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4" v-for="(post, key) in posts" :key="key">
+                    <div class="col-lg-3 col-md-6 col-sm-12 mb-4" v-for="(post, key) in posts" :key="key">
                         <div class="card card-small">
                             <router-link :to="{name: 'post.show', params: {id: post.id}}">
                                 <img class="card-img-top" :src="post.image" alt="Card image cap">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2">
+            <!-- <div class="col-lg-2">
                 <div class="card card-small">
                     <div class="card-body">
                         <h4 class="card-title">Our partners:</h4>
@@ -33,7 +33,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>        
     </div>
