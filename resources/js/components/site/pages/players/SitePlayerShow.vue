@@ -85,7 +85,7 @@
                             <div class="tab-pane" id="teams" role="tabpanel" aria-labelledby="teams-tab">
                                 <button class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#createTeam" v-show="isUserProfile">
                                     <i class="fas fa-plus"></i>
-                                    Add
+                                    Create
                                 </button>
 
                                 <table class="table table-hover">
@@ -98,12 +98,16 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="(team, key) in player.teams" :key="key">
-                                            <td> {{ team.name }} </td>
+                                            <td>
+                                                <router-link :to="{name: 'team.show', params: {id: team.id}}">
+                                                    {{ team.name }}     
+                                                </router-link> 
+                                            </td>
                                             <td> {{ team.game.name }} </td>
                                             <td class="text-center" v-show="isUserProfile">
-                                                <router-link :to="{name: 'team.show', params: {id: team.id}}" class="btn btn-sm btn-pill btn-primary">
-                                                    <i class="fas fa-eye"></i>
-                                                </router-link>
+                                                <button class="btn btn-sm btn-pill btn-success" @click="teamSelected = team" data-toggle="modal" data-target="#editTeam">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
 
                                                 <button class="btn btn-sm btn-pill btn-danger" @click="deleteTeam(team.id)">
                                                     <i class="fas fa-trash-alt"></i>
@@ -160,7 +164,7 @@
                 <div class="form-row">
                     <div class="form-group col-lg-12">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" v-model="newTeam.name" required>
+                        <input type="text" class="form-control" name="name" id="name" autofocus v-model="newTeam.name" required>
                     </div>
                     
                     <div class="form-group col-lg-12">
@@ -184,7 +188,7 @@
                 <div class="form-row">
                     <div class="form-group col-lg-12">
                         <label for="game_id">Game</label>
-                        <select name="game_id" id="game_id" class="form-control" v-model="gameSelected" required>
+                        <select name="game_id" id="game_id" class="form-control" autofocus v-model="gameSelected" required>
                             <option selected disabled>-- Please choose a game --</option>
                             <option :value="game.id" v-for="(game, key) in games" :key="key"> {{ game.name }} </option>
                         </select>
@@ -198,10 +202,26 @@
                 <div class="form-row">
                     <div class="form-group col-lg-12">
                         <label for="game_id">Rank</label>
-                        <select name="game_id" id="game_id" class="form-control" v-model="rankSelected" required>
+                        <select name="game_id" id="game_id" class="form-control" autofocus v-model="rankSelected" required>
                             <option selected disabled>-- Please choose your --</option>
                             <option :value="rank.id" v-for="(rank, key) in gameRanks" :key="key"> {{ rank.name }} </option>
                         </select>
+                    </div>
+                </div>
+            </form>
+        </site-modal>
+
+        <site-modal id="editTeam" header="Edit Team" confirmButton="Update" @clicked="updateTeam()">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-lg-12">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" class="form-control" autofocus v-model="teamSelected.name">
+                    </div>
+
+                    <div class="form-group col-lg-12">
+                        <label for="avatar">Avatar</label>
+                        <input type="url" name="avatar" class="form-control" v-model="teamSelected.avatar">
                     </div>
                 </div>
             </form>
@@ -227,6 +247,7 @@ export default {
             gameRanks: [],
             gameSelected: null,
             rankSelected: null,
+            teamSelected: {},
             newTeam: {
                 name: '',
                 description: '',
@@ -312,6 +333,20 @@ export default {
                     this.loading = false
                 })
             }
+        },
+
+        updateTeam() {
+            this.loading = true
+            axios.put('/api/teams/' + this.teamSelected.id, this.teamSelected)
+            .then(() => {
+                this.$noty.success("Team updated !")
+                this.getPlayer()
+                this.loading = false
+            })
+            .catch(() => {
+                this.$noty.error("Something went wrong... Try reload the page")
+                this.loading = false
+            })
         },
 
         addGame() {

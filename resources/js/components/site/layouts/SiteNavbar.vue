@@ -18,9 +18,9 @@
                         <b> {{ user.pseudo }} </b> <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <router-link :to="{name: 'player.parameters', params: {id: user.id}}" class="dropdown-item font-weight-bold">
+                        <router-link :to="{name: 'player.show', params: {id: user.id}}" class="dropdown-item font-weight-bold">
                             <i class="fas fa-cog"></i>
-                            Parameters
+                            Profile
                         </router-link>
                         
                         <a href="/admin" class="dropdown-item font-weight-bold" v-if="isAdmin">

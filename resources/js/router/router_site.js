@@ -17,7 +17,7 @@ import Teams from '../components/site/pages/teams/SiteTeams.vue'
 import TeamShow from '../components/site/pages/teams/SiteTeamShow.vue'
 
 // Players
-import PlayerParameters from '../components/site/pages/players/SitePlayerParameters.vue'
+import PlayerShow from '../components/site/pages/players/SitePlayerShow.vue'
 
 // Posts
 import PostShow from '../components/site/pages/posts/SitePostShow.vue'
@@ -38,7 +38,7 @@ const routes = [
     { name: "team.show", path: '/teams/:id', component: TeamShow },
 
     // Players
-    { name: "player.parameters", path: '/parameters/:id', component: PlayerParameters },
+    { name: "player.show", path: '/player/:id', component: PlayerShow },
 
     // Posts
     { name: "post.show", path: '/posts/:id', component: PostShow},
