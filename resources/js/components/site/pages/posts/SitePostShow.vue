@@ -10,9 +10,9 @@
 
             <hr>
 
-            <p class="text-center">
+            <span class="text-center">
                 <img :src="post.image" alt="Cover" class="img-fluid rounded">
-            </p>
+            </span>
 
             <hr>
 
