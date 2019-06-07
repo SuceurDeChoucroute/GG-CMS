@@ -373,7 +373,7 @@ export default {
         deleteGame(id) {
             if (confirm("Are you sure you want to delete this game ?")) {
                 this.loading = true
-                axios.delete('/api/players/' + this.player.player.id + '/game', {game_id: id})
+                axios.delete('/api/players/' + this.player.player.id + '/game', {params: {game_id: id}})
                 .then(response => {
                     this.$noty.success("Game deleted !")
                     this.getPlayer()
