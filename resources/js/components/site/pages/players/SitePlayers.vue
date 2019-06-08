@@ -33,6 +33,9 @@
                         <h4 class="card-title"> 
                             {{ player.pseudo }}
                         </h4>
+                        <p class="card-text">
+                            {{ player.description | descriptionLongText }}
+                        </p>
                     </div>
                 </div>
             </div> 
@@ -67,9 +70,9 @@ export default {
                 this.players = response.data
                 this.loading = false
             })
-            .then(() => {
-
-                this.loading = false
+            .catch(() => {
+                this.$noty.error("Something went wrong... Try reload the page")
+                this.loadingPage = false
             })
         },
 
@@ -109,6 +112,15 @@ export default {
                 })
             }
             return this.players
+        }
+    },
+
+    filters: {
+        descriptionLongText(description) {
+            if (description != null && description.length > 30) {
+                return description.substr(0, 29) + '[...]'
+            }
+            return description
         }
     }
 }

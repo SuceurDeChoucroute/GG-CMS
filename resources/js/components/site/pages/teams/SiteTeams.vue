@@ -70,9 +70,9 @@ export default {
                 this.teams = response.data
                 this.loading = false
             })
-            .then(() => {
-
-                this.loading = false
+            .catch(() => {
+                this.$noty.error("Something went wrong... Try reload the page")
+                this.loadingPage = false
             })
         },
 
