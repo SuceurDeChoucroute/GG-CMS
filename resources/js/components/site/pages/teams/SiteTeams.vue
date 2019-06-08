@@ -12,11 +12,11 @@
                     <div class="form-inline">
                         <input type="text" class="form-control col-sm-12 mb-2" placeholder="Search a team..." autofocus v-model="search">
 
-                        <label for="showTeams">Show </label>
+                        <!-- <label for="showTeams">Show </label>
                         <select name="showTeams" id="showTeams" class="form-control" v-model="countShowTeams">
                             <option :value="number" v-for="(number, key) in howMuchTeamsCanShow" :key="key"> {{ number }} </option>
                         </select>
-                        <label for="showTeams"> Teams</label>
+                        <label for="showTeams"> Teams</label> -->
                     </div>
                     <label v-show="search"> {{ filteredTeams.length }} team(s) filtered</label>
                 </form>

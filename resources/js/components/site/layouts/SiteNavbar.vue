@@ -68,6 +68,7 @@ export default {
                 user: null,
                 navs: [
                     {name: 'teams', title:'Teams',},
+                    {name: 'players', title:'Players',},
                     {name: 'rules', title:'Rules',}
                 ]
             }
