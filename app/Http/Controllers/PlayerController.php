@@ -17,6 +17,11 @@ class PlayerController extends Controller
         return User::all();
     }
 
+    public function index_site()
+    {
+        return User::all()->where('visibility', 1);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

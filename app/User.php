@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Team');
     }
+
+    public function tournaments()
+    {
+        return $this->belongsToMany('App\Tournament')->withPivot('place');
+    }
 }

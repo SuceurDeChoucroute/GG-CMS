@@ -15,6 +15,11 @@ class Tournament extends Model
         return $this->belongsToMany('App\Team')->withPivot('place');
     }
 
+    public function players()
+    {
+        return $this->belongsToMany('App\User')->withPivot('place');
+    }
+
     public function game()
     {
         return $this->belongsTo('App\Game');

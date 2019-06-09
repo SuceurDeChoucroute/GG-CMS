@@ -112,6 +112,11 @@ class TournamentController extends Controller
         return $tournament->teams;
     }
 
+    public function players(Tournament $tournament)
+    {
+        return $tournament->players;
+    }
+
     public function teamsPercentage()
     {
         $tournaments = Tournament::all()->where('status', 'Open');
