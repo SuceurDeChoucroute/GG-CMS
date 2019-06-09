@@ -18,8 +18,52 @@ class TournamentController extends Controller
         $tournaments = [];
 
         foreach (Tournament::all() as $key => $tournament) {
+            $registered = [];
+            $type = '';
+
+            if ($tournament->game->places != 1) {
+                $type = 'team';
+                $registered = $tournament->teams;
+            }
+            else {
+                $type = 'player';
+                $registered = $tournament->players;
+            }
+
             array_push($tournaments, [
                 'tournament' => $tournament,
+                'registered' => [
+                    'type' => $type,
+                    $registered
+                ],
+                'game' => $tournament->game,
+            ]);
+        }
+
+        return $tournaments;
+    }
+
+    public function index_site()
+    {
+        $tournaments = [];
+
+        foreach (Tournament::all()->where('status', 'Open') as $key => $tournament) {
+            $registered = [];
+            $type = '';
+            
+            if ($tournament->game->places != 1) {
+                $type = 'team';
+                $registered = $tournament->teams;
+            }
+            else {
+                $type = 'player';
+                $registered = $tournament->players;
+            }
+
+            array_push($tournaments, [
+                'tournament' => $tournament,
+                'registeredType' => $type,
+                'registered' => $registered,
                 'game' => $tournament->game,
             ]);
         }

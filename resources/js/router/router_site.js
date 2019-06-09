@@ -23,6 +23,9 @@ import PlayerShow from '../components/site/pages/players/SitePlayerShow.vue'
 // Posts
 import PostShow from '../components/site/pages/posts/SitePostShow.vue'
 
+// Tournaments
+import Tournaments from '../components/site/pages/tournaments/SiteTournaments.vue'
+
 const routes = [
     // Home
     { name: "home", path: '/', component: SiteHome },
@@ -45,6 +48,8 @@ const routes = [
     // Posts
     { name: "post.show", path: '/posts/:id', component: PostShow},
 
+    // Tournaments
+    { name: "tournaments", path: '/tournaments', component: Tournaments },
 ];
 
 export default new Router({
