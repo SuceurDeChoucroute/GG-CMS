@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Tournament;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Team;
+use App\User;
+
 
 class TournamentController extends Controller
 {
@@ -205,5 +208,41 @@ class TournamentController extends Controller
         }
 
         return ($countTeams / $countPlaces) * 100;
+    }
+
+    public function registerTeam(Tournament $tournament, Team $team)
+    {
+        $tournament->teams()->attach($team);
+        
+        return response()->json([
+            'message' => 'Success',
+        ]);
+    }
+
+    public function unregisterTeam(Tournament $tournament, Team $team)
+    {
+        $tournament->teams()->detach($team);
+        
+        return response()->json([
+            'message' => 'Success',
+        ]);
+    }
+
+    public function registerPlayer(Tournament $tournament, User $player)
+    {
+        $tournament->players()->attach($player);
+        
+        return response()->json([
+            'message' => 'Success',
+        ]);
+    }
+
+    public function unregisterPlayer(Tournament $tournament, User $player)
+    {
+        $tournament->players()->detach($player);
+
+        return response()->json([
+            'message' => 'Success',
+        ]);
     }
 }

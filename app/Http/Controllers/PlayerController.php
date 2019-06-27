@@ -128,7 +128,16 @@ class PlayerController extends Controller
 
     public function teams(User $player)
     {
-        return $player->teams;
+        $results = [];
+
+        foreach ($player->teams as $key => $team) {
+            array_push($results, [
+                'team' => $team,
+                'players_count' => count($team->players),
+            ]);
+        }
+
+        return $results;
     }
 
     public function admins()

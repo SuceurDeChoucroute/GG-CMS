@@ -67,9 +67,10 @@ export default {
                 authenticated: auth.check(),
                 user: null,
                 navs: [
-                    {name: 'teams', title:'Teams',},
                     {name: 'players', title:'Players',},
-                    {name: 'rules', title:'Rules',}
+                    {name: 'teams', title:'Teams',},
+                    {name: 'tournaments', title: 'Register to tournament'},
+                    {name: 'rules', title:'Rules',},
                 ]
             }
         },
