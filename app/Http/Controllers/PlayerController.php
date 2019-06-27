@@ -17,6 +17,11 @@ class PlayerController extends Controller
         return User::all();
     }
 
+    public function index_site()
+    {
+        return User::all()->where('visibility', 1);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -123,7 +128,16 @@ class PlayerController extends Controller
 
     public function teams(User $player)
     {
-        return $player->teams;
+        $results = [];
+
+        foreach ($player->teams as $key => $team) {
+            array_push($results, [
+                'team' => $team,
+                'players_count' => count($team->players),
+            ]);
+        }
+
+        return $results;
     }
 
     public function admins()

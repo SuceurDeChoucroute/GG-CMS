@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Tournament;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Team;
+use App\User;
+
 
 class TournamentController extends Controller
 {
@@ -18,8 +21,52 @@ class TournamentController extends Controller
         $tournaments = [];
 
         foreach (Tournament::all() as $key => $tournament) {
+            $registered = [];
+            $type = '';
+
+            if ($tournament->game->places != 1) {
+                $type = 'team';
+                $registered = $tournament->teams;
+            }
+            else {
+                $type = 'player';
+                $registered = $tournament->players;
+            }
+
             array_push($tournaments, [
                 'tournament' => $tournament,
+                'registered' => [
+                    'type' => $type,
+                    $registered
+                ],
+                'game' => $tournament->game,
+            ]);
+        }
+
+        return $tournaments;
+    }
+
+    public function index_site()
+    {
+        $tournaments = [];
+
+        foreach (Tournament::all()->where('status', 'Open') as $key => $tournament) {
+            $registered = [];
+            $type = '';
+            
+            if ($tournament->game->places != 1) {
+                $type = 'team';
+                $registered = $tournament->teams;
+            }
+            else {
+                $type = 'player';
+                $registered = $tournament->players;
+            }
+
+            array_push($tournaments, [
+                'tournament' => $tournament,
+                'registeredType' => $type,
+                'registered' => $registered,
                 'game' => $tournament->game,
             ]);
         }
@@ -112,6 +159,11 @@ class TournamentController extends Controller
         return $tournament->teams;
     }
 
+    public function players(Tournament $tournament)
+    {
+        return $tournament->players;
+    }
+
     public function teamsPercentage()
     {
         $tournaments = Tournament::all()->where('status', 'Open');
@@ -156,5 +208,41 @@ class TournamentController extends Controller
         }
 
         return ($countTeams / $countPlaces) * 100;
+    }
+
+    public function registerTeam(Tournament $tournament, Team $team)
+    {
+        $tournament->teams()->attach($team);
+        
+        return response()->json([
+            'message' => 'Success',
+        ]);
+    }
+
+    public function unregisterTeam(Tournament $tournament, Team $team)
+    {
+        $tournament->teams()->detach($team);
+        
+        return response()->json([
+            'message' => 'Success',
+        ]);
+    }
+
+    public function registerPlayer(Tournament $tournament, User $player)
+    {
+        $tournament->players()->attach($player);
+        
+        return response()->json([
+            'message' => 'Success',
+        ]);
+    }
+
+    public function unregisterPlayer(Tournament $tournament, User $player)
+    {
+        $tournament->players()->detach($player);
+
+        return response()->json([
+            'message' => 'Success',
+        ]);
     }
 }
