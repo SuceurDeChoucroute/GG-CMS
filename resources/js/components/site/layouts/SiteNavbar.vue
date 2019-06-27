@@ -3,8 +3,12 @@
         <router-link :to="{name: 'home'}" class="navbar-brand">
             Home
         </router-link>
-        <div class="collapse navbar-collapse mr-auto" id="navbarDropdown">
-            <ul class="navbar-nav mr-auto">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarDropdown" aria-controls="navbarDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarDropdown">
+            <ul class="navbar-nav">
                 <li class="nav-item" v-for="(nav, key) in navs" :key="key" :class="{ 'active':nav.name.includes($route.name.split('.')[0]) }">
                     <router-link :to="{name: nav.name}" class="nav-link">
                         <b>{{ nav.title }}</b>
@@ -12,7 +16,7 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item" v-if="user">
                      <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <b> {{ user.pseudo }} </b> <span class="caret"></span>
@@ -56,6 +60,7 @@
                 
                 </li>
             </ul>
+
         </div>
     </div>
 </template>
