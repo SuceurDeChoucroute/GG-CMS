@@ -184,13 +184,13 @@ export default {
                 if (this.players[key].visibility) {
                     this.flashMessage.success({
                         title: "Visibility changed !",
-                        message: "The admin is now visible"
+                        message: "The admin is now not visible"
                     })
                 }
                 else {
                     this.flashMessage.success({
                         title: "Visibility changed !",
-                        message: "The admin is now not visible"
+                        message: "The admin is now visible"
                     })
                 }
             })
