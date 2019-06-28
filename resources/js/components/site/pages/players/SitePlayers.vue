@@ -65,7 +65,7 @@ export default {
     methods: {
         getPlayers() {
             this.loading = true
-            axios.get('/api/players')
+            axios.get('/api/players/visible')
             .then(response => {
                 this.players = response.data
                 this.loading = false

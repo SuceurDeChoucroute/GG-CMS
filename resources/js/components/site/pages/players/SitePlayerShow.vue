@@ -62,7 +62,7 @@
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="avatar">Avatar</label>
-                                            <input type="url" name="avatar" id="avatar" class="form-control" placeholder="https://..." v-model="player.player.avatar" required :disabled="!isUserProfile">
+                                            <input type="url" name="avatar" id="avatar" class="form-control" placeholder="https://..." v-model="player.player.avatar" :disabled="!isUserProfile">
                                         </div>
                                     </div>
 
