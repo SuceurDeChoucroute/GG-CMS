@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Team;
+use App\User;
+use App\JoinRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\JoinRequestController;
+use App\Notifications\JoinRequest as JoinRequestNotification;
 
 class TeamController extends Controller
 {
@@ -68,11 +72,21 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
+        $playersRequest = array();
+
+        foreach ($team->joinrequests->where('response', null) as $joinrequest) {
+            array_push($playersRequest, User::find($joinrequest->user_id));
+        }
+
         return [
             'team' => $team,
             'players' => $team->players,
             'game' => $team->game,
-            'participations' => $team->tournaments
+            'participations' => $team->tournaments,
+            'joinrequests' => [
+                'joinrequests' => $team->joinrequests,
+                'players' => $playersRequest
+            ]
         ];
     }
 
@@ -112,6 +126,55 @@ class TeamController extends Controller
     public function players(Team $team)
     {
         return $team->players;
+    }
+
+    public function joinRequest(Team $team, User $player)
+    {
+        $joinrequest = new JoinRequestController($team, $player);
+        $validation = $joinrequest->sendJoinRequest();
+
+        if ($validation) {
+            return response()->json([
+                'message' => 'Request successfully sended !',
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'message' => 'Request already sended ...',
+            ], 401);
+        }
+    }
+
+    public function responseJoinRequest(Team $team, User $player, $response)
+    {
+        $joinrequest = new JoinRequestController($team, $player);
+        $validation = null;
+
+        switch ($response) {
+            case 'accept':
+                $validation = $joinrequest->acceptJoinRequest();
+                $team->players()->attach($player);
+                break;
+                
+            case 'refuse':
+                $validation = $joinrequest->refuseJoinRequest();
+                break;
+                
+            default:
+                # code...
+                break;
+        }
+
+        if ($validation) {
+            return response()->json([
+                'message' => 'Request successfully sended !',
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'message' => 'Request already sended ...',
+            ], 401);
+        }       
     }
 
     public function tournaments(Team $team)

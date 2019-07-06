@@ -181,4 +181,9 @@ class PlayerController extends Controller
             'message' => 'Player visibility changed'
         ]);
     }
+
+    public function getPlayerJoinRequests(User $player)
+    {
+        return $player->joinrequests;
+    }
 }

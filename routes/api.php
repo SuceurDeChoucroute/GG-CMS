@@ -39,10 +39,12 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::delete('players/{player}/game', 'PlayerController@deleteGame')->name('players.deleteGame');
         Route::post('players/{player}/grantAdmin', 'PlayerController@grantAdmin')->name('players.admins.grant');
         Route::post('players/{player}/revokeAdmin', 'PlayerController@revokeAdmin')->name('players.admins.revoke');
-        Route::post('players/{player}/visibility', 'PlayerController@changeVisibility')->name('players.admins.visibility'); 
+        Route::post('players/{player}/visibility', 'PlayerController@changeVisibility')->name('players.admins.visibility');
         
         // Teams
         Route::resource('teams', 'TeamController')->only(['store', 'update', 'destroy']);
+        Route::post('teams/{team}/joinrequest/{player}', 'TeamController@joinRequest');
+        Route::post('teams/{team}/joinrequest/{player}/{response}', 'TeamController@responseJoinRequest');
         
         // Tournaments
         Route::resource('tournaments', 'TournamentController')->only(['store', 'update', 'destroy']);
@@ -62,7 +64,7 @@ Route::group(['middleware' => ['json.response']], function () {
     // Auth
     Route::post('/login', 'AuthController@login')->name('login');
     Route::post('/register', 'AuthController@register')->name('register');
-
+    
     // Games
     Route::resource('games', 'GameController')->only(['index', 'show']);
     Route::get('games/{game}/players', 'GameController@players')->name('games.players');
@@ -78,6 +80,7 @@ Route::group(['middleware' => ['json.response']], function () {
     Route::resource('players', 'PlayerController')->only(['index', 'show']);
     Route::get('players/{player}/games', 'PlayerController@games')->name('players.games');
     Route::get('players/{player}/teams', 'PlayerController@teams')->name('players.teams');
+    Route::get('players/{player}/joinrequests', 'PlayerController@getPlayerJoinRequests'); 
     
     // Teams
     Route::get('teams/percentage', 'TeamController@teamPercentage')->name('teams.percentage');
