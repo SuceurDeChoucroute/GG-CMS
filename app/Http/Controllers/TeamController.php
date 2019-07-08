@@ -135,6 +135,24 @@ class TeamController extends Controller
         return $team->players;
     }
 
+    public function deletePlayer(Team $team, User $player)
+    {
+        if ($team->players()->detach($player)) {
+            $joinrequest = JoinRequest::where('team_id', $team->id)->where('user_id', $player->id)->first();
+    
+            $joinrequest->delete();
+            
+            return response()->json([
+                'message' => 'Player successfully deleted from the team !',
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'message' => 'Something went wrong... Please try again',
+            ], 500);
+        }
+    }
+
     public function joinRequest(Team $team, User $player)
     {
         $joinrequest = new JoinRequestController($team, $player);

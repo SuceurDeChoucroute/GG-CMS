@@ -45,6 +45,7 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::resource('teams', 'TeamController')->only(['store', 'update', 'destroy']);
         Route::post('teams/{team}/joinrequest/{player}', 'TeamController@joinRequest');
         Route::post('teams/{team}/joinrequest/{player}/{response}', 'TeamController@responseJoinRequest');
+        Route::delete('teams/{team}/delete/player/{player}', 'TeamController@deletePlayer');
         
         // Tournaments
         Route::resource('tournaments', 'TournamentController')->only(['store', 'update', 'destroy']);

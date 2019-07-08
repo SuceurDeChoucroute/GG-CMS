@@ -43,21 +43,28 @@
                     </div>
                     <div class="card-body p-0 text-center">
                         <table class="table mb-0 table-hover">
-                            <!-- <thead class="bg-light">
+                            <thead class="bg-light" v-if="isCaptainTeam()">
                                 <tr>
                                     <th scope="col" class="border-0">Player</th>
-                                    <th scope="col" class="border-0">Grade</th>
-                                    <th scope="col" class="border-0"></th>
+                                    <th scope="col" class="border-0">Actions</th>
                                 </tr>
-                            </thead> -->
+                            </thead>
                             <tbody>
                                 <tr v-for="(player, key) in team.players" :key="key + '-player'">
                                     <td>
                                         <i class="fas fa-star text-warning" v-if="player.pivot.captain"></i> 
                                         {{ player.pseudo }} 
                                     </td>
-                                    <td v-if="team.joinrequests.players.length"></td>
-                                    <!-- <td></td> -->
+
+                                    <td v-if="!player.pivot.captain && isCaptainTeam()">
+                                        <button class="btn btn-pill btn-sm btn-danger" @click="deletePlayer(player)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                    <!-- <td v-else></td> -->
+                                    
+                                    <td v-if="team.joinrequests.players.length">
+                                    </td>
                                 </tr>
 
                                 <tr v-for="(player, key) in team.joinrequests.players" :key="key + '-playerRequest'">
@@ -127,6 +134,21 @@ export default {
             })
             .catch(() => {
                 this.$noty.error('Something went wrong... Try again')
+            })
+        },
+
+        deletePlayer(player) {
+            this.loading = true
+
+            axios.delete('/api/teams/' + this.team.team.id + '/delete/player/' + player.id)
+            .then(response => {
+                this.$noty.success(response.data.message)
+                this.getTeam()
+                this.loading = false
+            })
+            .catch(response => {
+                this.$noty.error(response.data.message)
+                this.loading = false
             })
         },
 
