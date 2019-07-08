@@ -155,6 +155,7 @@ export default {
             axios.post('/api/teams/' + this.$route.params.id+ '/joinrequest/' + player.id + '/accept')
             .then(response => {
                 this.$noty.success(response.data.message)
+                this.getTeam()
                 this.loadingButton = false
             })
             .catch(() => {
@@ -168,6 +169,7 @@ export default {
             axios.post('/api/teams/' + this.$route.params.id+ '/joinrequest/' + player.id + '/refuse')
             .then(response => {
                 this.$noty.success(response.data.message)
+                this.getTeam()
                 this.loadingButton = false
             })
             .catch(() => {

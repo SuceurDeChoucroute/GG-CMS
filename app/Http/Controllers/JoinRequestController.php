@@ -7,6 +7,7 @@ use App\User;
 use App\JoinRequest;
 use Illuminate\Http\Request;
 use App\Notifications\AcceptJoinRequest;
+use App\Notifications\RefuseJoinRequest;
 use App\Notifications\JoinRequest as JoinRequestNotification;
 
 class JoinRequestController extends Controller
@@ -73,7 +74,7 @@ class JoinRequestController extends Controller
         $joinrequest->response = false;
         $joinrequest->save();
 
-        $this->player->notify(new AcceptJoinRequest($this->team));
+        $this->player->notify(new RefuseJoinRequest($this->team));
 
         return true;
     }

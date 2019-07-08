@@ -73,8 +73,15 @@ class TeamController extends Controller
     public function show(Team $team)
     {
         $playersRequest = array();
+        $joinrequests = array();
 
-        foreach ($team->joinrequests->where('response', null) as $joinrequest) {
+        foreach ($team->joinrequests as $joinrequest) {
+            if ($joinrequest->response === null) {
+                array_push($joinrequests, $joinrequest);
+            }
+        }
+
+        foreach ($joinrequests as $joinrequest) {
             array_push($playersRequest, User::find($joinrequest->user_id));
         }
 
@@ -84,7 +91,7 @@ class TeamController extends Controller
             'game' => $team->game,
             'participations' => $team->tournaments,
             'joinrequests' => [
-                'joinrequests' => $team->joinrequests,
+                'joinrequests' => $joinrequests,
                 'players' => $playersRequest
             ]
         ];
@@ -167,12 +174,12 @@ class TeamController extends Controller
 
         if ($validation) {
             return response()->json([
-                'message' => 'Request successfully sended !',
+                'message' => 'Response successfully sended !',
             ], 200);
         }
         else {
             return response()->json([
-                'message' => 'Request already sended ...',
+                'message' => 'Response already sended ...',
             ], 401);
         }       
     }
