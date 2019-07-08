@@ -15,9 +15,15 @@
                         </div>
                         <h4 class="mb-0">{{ team.team.name }}</h4>
                         <span class="text-muted d-block mb-2"> {{ team.team.description }} </span>
-                        <button type="button" class="btn btn-success">
-                            <i class="fas fa-plus"></i> Join
-                        </button>
+
+                        <div v-if="!isCaptainTeam()">
+                            <button class="btn btn-danger" v-if="isPlayerAlreadyHasJoinRequest(team.team) || requestAlreadySend" disabled> Request already send</button>
+                            
+                            <button type="button" class="btn btn-success" v-else-if="isTeamFull()" @click="sendJoinRequest()" :disabled="loadingButton">
+                                <i class="fas fa-sync-alt fa-spin" v-show="loadingButton"></i>
+                                <i class="fas fa-plus" v-show="!loadingButton"></i> Join
+                            </button>
+                        </div>
                     </div>
 
                     <ul class="list-group list-group-flush">
@@ -37,21 +43,45 @@
                     </div>
                     <div class="card-body p-0 text-center">
                         <table class="table mb-0 table-hover">
-                            <!-- <thead class="bg-light">
+                            <thead class="bg-light" v-if="isCaptainTeam()">
                                 <tr>
                                     <th scope="col" class="border-0">Player</th>
-                                    <th scope="col" class="border-0">Grade</th>
-                                    <th scope="col" class="border-0"></th>
+                                    <th scope="col" class="border-0">Actions</th>
                                 </tr>
-                            </thead> -->
+                            </thead>
                             <tbody>
-                                <tr v-for="(player, key) in team.players" :key="key">
+                                <tr v-for="(player, key) in team.players" :key="key + '-player'">
                                     <td>
                                         <i class="fas fa-star text-warning" v-if="player.pivot.captain"></i> 
-                                        {{ player.pseudo }} 
+                                        <router-link :to="{name: 'player.show', params: {id: player.id}}"> {{ player.pseudo }} </router-link> 
                                     </td>
-                                    <!-- <td></td> -->
-                                    <!-- <td></td> -->
+
+                                    <td v-if="!player.pivot.captain && isCaptainTeam()">
+                                        <button class="btn btn-pill btn-sm btn-danger" @click="deletePlayer(player)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                    <!-- <td v-else></td> -->
+                                    
+                                    <td v-if="team.joinrequests.players.length">
+                                    </td>
+                                </tr>
+
+                                <tr v-for="(player, key) in team.joinrequests.players" :key="key + '-playerRequest'">
+                                    <td v-if="isCaptainTeam()">
+                                        <router-link :to="{name: 'player.show', params: {id: player.id}}"> {{ player.pseudo }} </router-link>    
+                                    </td>
+                                    <td v-if="isCaptainTeam()">
+                                        
+                                        <button class="btn btn-success" @click="acceptRequest(player)" :disabled="loadingButton">
+                                            <i class="fas fa-sync-alt fa-spin" v-show="loadingButton"></i>
+                                            Accept
+                                        </button>
+                                        <button class="btn btn-danger" @click="refuseRequest(player)" :disabled="loadingButton">
+                                            <i class="fas fa-sync-alt fa-spin" v-show="loadingButton"></i>
+                                            Refuse
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -67,7 +97,12 @@ export default {
     data() {
         return {
             loading: false,
+            loadingButton: false,
+            requestAlreadySend: false,
             team: {},
+            playerJoinRequests: [],
+            authenticated: auth.check(),
+            user: null,
         }
     },
 
@@ -80,13 +115,133 @@ export default {
                 this.loading = false
             })
             .then(() => {
-
                 this.loading = false
             })
         },
+
+        getUser() {
+            axios.get('/api/user')
+            .then(response => {
+                this.user = response.data
+                this.getPlayerJoinRequests()
+            })
+        },
+
+        getPlayerJoinRequests() {
+            axios.get('/api/players/' + this.user.id + '/joinrequests')
+            .then(response => {
+                this.playerJoinRequests = response.data
+            })
+            .catch(() => {
+                this.$noty.error('Something went wrong... Try again')
+            })
+        },
+
+        deletePlayer(player) {
+            this.loading = true
+
+            axios.delete('/api/teams/' + this.team.team.id + '/delete/player/' + player.id)
+            .then(response => {
+                this.$noty.success(response.data.message)
+                this.getTeam()
+                this.loading = false
+            })
+            .catch(response => {
+                this.$noty.error(response.data.message)
+                this.loading = false
+            })
+        },
+
+        sendJoinRequest() {
+            this.loadingButton = true
+            axios.post('/api/teams/' + this.$route.params.id+ '/joinrequest/' + this.user.id)
+            .then(response => {
+                this.$noty.success(response.data.message)
+                this.requestAlreadySend = true
+                this.loadingButton = false
+            })
+            .catch(error => {
+                if (error.response.status == 401) {
+                    this.$noty.error("You already send a request !")
+                }
+                else {
+                    this.$noty.error("Something went wrong... Try again")
+                }
+                
+                this.loadingButton = false
+            })
+        },
+
+        acceptRequest(player) {
+            this.loadingButton = true
+            axios.post('/api/teams/' + this.$route.params.id+ '/joinrequest/' + player.id + '/accept')
+            .then(response => {
+                this.$noty.success(response.data.message)
+                this.getTeam()
+                this.loadingButton = false
+            })
+            .catch(() => {
+                this.$noty.error("Something went wrong... Please try again")
+                this.loadingButton = false
+            })
+        },
+
+        refuseRequest(player) {
+            this.loadingButton = true
+            axios.post('/api/teams/' + this.$route.params.id+ '/joinrequest/' + player.id + '/refuse')
+            .then(response => {
+                this.$noty.success(response.data.message)
+                this.getTeam()
+                this.loadingButton = false
+            })
+            .catch(() => {
+                this.$noty.error("Something went wrong... Please try again")
+                this.loadingButton = false
+            })
+        },
+
+        isPlayerAlreadyHasJoinRequest(team)
+        {
+            let check = false
+
+            this.playerJoinRequests.forEach(joinrequest => {
+                if (joinrequest.team_id == team.id) {
+                    check = true
+                    this.requestAlreadySend = true
+                }
+            })
+
+            return check
+        },
+
+        isCaptainTeam()
+        {
+            let check = false
+
+            this.team.players.forEach(player => {
+                if (player.pivot.captain == 1) {
+                    if (player.id == this.user.id) {
+                        check = true
+                    }
+                }
+            })
+
+            return check
+        },
+
+        isTeamFull() {
+            if (this.team.game.place >= this.team.players.length) {
+                return true
+            }
+            return false
+        }
     },
 
     mounted() {
+        if (this.authenticated) {
+            this.user = this.getUser()
+        }
+
         this.getTeam()
     }
 }

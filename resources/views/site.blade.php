@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="{{ asset('css/animation.css') }}">
         <link rel="stylesheet" href=" {{ asset('css/site.css') }} ">
-    <title>Document</title>
+    <title> {{ config('app.name') }} </title>
 </head>
 <body>
     

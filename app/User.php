@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Tournament')->withPivot('place');
     }
+
+    public function joinrequests()
+    {
+        return $this->hasMany('App\JoinRequest');
+    }
 }

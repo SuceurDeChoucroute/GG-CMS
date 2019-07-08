@@ -29,4 +29,9 @@ class Team extends Model
     {
         return $this->belongsToMany('App\Tournament')->withPivot('place');
     }
+
+    public function joinrequests()
+    {
+        return $this->hasMany('App\JoinRequest');
+    }
 }
