@@ -19,7 +19,7 @@
                         <div v-if="!isCaptainTeam()">
                             <button class="btn btn-danger" v-if="isPlayerAlreadyHasJoinRequest(team.team) || requestAlreadySend" disabled> Request already send</button>
                             
-                            <button type="button" class="btn btn-success" v-else @click="sendJoinRequest()" :disabled="loadingButton">
+                            <button type="button" class="btn btn-success" v-else-if="isTeamFull()" @click="sendJoinRequest()" :disabled="loadingButton">
                                 <i class="fas fa-sync-alt fa-spin" v-show="loadingButton"></i>
                                 <i class="fas fa-plus" v-show="!loadingButton"></i> Join
                             </button>
@@ -53,7 +53,7 @@
                                 <tr v-for="(player, key) in team.players" :key="key + '-player'">
                                     <td>
                                         <i class="fas fa-star text-warning" v-if="player.pivot.captain"></i> 
-                                        {{ player.pseudo }} 
+                                        <router-link :to="{name: 'player.show', params: {id: player.id}}"> {{ player.pseudo }} </router-link> 
                                     </td>
 
                                     <td v-if="!player.pivot.captain && isCaptainTeam()">
@@ -227,6 +227,13 @@ export default {
             })
 
             return check
+        },
+
+        isTeamFull() {
+            if (this.team.game.place >= this.team.players.length) {
+                return true
+            }
+            return false
         }
     },
 
