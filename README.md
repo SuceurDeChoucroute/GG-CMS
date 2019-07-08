@@ -9,5 +9,18 @@ GG-CMS (temporary name) is a CMS for LAN organizers who want to have a real webs
 ### Technical
 GG-CMS is made with Laravel 5.8 and Vue 2.
 
+### How to install
 
-GG-CMS is currently in developpement so if you have any idea, feel free to contact me 😘
+Install nodejs dependencies
+
+`$ npm install`
+
+
+Install composer dependencies
+
+`composer install --no-dev`
+
+
+Minify and compile vue files
+
+`npm run prod`
