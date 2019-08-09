@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="form-group text-left">
-                        <input type="checkbox" name="rulesCheck" :class=" { 'is-invalid' : error }" @change="ruleCheck = !ruleCheck" required>
+                        <input type="checkbox" name="rulesCheck" :class=" { 'is-invalid' : error }" required>
                         <label for="rulesCheck">
                             I read and agree the
                             <router-link class="text-weight-bold" :to="{name: 'rules'}" target="_blank">rules</router-link>
@@ -100,7 +100,6 @@ export default {
     data() {
         return {
             error: false,
-            errorCheckRule: false,
             loading: false,
 
             user: {
@@ -116,26 +115,19 @@ export default {
 
     methods: {
         register() {
-            this.errorCheckRule = false
+            this.loading = true
+            this.error = false
 
-            if (this.ruleCheck) {
-                this.loading = true
-                this.error = false
-    
-                axios.post('/api/register', this.user)
-                .then(response => {
-                    this.loading = false
-                    auth.login(response.data.token)
-                    window.location.href = '/'
-                })
-                .catch(response => {
-                    this.loading = false
-                    this.error = true
-                });
-            }
-            else {
-                this.errorCheckRule = true
-            }
+            axios.post('/api/register', this.user)
+            .then(response => {
+                this.loading = false
+                auth.login(response.data.token)
+                window.location.href = '/'
+            })
+            .catch(response => {
+                this.loading = false
+                this.error = true
+            });
         }
     }
 }
