@@ -62,7 +62,6 @@ class PlayerTest extends TestCase
             'avatar' => 'test.com',
             'birth_date' => '1999-01-01',
             'description' => 'Lorem ipsum dolor sit amet.',
-            'password' => 'secret',
         ]);
 
         $response->assertStatus(201);
@@ -74,7 +73,6 @@ class PlayerTest extends TestCase
             'avatar' => 'test.com',
             'birth_date' => '1999-01-01',
             'description' => 'Lorem ipsum dolor sit amet.',
-            'password' => bcrypt('secret'),
         ]);
 
         $response->assertJsonFragment([
