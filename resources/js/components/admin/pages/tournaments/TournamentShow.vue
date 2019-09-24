@@ -70,13 +70,18 @@
                                     <thead>
                                         <tr>
                                             <th>Pseudo</th>
-                                            <th>Rank</th>
+                                            <!-- <th>Rank</th> -->
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(player, key) in players" :key="key">
+                                        <tr v-if="players.length == 0" class="text-center">
+                                            <td colspan="2"> No players subscribe to this tournament </td>
+                                        </tr>
+
+                                        <tr v-for="(player, key) in players" :key="key" v-else>
                                             <td> {{ player.pseudo }} </td>
-                                            <td> {{ player.rank }} </td>
+                                            <!-- <td> {{ player.rank }} </td> -->
                                             <td class="text-center">
                                                 <router-link :to="{ name: 'player.show', params: {id: player.id} }" class="btn btn-primary">
                                                     <i class="fas fa-eye"></i>
@@ -235,6 +240,7 @@ export default {
             .then(response => {
                 this.tournament = response.data.tournament
                 this.tournamentGame = response.data.tournamentGame
+                this.getPlayers()
 
                 this.loading = false
             })
@@ -245,6 +251,13 @@ export default {
             axios.get('/api/games')
             .then(response => {
                 this.games = response.data
+            })
+        },
+
+        getPlayers() {
+            axios.get('/api/tournaments/' + this.tournament.id + '/players')
+            .then(response => {
+                this.players = response.data
             })
         },
 
