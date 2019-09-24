@@ -7,6 +7,7 @@ import FlashMessage from '@smartweb/vue-flash-message';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import auth from './auth/auth.js';
 import VueApexCharts from 'vue-apexcharts'
+import DataTable from './components/admin/layouts/DataTable.vue'
 
 Vue.use(CKEditor);
 Vue.component('apexchart', VueApexCharts)
@@ -17,6 +18,8 @@ const flashConfig = {
     strategy: "single",
 }
 Vue.use(FlashMessage, flashConfig);
+Vue.use(DataTable);
+
 axios.defaults.baseURL = process.env.MIX_APP_URL;
 
 const files = require.context('./', true, /\.vue$/i);
