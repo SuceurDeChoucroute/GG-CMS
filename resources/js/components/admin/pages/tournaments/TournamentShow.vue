@@ -153,7 +153,7 @@
 
                                     <!-- Status -->
                                     <div class="form-group">
-                                        <label for="game" class="col-sm-2 control-label">Game</label>
+                                        <label for="game" class="col-sm-2 control-label">Status</label>
 
                                         <div class="col-sm-10">
                                             <select name="game_id" id="game_id" class="form-control" v-model="tournament.status" required>
