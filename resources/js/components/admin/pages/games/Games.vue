@@ -23,33 +23,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <loader :color="'#337ab7'" v-show="loading"></loader>
-                            <table class="table table-dark table-hover table-striped" id="games" v-show="!loading">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Players / Team</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-if="!games.length">
-                                        <td colspan="4" class="text-center"> No games registered ... </td>
-                                    </tr>
-                                    <tr v-for="(game, key) in games" :key="key">
-                                        <td>{{ game.name }}</td>
-                                        <td>{{ game.description }}</td>
-                                        <td>{{ game.places }}</td>
-                                        <td>
-                                            <router-link :to="{ name: 'game.show', params: {id: game.id} }" class="btn btn-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </router-link>
-                                            
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <AdminDataTable :data="games" :columns="columns"  :actions="actions" :index="false" :loading="loading"></AdminDataTable>
                         </div>
                     </div>
                 </div>
@@ -71,6 +45,16 @@ export default {
     data() {
         return {
             loading: false,
+            columns: [
+                {name: 'name', th: 'Name'},
+                {name: 'description', th: 'Description'},
+                {name: 'places', th: 'Players / Team'},
+            ],
+            actions: [
+                {text: "", icon: "fas fa-eye", color: "primary btn-pill mr-2", action: (row, index) => {
+                    this.$router.push({ name: 'game.show', params: {id: row.id} })
+                }},
+            ],
             games: [],
         }
     },
