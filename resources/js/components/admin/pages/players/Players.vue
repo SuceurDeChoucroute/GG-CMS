@@ -23,48 +23,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <loader :color="'#337ab7'" v-show="loading"></loader>
-                            <table class="table table-dark table-hover table-striped" id="players" v-show="!loading">
-                                <thead>
-                                    <tr>
-                                        <th>Pseudo</th>
-                                        <th>Email</th>
-                                        <th>Description</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-if="!players.length">
-                                        <td colspan="4" class="text-center"> No players registered ... </td>
-                                    </tr>
-                                    <tr v-else v-for="(player, key) in players" :key="key">
-                                        <td>
-                                            <span v-show="player.admin" class="badge bg-green" title="Admin"><i class="fas fa-user-shield"></i></span>
-                                            {{ player.pseudo }}
-                                        </td>
-                                        <td>{{ player.email }}</td>
-                                        <td>{{ player.description }}</td>
-                                        <td>
-                                            <router-link :to="{ name: 'player.show', params: {id: player.id} }" class="btn btn-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </router-link>
-
-                                            <button v-show="player.admin" class="btn btn-danger" @click="revokeAdmin(key)" title="Revoke all admin rights, the account will not be deleted">
-                                                <i class="far fa-times-circle"></i>
-                                            </button>
-
-                                            <button v-show="!player.admin" class="btn btn-success" @click="grantAdmin(key)" title="Grant player to admin">
-                                                <i class="fas fa-arrow-alt-circle-up"></i>
-                                            </button>
-
-                                            <button v-show="player.admin" :class="{ 'btn btn-danger': player.visibility, 'btn btn-success': !player.visibility}" @click="changeVisibility(key)" title="Change admin visibility">
-                                                <i class="fas fa-eye-slash" v-if="player.visibility"></i>
-                                                <i class="fas fa-eye" v-else></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <AdminDataTable :data="players" :columns="columns"  :actions="actions" :index="false" :loading="loading"></AdminDataTable>
                         </div>
                     </div>
                 </div>
@@ -85,8 +44,17 @@ export default {
     data() {
         return {
             loading: false,
+            columns: [
+                {name: 'pseudo', th: 'Pseudo'},
+                {name: 'email', th: 'Email'},
+                {name: 'description', th: 'Description'},
+            ],
+            actions: [
+                {text: "", icon: "fas fa-eye", color: "primary btn-pill mr-2", action: (row, index) => {
+                    this.$router.push({ name: 'player.show', params: {id: row.id} })
+                }},
+            ],
             players: [],
-            admins: [],
         }
     },
 
@@ -96,15 +64,6 @@ export default {
             axios.get('/api/players')
             .then(response => {
                 this.players = response.data
-                this.loading = false
-            })
-        },
-
-        getAdmins() {
-            this.loading = true
-            axios.get('/api/players/admins')
-            .then(response => {
-                this.admins = response.data
                 this.loading = false
             })
         },
