@@ -23,8 +23,8 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <loader :color="'#337ab7'" v-show="loading"></loader>
-                            <table class="table table-dark table-hover table-striped" id="teams" v-show="!loading">
+                            <AdminDataTable :data="teams" :columns="columns"  :actions="actions" :index="false" :loading="loading"></AdminDataTable>
+                            <!-- <table class="table table-dark table-hover table-striped" id="teams" v-show="!loading">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -62,7 +62,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> -->
                         </div>
                     </div>
                 </div>
@@ -85,6 +85,30 @@ export default {
         return {
             loading: false,
             teams: [],
+            columns: [
+                {name: 'name', th: 'Name', render(row, cell, index) {
+                    return row.team.name
+                }},
+                {name: 'players', th: 'Players', render(row, cell, index) {
+                    if (row.players == row.game.places) {
+                        return '<span class="badge bg-green">' + row.players + ' / ' + row.game.places + '</span>'
+                    }
+                    else {
+                        return '<span class="badge bg-red">' + row.players + ' / ' + row.game.places + '</span>'
+                    }
+                }},
+                {name: 'game', th: 'Game', render(row, cell, index) {
+                    return row.game.name
+                }},
+                {name: 'captain', th: 'Captain', render(row, cell, index) {
+                    return row.captain.pseudo
+                }},
+            ],
+            actions: [
+                {text: "", icon: "fas fa-eye", color: "primary btn-pill mr-2", action: (row, index) => {
+                    this.$router.push({ name: 'team.show', params: {id: row.team.id} })
+                }},
+            ],
         }
     },
 
