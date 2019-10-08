@@ -1,6 +1,6 @@
 <template>
     <div>
-        <admin-content-header page_name="Game profile" ></admin-content-header>
+        <admin-content-header page_name="Tournament profile" ></admin-content-header>
         <FlashMessage position="right bottom"></FlashMessage>
 
         <section class="content">
@@ -18,9 +18,9 @@
 
                             <h3 class="profile-username text-center"> 
                                 {{ tournament.name }}
-                                <span v-if="tournament.status == 'Open'" class="label label-success">{{ tournament.status }}</span>
-                                <span v-else-if="tournament.status == 'Closed'" class="label label-danger">{{ tournament.status }}</span>
-                                <span v-else class="label label-warning">{{ tournament.status }}</span>
+                                <span v-if="tournament.status == 'Open'" class="badge bg-green">{{ tournament.status }}</span>
+                                <span v-else-if="tournament.status == 'Closed'" class="badge bg-red">{{ tournament.status }}</span>
+                                <span v-else class="badge bg-orange">{{ tournament.status }}</span>
                             </h3>
                             <p class="text-muted text-center">{{ tournament.description }} </p>
 

@@ -23,41 +23,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <loader :color="'#337ab7'" v-show="loading"></loader>
-                            <table class="table table-dark table-hover table-striped" id="tournaments" v-show="!loading">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Game</th>
-                                        <th>Date</th>
-                                        <th>Place</th>
-                                        <th>Cashprize</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-if="!tournaments.length">
-                                        <td colspan="7" class="text-center"> No tournaments registered ... </td>
-                                    </tr>
-                                    <tr v-else v-for="(tournament, key) in tournaments" :key="key">
-                                        <td>{{ tournament.tournament.name }}</td>
-                                        <td>{{ tournament.game.name }}</td>
-                                        <td>{{ tournament.tournament.start_date }} | {{ tournament.tournament.end_date }}</td>
-                                        <td>{{ tournament.tournament.places }}</td>
-                                        <td>{{ tournament.tournament.cashprize }}</td>
-                                        <td v-if="tournament.tournament.status == 'Open'"><span class="label label-success">{{ tournament.tournament.status }}</span></td>
-                                        <td v-else-if="tournament.tournament.status == 'Closed'"><span class="label label-danger">{{ tournament.tournament.status }}</span></td>
-                                        <td v-else><span class="label label-warning">{{ tournament.tournament.status }}</span></td>
-                                        <td>
-                                            <router-link :to="{ name: 'tournament.show', params: {id: tournament.tournament.id} }" class="btn btn-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </router-link>
-                                            
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <AdminDataTable :data="tournaments" :columns="columns"  :actions="actions" :index="false" :loading="loading"></AdminDataTable>
                         </div>
                     </div>
                 </div>
@@ -80,6 +46,46 @@ export default {
         return {
             loading: false,
             tournaments: [],
+            columns: [
+                {name: 'name', th: 'Name', render(row, cell, index) {
+                    return row.tournament.name
+                }},
+                {name: 'name', th: 'Game', render(row, cell, index) {
+                    return row.game.name
+                }},
+                {name: 'date', th: 'Date', render(row, cell, index) {
+                    return moment(row.tournament.start_date).format("DD/MM/YYYY") + ' | ' + moment(row.tournament.end_date).format("DD/MM/YYYY")
+                }},
+                {name: 'place', th: 'Places', render(row, cell, index) {
+                    return row.tournament.places
+                }},
+                {name: 'cashprize', th: 'Cashprize', render(row, cell, index)  {
+                    return row.tournament.cashprize
+                }},
+                {name: 'status', th: 'Status', render(row, cell, index) {
+                    switch (row.tournament.status) {
+                        case 'Open':
+                            return '<span class="badge bg-green">' + row.tournament.status + '</span>'
+                            break;
+
+                        case 'Closed':
+                            return '<span class="badge bg-red">' + row.tournament.status + '</span>'
+                            break;
+
+                        case 'Finished':
+                            return '<span class="badge bg-orange">' + row.tournament.status + '</span>'
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                }},
+            ],
+            actions: [
+                {text: "", icon: "fas fa-eye", color: "primary", action: (row, index) => {
+                    this.$router.push({ name: 'tournament.show', params: {id: row.tournament.id} })
+                }},
+            ],
         }
     },
 
