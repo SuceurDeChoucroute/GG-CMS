@@ -4,7 +4,7 @@
 # GG-CMS [WIP]
 
 ### Presentation
-GG-CMS (temporary name) is a CMS for LAN organizers who want to have a real website to organize LAN without have to use Wordpress or other CMS who isn't made for this at first.
+GG-CMS (temporary name) is a CMS for LAN organizers who want to have a real website to organize LAN without having to use Wordpress or other CMS who isn't made for this at first.
 
 ### Technical
 GG-CMS is made with Laravel 5.8 and Vue 2.
