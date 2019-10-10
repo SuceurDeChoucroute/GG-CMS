@@ -21,6 +21,11 @@
                                 <span v-show="player.admin" class="badge bg-green" title="Admin"><i class="fas fa-user-shield"></i></span>
                             </h3>
                             <p class="text-muted text-center"> {{ player.email }} </p>
+                            <p class="text-center">
+                                <button class="btn btn-success" @click="toggleAdmin()">
+                                    <i class="fas fa-arrow-alt-circle-up"></i>
+                                </button>
+                            </p>
 
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item" v-for="(participation, key) in player.tournamentsParticipation" :key="key">
@@ -277,6 +282,10 @@ export default {
                 this.goToPlayerList();
             }
         },
+
+        toggleAdmin() {
+
+        }
     },
 
     mounted() {
