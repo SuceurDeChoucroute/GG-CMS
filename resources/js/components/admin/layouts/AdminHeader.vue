@@ -28,7 +28,7 @@
                                     <li>
                                         <a href="#">
                                         <div class="pull-left">
-                                            <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="img-circle" alt="User Image">
+                                            <img :src="user.avatar" class="img-circle" alt="User Image">
                                         </div>
                                         <h4>
                                             Support Team
@@ -70,14 +70,14 @@
                     <li class="dropdown user user-menu">
                         <!-- User button avatar -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="user-image" alt="User Image">
+                            <img :src="user.avatar" class="user-image" alt="User Image">
                             <span class="hidden-xs" v-if="user"> {{ user.pseudo }} </span>
                         </a>
 
                         <!-- User avatar -->
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="img-circle" alt="User Image">
+                                <img :src="user.avatar" class="img-circle" alt="User Image">
                                 <p v-if="user"> {{ user.pseudo }} </p>
                             </li>
 
