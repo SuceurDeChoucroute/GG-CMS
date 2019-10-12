@@ -17,6 +17,10 @@
                         <span class="badge badge-danger" v-else>
                             {{ tournament|countRegisterTournament }}
                         </span>
+
+                        <span class="badge badge-primary">
+                            {{ tournament.tournament|timerTournament }} day(s) left
+                        </span>
                     </h1>
                     
                     <!-- Cashprize -->
@@ -333,6 +337,19 @@ export default {
         showDate(tournament) {
             return moment(tournament.start_date).format('DD/MM/YYYY') + ' - ' + moment(tournament.end_date).format('DD/MM/YYYY')
         },
+
+        timerTournament(tournament) {
+            let now = moment()
+            let tournamentDate = moment(tournament.start_date)
+            let timeLeft = tournamentDate.diff(now, 'days')
+
+            if (timeLeft <= 0) {
+                return 0
+            }
+            else {
+                return tournamentDate.diff(now, 'days')
+            }
+        }
     },
 
     mounted() {
