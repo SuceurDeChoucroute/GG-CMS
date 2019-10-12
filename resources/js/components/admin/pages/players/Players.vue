@@ -45,7 +45,15 @@ export default {
         return {
             loading: false,
             columns: [
-                {name: 'pseudo', th: 'Pseudo'},
+                {name: 'pseudo', th: 'Pseudo', render(row, cell, index) {
+                    let adminIcon = ""
+
+                    if (row.admin) {
+                        adminIcon = "<span title='Admin' class='badge bg-green'><i class='fas fa-user-shield'></i></span>"
+                    }
+
+                    return adminIcon + ' ' + row.pseudo
+                }},
                 {name: 'email', th: 'Email'},
                 {name: 'description', th: 'Description'},
             ],

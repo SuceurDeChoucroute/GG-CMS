@@ -19,11 +19,18 @@
                             <h3 class="profile-username text-center"> 
                                 {{ player.pseudo }}
                                 <span v-show="player.admin" class="badge bg-green" title="Admin"><i class="fas fa-user-shield"></i></span>
+                                <span v-show="!player.visibility" class="badge bg-red" title="Visibility"><i class="fas fa-user-secret"></i></span>
                             </h3>
                             <p class="text-muted text-center"> {{ player.email }} </p>
                             <p class="text-center">
-                                <button class="btn btn-success" @click="toggleAdmin()">
-                                    <i class="fas fa-arrow-alt-circle-up"></i>
+                                <button class="btn" :class="!player.admin ? 'btn-success' : 'btn-danger'" @click="toggleAdmin()">
+                                    <i class="fas fa-arrow-alt-circle-up" v-if="!player.admin"></i>
+                                    <i class="fas fa-times-circle" v-else></i>
+                                </button>
+
+                                <button class="btn" v-show="player.admin" :class="player.visibility ? 'btn-success' : 'btn-danger'" @click="toggleVisibility()">
+                                    <i class="fas fa-eye" v-if="player.visibility"></i>
+                                    <i class="fas fa-eye-slash" v-else></i>
                                 </button>
                             </p>
 
@@ -224,9 +231,9 @@ export default {
         },
 
         // Get player info
-        getPlayer(id) {
+        getPlayer() {
             this.loading = true
-            axios.get('/api/players/' + id)
+            axios.get('/api/players/' + this.$route.params.id)
             .then(response => {
                 this.player = response.data.player
                 this.teams = response.data.teams
@@ -284,12 +291,95 @@ export default {
         },
 
         toggleAdmin() {
+            if (this.player.admin) {
+                if (confirm("Are you sure you want to revoke this admin ?")) {
+                    this.loading = true
 
+                    axios.post('/api/players/' + this.player.id + '/revokeAdmin')
+                    .then(response => {
+                        console.log(response)
+                        this.flashMessage.success({
+                            title: response.data.title,
+                            message: response.data.message
+                        })
+
+                        // Reload player data
+                        this.getPlayer();
+
+                        this.loading = false
+
+                    })
+                     .catch(e => {
+                        this.flashMessage.error({
+                            title: "Something went wrong",
+                            message: "Please try again"
+                        })
+                        this.loading = false
+                    })
+                }
+            }
+            else {
+                if (confirm("Are you sure you want to grant this player to admin ?")) {
+                    this.loading = true
+
+                    axios.post('/api/players/' + this.player.id + '/grantAdmin')
+                    .then(response => {
+                        this.flashMessage.success({
+                            title: "Player  granted !",
+                            message: "The admin has been successfully  granted to admin"
+                        })
+
+                        // Reload player data
+                        this.getPlayer();
+
+                        this.loading = false
+
+                    })
+                     .catch(e => {
+                        this.flashMessage.error({
+                            title: "Something went wrong",
+                            message: "Please try again"
+                        })
+                        this.loading = false
+                    })
+                }
+            }
+        },
+
+        toggleVisibility() {
+            this.loading = true
+
+            axios.post('/api/players/' + this.player.id + '/visibility')
+            .then(response => {
+                this.loading = false
+
+                this.getPlayer()
+
+                if (this.player.visibility) {
+                    this.flashMessage.success({
+                        title: "Visibility changed !",
+                        message: "The admin is now not visible"
+                    })
+                }
+                else {
+                    this.flashMessage.success({
+                        title: "Visibility changed !",
+                        message: "The admin is now visible"
+                    })
+                }
+            })
+            .catch(e => {
+                this.loading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
+            })
         }
     },
 
     mounted() {
-        this.getPlayer(this.$route.params.id)
+        this.getPlayer()
     },
 }
 </script>

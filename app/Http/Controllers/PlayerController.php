@@ -164,12 +164,22 @@ class PlayerController extends Controller
 
     public function revokeAdmin(User $player)
     {
-        $player->admin = false;
-        $player->save();
+        $admins = User::all()->where('admin', 1);
+
+        if (count($admins) > 1) {
+            $player->admin = false;
+            $player->save();
+    
+            return response()->json([
+                'title' => 'Admin revoked !',
+                'message' => "Admin successfully revoked"
+            ]);
+        }
 
         return response()->json([
-            'message' => 'Admin revoked !'
-        ]);
+                'title' => "Admin not revoked",
+                'message' => "You can't revoke the only admin"
+            ]);
     }
 
     public function changeVisibility(User $player)
