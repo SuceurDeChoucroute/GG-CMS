@@ -24,45 +24,6 @@
                         </div>
                         <div class="box-body">
                             <AdminDataTable :data="teams" :columns="columns"  :actions="actions" :index="false" :loading="loading"></AdminDataTable>
-                            <!-- <table class="table table-dark table-hover table-striped" id="teams" v-show="!loading">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Players</th>
-                                        <th>Game</th>
-                                        <th>Captain</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-if="!teams.length">
-                                        <td colspan="5" class="text-center"> No teams registered ... </td>
-                                    </tr>
-                                    <tr v-else v-for="(team, key) in teams" :key="key">
-                                        <td>{{ team.team.name }}</td>
-                                        <td v-if="team.players == team.game.places">
-                                            <span class="badge bg-green"> Full </span>
-                                        </td>
-                                        <td v-else>{{ team.players }} / {{ team.game.places }} </td>
-                                        <td>
-                                            <router-link :to="{ name: 'game.show', params: {id: team.game.id} }">
-                                                {{ team.game.name }}
-                                            </router-link>
-                                        </td>
-                                        <td v-if="team.captain"> 
-                                            <router-link :to="{ name: 'player.show', params: {id: team.captain.id} }">
-                                                {{ team.captain.pseudo }}
-                                            </router-link>
-                                        </td>
-                                        <td v-else></td>
-                                        <td>
-                                            <router-link :to="{ name: 'team.show', params: {id: team.team.id} }" class="btn btn-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </router-link>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
                         </div>
                     </div>
                 </div>
