@@ -23,43 +23,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <loader :color="'#337ab7'" v-show="loading"></loader>
-                            <table class="table table-dark table-hover table-striped" id="posts" v-show="!loading">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Date</th>
-                                        <th>Visibility</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-if="!posts.length">
-                                        <td colspan="5" class="text-center"> No posts registered ... </td>
-                                    </tr>
-                                    <tr v-else v-for="(post, key) in posts" :key="key">
-                                        <td>{{ post.title }}</td>
-                                        <td>{{ post.created_at }}</td>
-                                        <td>
-                                            <span v-if="post.visibility == 'public'" class="badge bg-green">{{ post.visibility }}</span>
-                                            <span v-else class="badge bg-red">{{ post.visibility }}</span>
-                                        </td>
-                                        <td>
-                                            <router-link :to="{ name: 'post.show', params: {id: post.id} }" class="btn btn-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </router-link>
-
-                                            <router-link :to="{ name: 'post.edit', params: {id: post.id} }" class="btn btn-success">
-                                                <i class="fas fa-edit"></i>
-                                            </router-link>
-
-                                            <button class="btn btn-danger" @click="deletePost(key)">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <AdminDataTable :data="posts" :columns="columns"  :actions="actions" :index="false" :loading="loading"></AdminDataTable>
                         </div>
                     </div>
                 </div>
@@ -70,6 +34,7 @@
 
 <script>
 import Loader from 'vue-spinner/src/ScaleLoader.vue'
+import moment from 'moment'
 
 export default {
     components: {
@@ -80,6 +45,34 @@ export default {
         return {
             loading: false,
             posts: [],
+            columns: [
+                {name: 'title', th: 'Title'},
+                {name: 'created_at', th: 'Created At', render(row, cell, index) {
+                    return moment(row.created_at).format("DD/MM/YYYY")
+                }},
+                {name: 'updated_at', th: 'Updated At', render(row, cell, index) {
+                    return moment(row.updated_at).format("DD/MM/YYYY")
+                }},
+                {name: 'visibility', th: 'Visibility', render(row, cell, index) {
+                    if (row.visibility == "public") {
+                        return '<span class="badge bg-green">' + row.visibility + '</span>'
+                    } 
+                    else {
+                        return '<span class="badge bg-red">' + row.visibility + '</span>'
+                    }
+                }},
+            ],
+            actions: [
+                {text: "", icon: "fas fa-eye", color: "primary", action: (row, index) => {
+                    this.$router.push({ name: 'post.show', params: {id: row.id} })
+                }},
+                {text: "", icon: "fas fa-edit", color: "success", action: (row, index) => {
+                    this.$router.push({ name: 'post.edit', params: {id: row.id} })
+                }},
+                {text: "", icon: "fas fa-trash", color: "danger", action: (row, index) => {
+                    this.deletePost(index)
+                }},
+            ],
         }
     },
 

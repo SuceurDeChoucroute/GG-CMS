@@ -98,7 +98,8 @@
                                     </div>
                                 </div>
 
-                                <loader :color="'#337ab7'" v-show="loading"></loader>
+                                <AdminDataTable :data="ranks" :columns="ranksColumns"  :actions="ranksActions" :index="false" :loading="loading"></AdminDataTable>
+                                <!-- <loader :color="'#337ab7'" v-show="loading"></loader>
                                 <table class="table table-striped table-hover" v-show="!loading">
                                     <thead>
                                         <tr>
@@ -123,7 +124,7 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> -->
                             </div>
 
                             <div class="tab-pane" id="settings">
@@ -205,6 +206,20 @@ export default {
             game: {},
             players: [],
             ranks: [],
+            ranksColumns: [
+                {name: 'name', th: 'Name'},
+                {name: 'image', th: 'Image', render(row, cell, index) {
+                    return '<img src="' + row.image + '" alt="No image..." class="img-responsive img-rounded" style="max-width: 150px;">'
+                }},
+            ],
+            ranksActions: [
+                {text: "", icon: "fas fa-edit", color: "success margin-right-2", action: (row, index) => {
+                    this.$router.push({ name: 'rank.edit', params: {game: this.game.id, rank : row.id}})
+                }},
+                {text: "", icon: "fas fa-trash", color: "danger mr-2", action: (row, index) => {
+                    this.deleteRank(index)
+                }},
+            ],
         }
     },
 

@@ -7,9 +7,10 @@ import FlashMessage from '@smartweb/vue-flash-message';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import auth from './auth/auth.js';
 import VueApexCharts from 'vue-apexcharts'
-import DataTable from './components/admin/layouts/DataTable.vue'
+import AdminDataTable from './components/admin/layouts/AdminDataTable.vue'
 
 Vue.use(CKEditor);
+Vue.use(AdminDataTable);
 Vue.component('apexchart', VueApexCharts)
 window.auth = auth;
 
