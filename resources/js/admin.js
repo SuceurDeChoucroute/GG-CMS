@@ -19,7 +19,6 @@ const flashConfig = {
     strategy: "single",
 }
 Vue.use(FlashMessage, flashConfig);
-Vue.use(DataTable);
 
 axios.defaults.baseURL = process.env.MIX_APP_URL;
 
