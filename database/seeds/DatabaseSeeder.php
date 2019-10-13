@@ -38,5 +38,8 @@ class DatabaseSeeder extends Seeder
 
         // Ranks
         factory(App\Rank::class, 50)->create();
+
+        // Partners
+        factory(App\Partner::class, 5)->create();
     }
 }

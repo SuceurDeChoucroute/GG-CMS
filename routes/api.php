@@ -55,6 +55,9 @@ Route::group(['middleware' => ['json.response']], function () {
         
         // Rules
         Route::put('rules', 'RuleController@update')->name('rules.update');
+
+        // Partners
+        Route::resource('partners', 'PartnerController')->only(['store', 'update', 'destroy']);
     });
     
     /*
@@ -108,4 +111,7 @@ Route::group(['middleware' => ['json.response']], function () {
     
     // Rules
     Route::get('rules', 'RuleController@show')->name('rules.index');
+
+    // Partners
+    Route::get('partners', 'PartnerController@index')->name('partners.index');
 });
