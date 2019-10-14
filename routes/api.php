@@ -113,5 +113,5 @@ Route::group(['middleware' => ['json.response']], function () {
     Route::get('rules', 'RuleController@show')->name('rules.index');
 
     // Partners
-    Route::get('partners', 'PartnerController@index')->name('partners.index');
+    Route::resource('partners', 'PartnerController')->only(['index', 'show']);
 });
