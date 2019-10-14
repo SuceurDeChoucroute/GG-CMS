@@ -24,7 +24,7 @@
         </div>
 
         <div class="row" v-show="!loading">
-            <div class="col-lg-3 col-md-4 col-sm-4 col-6 mb-4" v-for="(player, key) in filteredPlayers" :key="key" v-show="(key + 1) <= countShowPlayers">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-4 mb-4" v-for="(player, key) in filteredPlayers" :key="key" v-show="(key + 1) <= countShowPlayers">
                 <div class="card">
                     <router-link :to="{name: 'player.show', params: {id: player.id}}">
                         <img class="card-img-top" :src="player.avatar" alt="Player avatar">
@@ -56,7 +56,7 @@ export default {
     data() {
         return {
             loading: false,
-            countShowPlayers: 8,
+            countShowPlayers: 12,
             search: "",
             players: [],
         }
