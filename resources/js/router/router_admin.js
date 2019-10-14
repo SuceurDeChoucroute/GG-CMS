@@ -28,6 +28,10 @@ import PostCreate from '../components/admin/pages/posts/PostCreate.vue'
 import PostEdit from '../components/admin/pages/posts/PostEdit.vue'
 import PostShow from '../components/admin/pages/posts/PostShow.vue'
 
+import Partners from '../components/admin/pages/partners/Partners.vue'
+import PartnerCreate from '../components/admin/pages/partners/PartnerCreate.vue'
+import PartnerEdit from '../components/admin/pages/partners/PartnerEdit.vue'
+
 import Rules from '../components/admin/pages/rules/Rules.vue'
 
 const routes = [
@@ -66,6 +70,10 @@ const routes = [
 
     // Rules
     { name: "rules", path: '/rules', component: Rules },
+
+    { name: "partners", path: '/partners', component: Partners },
+    { name: "partner.create", path: '/partner/create', component: PartnerCreate },
+    { name: "partner.edit", path: '/partner/edit/:id', component: PartnerEdit },
 
 ];
 const router = new Router({

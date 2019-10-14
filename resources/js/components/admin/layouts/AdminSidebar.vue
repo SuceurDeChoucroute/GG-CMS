@@ -37,6 +37,7 @@ export default {
                 { name: 'tournaments', icon: 'fa-trophy', title: 'Tournaments'},
                 { name: 'posts', icon: 'fa-newspaper', title: 'Posts'},
                 { name: 'rules', icon: 'fa-align-left', title: 'Rules'},
+                { name: 'partners', icon: 'fa-handshake', title: 'Partners'},
             ]
         }
     },

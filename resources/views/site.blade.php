@@ -21,6 +21,9 @@
             <transition name="slide-fade" mode="out-in">
                 <router-view></router-view>
             </transition>
+
+            
+            <site-partners v-show="$route.name != 'home'"></site-partners>
         </div>
 
         {{-- <site-footer></site-footer> --}}

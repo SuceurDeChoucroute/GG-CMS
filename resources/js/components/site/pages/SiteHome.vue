@@ -6,6 +6,8 @@
             </div>
         </div>
 
+        <site-partners></site-partners>
+
         <div class="row" v-show="!loadingPage">
             <div class="col-lg-12">
                 <div class="row">
@@ -22,19 +24,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-lg-2">
-                <div class="card card-small">
-                    <div class="card-body">
-                        <h4 class="card-title">Our partners:</h4>
-                        <ul class="card-text list-unstyled">
-                            <li>P2P</li>
-                            <li>Epsuplan</li>
-                            <li>Lorem</li>
-                        </ul>
-                    </div>
-                </div>
-            </div> -->
-
         </div>        
     </div>
 </template>
@@ -61,7 +50,7 @@
                     this.$noty.error("Something went wrong... Try again")
                     this.loadingPage = false
                 })
-            }
+            },
         },
 
         mounted() {
