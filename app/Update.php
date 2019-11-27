@@ -20,11 +20,11 @@ class Update
     public function local(Runner $run)
     {
         return $run
-            ->external('sudo', 'git', 'pull')
-            ->external('sudo', 'composer', 'install')
+            ->external('git', 'pull')
+            ->external('composer', 'install')
             ->artisan('migrate')
             ->external('npm', 'install')
-            ->external('sudo', 'npm', 'run', 'development')
+            ->external('npm', 'run', 'development')
             ->artisan('cache:clear');
     }
 }
