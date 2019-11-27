@@ -20,11 +20,11 @@ class Install
     public function local(Runner $run)
     {
         return $run
-            ->external('sudo', 'composer', 'install')
+            ->external('composer', 'install')
             ->artisan('key:generate')
             ->artisan('migrate')
             ->artisan('storage:link')
             ->external('npm', 'install')
-            ->external('sudo', 'npm', 'run', 'development');
+            ->external('npm', 'run', 'development');
     }
 }
