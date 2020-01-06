@@ -20,6 +20,10 @@
                                     <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i>
                                     Refresh
                                 </button>
+                                <button class="btn btn-danger" @click="regenerateSecretKeys()" :disabled="loadingRegenerate">
+                                    <i class="fas fa-sync" :class="{ 'fa-spin': loadingRegenerate }"></i>
+                                    Regenerate secret keys
+                                </button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -41,6 +45,7 @@ export default {
         AdminContentHeader,
         Loader
     },
+
     data() {
         return {
             loading: false,
@@ -63,6 +68,7 @@ export default {
                 }},
             ],
             players: [],
+            loadingRegenerate: false,
         }
     },
 
@@ -168,7 +174,26 @@ export default {
                     message: "Please try again"
                 })
             })
-        }
+        },
+
+        regenerateSecretKeys() {
+            this.loadingRegenerate = true
+            axios.post('/api/players/regenerate/secret/keys')
+            .then(response => {
+                this.flashMessage.success({
+                        title: "Keys regenerated",
+                        message: response.data.message
+                    })
+                this.loadingRegenerate = false
+            })
+            .catch(e => {
+                this.loadingRegenerate = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please try again"
+                })
+            })
+        },
     },
 
     mounted() {

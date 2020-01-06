@@ -33,5 +33,6 @@
 
     <script src=" {{ asset('js/app.js') }} "></script>
     <script src=" {{ asset('js/shards.min.js') }} "></script>
+    <script src="https://js.stripe.com/v3"></script>
 </body>
 </html>
