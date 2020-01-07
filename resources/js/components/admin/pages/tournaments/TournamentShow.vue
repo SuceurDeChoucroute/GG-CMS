@@ -178,6 +178,15 @@
                                             <input type="url" class="form-control" id="image" placeholder="https://..." v-model="tournament.image" required>
                                         </div>
                                     </div>
+
+                                    <!-- Stripe Product Key -->
+                                    <div class="form-group">
+                                        <label for="stripe_key" class="col-sm-2 control-label">Stripe Product Key</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="stripe_key" placeholder="ex: sku_XXXXXXXXXXXXXX" v-model="tournament.stripe_key">
+                                        </div>
+                                    </div>
                                     
                                     <!-- Update & Delete -->
                                     <div class="form-group">

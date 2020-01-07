@@ -75,6 +75,8 @@
                                 <i class="fas fa-minus" v-show="!loading"></i>
                                 Unregister your team
                             </button>
+
+                            <SiteBuyButton :user="user" :tournament="tournament.tournament"></SiteBuyButton>
                         </p>
 
                         <p class="lead" v-else-if="hasGameForTournament(tournament)">
@@ -89,6 +91,8 @@
                                 <i class="fas fa-minus" v-show="!loading"></i>
                                 Unregister
                             </button>
+
+                            <SiteBuyButton :user="user" :tournament="tournament.tournament" :alreadyPayed="alreadyPayed"></SiteBuyButton>
                         </p>
                     </div>
                 </div>
@@ -109,6 +113,7 @@ export default {
             playerGames: [],
             authenticated: auth.check(),
             user: null,
+            alreadyPayed: false,
         }
     },
 
@@ -132,6 +137,7 @@ export default {
                 this.user = response.data
                 this.getPlayerTeams()
                 this.getPlayerGames()
+                this.checkPayment()
             })
         },
 
@@ -326,7 +332,24 @@ export default {
             }
 
             return check
-        }
+        },
+
+        checkPayment() {
+            this.loading = true
+
+            axios.get('/api/payment/check/player/' + this.user.id)
+            .then(response => {
+                if (response.data.result) {
+                    this.alreadyPayed = true
+                }
+                else {
+                    this.alreadyPayed = false
+                }
+            })
+            .catch(() => {
+                this.$noty.error("Something went wrong... Try reload the page")
+            })
+        },
     },
 
     filters: {
