@@ -337,9 +337,9 @@ export default {
         checkPayment() {
             this.loading = true
 
-            axios.get('/payment/check/player/' + this.user.id)
+            axios.get('/api/payment/check/player/' + this.user.id)
             .then(response => {
-                if (response.data) {
+                if (response.data.result) {
                     this.alreadyPayed = true
                 }
                 else {

@@ -62,7 +62,6 @@ Route::group(['middleware' => ['json.response']], function () {
 
         // Payment
         Route::get('payment/fail', 'PaymentController@failedPayment');
-        Route::get('payment/check/player/{player}', 'PaymentController@isPlayerPayed');
     });
     
     /*
@@ -70,7 +69,7 @@ Route::group(['middleware' => ['json.response']], function () {
     | PUBLIC Routes
     |--------------------------------------------------------------------------
     */
-    Route::get('payment/{secretKey}/{tournament}', 'PaymentController@successfulPayment');
+    
     // Auth
     Route::post('/login', 'AuthController@login')->name('login');
     Route::post('/register', 'AuthController@register')->name('register');
@@ -120,4 +119,8 @@ Route::group(['middleware' => ['json.response']], function () {
 
     // Partners
     Route::resource('partners', 'PartnerController')->only(['index', 'show']);
+
+    // Payment
+    Route::get('payment/check/player/{player}', 'PaymentController@isPlayerPayed');
+    Route::get('payment/{secretKey}/{tournament}', 'PaymentController@successfulPayment');
 });

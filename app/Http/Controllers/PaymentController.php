@@ -20,22 +20,26 @@ class PaymentController extends Controller
             $place->save();
         }
 
-        return view('site');
+        return redirect('/');
     }
 
     public function failedPayment()
     {
-        return view('site');
+        return redirect('/');
     }
 
-    public function isPlayerPayed($player)
+    public function isPlayerPayed(User $player)
     {
         $place = TournamentPlace::all()->where('user_id', $player->id)->first();
 
         if ($place) {
-            return true;
+            return response()->json([
+                'result' => true
+            ]);
         }
 
-        return false;
+        return response()->json([
+                'result' => false
+            ]);
     }
 }
