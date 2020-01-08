@@ -50,6 +50,7 @@ Route::group(['middleware' => ['json.response']], function () {
         
         // Tournaments
         Route::resource('tournaments', 'TournamentController')->only(['store', 'update', 'destroy']);
+        Route::get('tournaments/payed/players', 'TournamentController@getPayedPlayers');
         
         // Posts
         Route::resource('posts', 'PostController')->only(['store', 'update', 'destroy']);

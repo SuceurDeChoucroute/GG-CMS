@@ -28,6 +28,27 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                Payed Players
+                            </h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-info" @click="getPayedPlayers()">
+                                    <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i>
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <AdminDataTable :data="payedPlayers" :columns="payedPlayersColumns" :index="false" :loading="payedPlayersLoading"></AdminDataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 </template>
@@ -45,7 +66,9 @@ export default {
     data() {
         return {
             loading: false,
+            payedPlayersLoading: false,
             tournaments: [],
+            payedPlayers: [],
             columns: [
                 {name: 'name', th: 'Name', render(row, cell, index) {
                     return row.tournament.name
@@ -81,6 +104,10 @@ export default {
                     }
                 }},
             ],
+            payedPlayersColumns: [
+                { name: 'tournament_name', th: 'Tournament' },
+                { name: 'user_pseudo', th: 'Player' }
+            ],
             actions: [
                 {text: "", icon: "fas fa-eye", color: "primary", action: (row, index) => {
                     this.$router.push({ name: 'tournament.show', params: {id: row.tournament.id} })
@@ -104,11 +131,28 @@ export default {
                     message: "Please refresh the page"
                 })
             })
+        },
+
+        getPayedPlayers() {
+            this.payedPlayersLoading = true
+            axios.get('/api/tournaments/payed/players')
+            .then(response => {
+                this.payedPlayers = response.data
+                this.payedPlayersLoading = false
+            })
+            .catch(e => {
+                this.payedPlayersLoading = false
+                this.flashMessage.error({
+                    title: "Something went wrong",
+                    message: "Please refresh the page"
+                })
+            })
         }
     },
     
     mounted() {
         this.getTournaments()
+        this.getPayedPlayers()
     }
 }
 </script>
