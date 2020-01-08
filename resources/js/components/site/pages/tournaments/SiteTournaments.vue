@@ -79,7 +79,7 @@
                             <SiteBuyButton :user="user" :tournament="tournament.tournament"></SiteBuyButton>
                         </p>
 
-                        <p class="lead" v-else-if="hasGameForTournament(tournament)">
+                        <p class="lead" v-else-if="hasGameForTournament(tournament) && tournament.registeredType == 'player'">
                             <button class="btn btn-lg btn-success" v-if="!isPlayerRegistered(tournament) && !isTournamentFull(tournament)" @click="registerPlayer(tournament.tournament)" :disabled="loading">
                                 <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
                                 <i class="fas fa-plus" v-show="!loading"></i>
@@ -280,7 +280,7 @@ export default {
                     })
                 }
             })
-            
+
             return check
         },
 
