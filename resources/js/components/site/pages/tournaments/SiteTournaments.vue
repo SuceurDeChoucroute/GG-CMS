@@ -70,13 +70,15 @@
                                 Register your team
                             </button>
 
-                            <button class="btn btn-lg btn-danger" v-else-if="isTeamRegistered(tournament)" @click="unregisterTeam(tournament.tournament)" :disabled="loading">
-                                <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
-                                <i class="fas fa-minus" v-show="!loading"></i>
-                                Unregister your team
-                            </button>
+                            <span v-else-if="isTeamRegistered(tournament)">
+                                <button class="btn btn-lg btn-danger"  @click="unregisterTeam(tournament.tournament)" :disabled="loading">
+                                    <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
+                                    <i class="fas fa-minus" v-show="!loading"></i>
+                                    Unregister your team
+                                </button>
 
-                            <SiteBuyButton :user="user" :tournament="tournament.tournament"></SiteBuyButton>
+                                <SiteBuyButton :user="user" :tournament="tournament.tournament" :alreadyPayed="alreadyPayed"></SiteBuyButton>
+                            </span>
                         </p>
 
                         <p class="lead" v-else-if="hasGameForTournament(tournament) && tournament.registeredType == 'player'">
@@ -86,13 +88,15 @@
                                 Register
                             </button>
 
-                            <button class="btn btn-lg btn-danger" v-else-if="isPlayerRegistered(tournament)" @click="unregisterPlayer(tournament.tournament)" :disabled="loading">
-                                <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
-                                <i class="fas fa-minus" v-show="!loading"></i>
-                                Unregister
-                            </button>
+                            <span v-else-if="isPlayerRegistered(tournament)">
+                                <button class="btn btn-lg btn-danger"  @click="unregisterPlayer(tournament.tournament)" :disabled="loading">
+                                    <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
+                                    <i class="fas fa-minus" v-show="!loading"></i>
+                                    Unregister
+                                </button>
 
-                            <SiteBuyButton :user="user" :tournament="tournament.tournament" :alreadyPayed="alreadyPayed"></SiteBuyButton>
+                                <SiteBuyButton :user="user" :tournament="tournament.tournament" :alreadyPayed="alreadyPayed"></SiteBuyButton>
+                            </span>
                         </p>
                     </div>
                 </div>
