@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Tournament;
 use Carbon\Carbon;
@@ -209,6 +210,17 @@ class TournamentController extends Controller
         }
 
         return ($countTeams / $countPlaces) * 100;
+    }
+
+    public function getPayedPlayers()
+    {
+        $players = DB::table('tournament_places')
+                     ->join('users', 'users.id', '=', 'tournament_places.user_id')
+                     ->join('tournaments', 'tournaments.id', '=', 'tournament_places.tournament_id')
+                     ->select('tournaments.name as tournament_name', 'users.pseudo as user_pseudo')
+                     ->get();
+
+        return $players;
     }
 
     public function registerTeam(Tournament $tournament, Team $team)
