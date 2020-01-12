@@ -18,7 +18,7 @@
                         </select>
                         <label for="showPlayers"> Players</label> -->
                     </div>
-                    <label v-show="search"> {{ filteredPlayers.length }} player(s) filtered</label>
+                    <label v-show="search"> {{ filteredPlayers.length }} joueur(s) filtré(s)</label>
                 </form>
             </div>
         </div>
@@ -44,7 +44,7 @@
         <div class="row" v-show="!loading && isMoreShowable">
             <div class="col-lg-6 mb-4 mx-auto text-center">
                 <button class="btn btn-lg btn-primary" @click="showMore()">
-                    Show more ...
+                    Afficher plus ...
                 </button>
             </div>
         </div>

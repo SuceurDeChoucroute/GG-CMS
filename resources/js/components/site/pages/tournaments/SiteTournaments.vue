@@ -19,7 +19,7 @@
                         </span>
 
                         <span class="badge badge-primary">
-                            {{ tournament.tournament|timerTournament }} day(s) left
+                            {{ tournament.tournament|timerTournament }} jour(s) restant
                         </span>
                     </h1>
                     
@@ -42,15 +42,14 @@
 
                     <!-- Game -->
                     <p>
-                        Game:
+                        Jeu:
                         <b> {{ tournament.game.name }} </b>
                     </p>
 
                     <!-- Registered -->
                     <p>
-                        Registered 
-                        <span v-if="tournament.game.places == 1"> players</span> 
-                        <span v-else> teams</span> :
+                        <span v-if="tournament.game.places == 1"> Joueur(s) inscrit(s) :</span> 
+                        <span v-else> Equipe(s) inscrite(s) :</span>
 
                         <ul class="list-unstyled list-inline">
                             <li class="list-inline-item" v-for="(registered, key) in tournament.registered" :key="key">
@@ -67,14 +66,14 @@
                             <button class="btn btn-lg btn-success" v-if="!isTeamRegistered(tournament) && !isTournamentFull(tournament)" @click="registerTeam(tournament.tournament)" :disabled="loading">
                                 <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
                                 <i class="fas fa-plus" v-show="!loading"></i>
-                                Register your team
+                                Inscrire votre équipe
                             </button>
 
                             <span v-else-if="isTeamRegistered(tournament)">
                                 <button class="btn btn-lg btn-danger"  @click="unregisterTeam(tournament.tournament)" :disabled="loading">
                                     <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
                                     <i class="fas fa-minus" v-show="!loading"></i>
-                                    Unregister your team
+                                    Désinscrire votre équipe
                                 </button>
 
                                 <SiteBuyButton :user="user" :tournament="tournament.tournament" :alreadyPayed="alreadyPayed"></SiteBuyButton>
@@ -85,14 +84,14 @@
                             <button class="btn btn-lg btn-success" v-if="!isPlayerRegistered(tournament) && !isTournamentFull(tournament)" @click="registerPlayer(tournament.tournament)" :disabled="loading">
                                 <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
                                 <i class="fas fa-plus" v-show="!loading"></i>
-                                Register
+                                S'inscrire
                             </button>
 
                             <span v-else-if="isPlayerRegistered(tournament)">
                                 <button class="btn btn-lg btn-danger"  @click="unregisterPlayer(tournament.tournament)" :disabled="loading">
                                     <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
                                     <i class="fas fa-minus" v-show="!loading"></i>
-                                    Unregister
+                                    Se désinscrire
                                 </button>
 
                                 <SiteBuyButton :user="user" :tournament="tournament.tournament" :alreadyPayed="alreadyPayed"></SiteBuyButton>
@@ -130,7 +129,7 @@ export default {
                 this.loadingPage = false
             })
             .catch(() => {
-                this.$noty.error("Something went wrong... Try reload the page")
+                // this.$noty.error("Something went wrong... Try reload the page")
                 this.loadingPage = false
             })
         },
@@ -154,7 +153,7 @@ export default {
                 this.loading = false
             })
             .catch(() => {
-                this.$noty.error("Something went wrong... Try again")
+                // this.$noty.error("Something went wrong... Try again")
                 this.loading = false
             })
         },
@@ -168,7 +167,7 @@ export default {
                 this.loading = false
             })
             .catch(() => {
-                this.$noty.error("Something went wrong... Try again")
+                // this.$noty.error("Something went wrong... Try again")
                 this.loading = false
             })
         },
@@ -185,7 +184,7 @@ export default {
             
             axios.put('/api/tournaments/' + tournament.id +'/register/teams/' + team.team.id)
             .then(response => {
-                this.$noty.success("Your team has been successfully registered")
+                this.$noty.success("Votre équipe est bien inscrite !")
                 this.getTournaments()
                 this.loading = false
             })
@@ -207,7 +206,7 @@ export default {
             
             axios.put('/api/tournaments/' + tournament.id +'/unregister/teams/' + team.team.id)
             .then(response => {
-                this.$noty.success("Your team has been successfully unregistered")
+                this.$noty.success("Votre équipe est bien désinscrite")
                 this.getTournaments()
                 this.loading = false
             })
@@ -222,7 +221,7 @@ export default {
 
             axios.put('/api/tournaments/' + tournament.id +'/register/players/' + this.user.id)
             .then(response => {
-                this.$noty.success('You have been successfully registered')
+                this.$noty.success('Vous êtes bien inscrit !')
                 this.getTournaments()
                 this.loading = false
             })
@@ -237,7 +236,7 @@ export default {
 
             axios.put('/api/tournaments/' + tournament.id +'/unregister/players/' + this.user.id)
             .then(response => {
-                this.$noty.success('You have been successfully unregistered')
+                this.$noty.success('Vous êtes bien désinscrit !')
                 this.getTournaments()
                 this.loading = false
             })
