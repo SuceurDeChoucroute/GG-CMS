@@ -24,34 +24,33 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <router-link :to="{name: 'player.show', params: {id: user.id}}" class="dropdown-item font-weight-bold">
                             <i class="fas fa-cog"></i>
-                            Profile
+                            Profil
                         </router-link>
                         
                         <a href="/admin" class="dropdown-item font-weight-bold" v-if="isAdmin">
                             <i class="fas fa-user-shield"></i>
-                            Go to admin
+                            Admin
                         </a>
                         
                         <div class="dropdown-divider"></div>
 
                         <a href="#" class="dropdown-item text-danger font-weight-bold" @click="logout()">
                             <i class="fas fa-sign-out-alt"></i>
-                            Logout
+                            Déconnexion
                         </a>
                     </div>
                 </li>
 
                 <li class="nav-item" v-show="!user">
-                    <router-link :to="{name: 'login'}" class="btn btn-success">
+                    <router-link :to="{name: 'login'}" class="nav-link">
+                        Connexion
+                    </router-link>                
+                </li>
+                <li v-show="!user">
+                    <router-link :to="{name: 'register'}" class="btn btn-danger">
                         <i class="fas fa-sign-in-alt"></i>
-                        Login
+                        Inscription
                     </router-link>
-                
-                    <router-link :to="{name: 'register'}" class="btn btn-primary">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Register
-                    </router-link>
-                
                 </li>
                 <li class="nav-item">
                 

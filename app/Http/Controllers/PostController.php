@@ -19,7 +19,7 @@ class PostController extends Controller
 
     public function index_site()
     {
-        return Post::all()->where('visibility', 'public');
+        return Post::where('visibility', 'public')->orderBy('id', 'desc')->take(4)->get();
     }
 
     /**

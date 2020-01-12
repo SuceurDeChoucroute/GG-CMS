@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4 text-center mx-auto">
-                <h1>Login</h1>
+                <h1>Connexion</h1>
                 <form @submit.prevent="login()">
                     <div class="form-group">
                         <div class="input-group input-group-lg">
@@ -11,7 +11,7 @@
                             </div>
                             <input type="email" name="email" class="form-control" :class=" { 'is-invalid' : error } " v-model="user.email" placeholder="Email" required>
                             <div class="invalid-feedback" v-show="error">
-                                Incorrect credentials
+                                Mauvais identifiants
                             </div>
                         </div>
                     </div>
@@ -21,15 +21,15 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-unlock"></i></span>
                             </div>
-                            <input type="password" name="password" class="form-control" :class=" { 'is-invalid' : error } " v-model="user.password" placeholder="Password" required>
+                            <input type="password" name="password" class="form-control" :class=" { 'is-invalid' : error } " v-model="user.password" placeholder="Mot de passe" required>
                             <div class="invalid-feedback" v-show="error">
-                                Incorrect credentials
+                                Mauvais identifiants
                             </div>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-success text-center" :disabled="loading">
-                        Login
+                        Connexion
                         <b-spinner small variant="dark" label="Loading" v-show="loading"></b-spinner>
                     </button>
                 </form>
