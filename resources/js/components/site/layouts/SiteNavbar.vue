@@ -1,7 +1,7 @@
 <template>
-    <div class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <router-link :to="{name: 'home'}" class="navbar-brand">
-            Home
+            <img src="https://gglan.fr/img/logo.png" alt="GG-LAN" style="width: 130px;">
         </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarDropdown" aria-controls="navbarDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -72,10 +72,10 @@ export default {
                 authenticated: auth.check(),
                 user: null,
                 navs: [
-                    {name: 'players', title:'Players',},
-                    {name: 'teams', title:'Teams',},
-                    {name: 'tournaments', title: 'Register to tournament'},
-                    {name: 'rules', title:'Rules',},
+                    {name: 'players', title:'Joueurs',},
+                    {name: 'teams', title:'Equipes',},
+                    {name: 'tournaments', title: "Inscription aux tournois"},
+                    {name: 'rules', title:'Règlement',},
                 ]
             }
         },

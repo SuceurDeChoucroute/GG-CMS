@@ -17,6 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.styles([
    'node_modules/bootstrap/dist/css/bootstrap.min.css',
-   'public/css/shards.min.css',
-   'public/css/shards-extras.min.css',
+   'public/css/darkly.min.css',
+   // 'public/css/shards.min.css',
+   // 'public/css/shards-extras.min.css',
 ], 'public/css/site.css')

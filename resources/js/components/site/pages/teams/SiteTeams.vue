@@ -10,7 +10,7 @@
             <div class="col-lg-4 mb-4">
                 <form>
                     <div class="form-inline">
-                        <input type="text" class="form-control col-sm-12 mb-2" placeholder="Search a team..." autofocus v-model="search">
+                        <input type="text" class="form-control col-sm-12 mb-2" placeholder="Rechercher une équipe" autofocus v-model="search">
 
                         <!-- <label for="showTeams">Show </label>
                         <select name="showTeams" id="showTeams" class="form-control" v-model="countShowTeams">
@@ -18,7 +18,7 @@
                         </select>
                         <label for="showTeams"> Teams</label> -->
                     </div>
-                    <label v-show="search"> {{ filteredTeams.length }} team(s) filtered</label>
+                    <label v-show="search"> {{ filteredTeams.length }} équipe(s) filtrée(s)</label>
                 </form>
             </div>
         </div>
@@ -35,7 +35,7 @@
                             <span class="badge badge-pill badge-warning" v-if="teamPlaces(team) != 'Full'"> {{ teamPlaces(team) }} </span>
                             <span class="badge badge-pill badge-success" v-else> {{ teamPlaces(team) }} </span>
                         </h4>
-                        <p class="card-text">Game: <b>{{ team.game.name }}</b></p>
+                        <p class="card-text">Jeu: <b>{{ team.game.name }}</b></p>
                     </div>
                 </div>
             </div> 
@@ -44,7 +44,7 @@
         <div class="row" v-show="!loading && isMoreShowable">
             <div class="col-lg-6 mb-4 mx-auto text-center">
                 <button class="btn btn-lg btn-primary" @click="showMore()">
-                    Show more ...
+                    Afficher plus ...
                 </button>
             </div>
         </div>
