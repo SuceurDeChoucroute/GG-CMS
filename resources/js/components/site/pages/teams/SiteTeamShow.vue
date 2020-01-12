@@ -230,10 +230,12 @@ export default {
         },
 
         isTeamFull() {
-            if (this.team.game.place >= this.team.players.length) {
+            if (this.team.game.places > this.team.players.length) {
+                return false
+            }
+            else {
                 return true
             }
-            return false
         }
     },
 

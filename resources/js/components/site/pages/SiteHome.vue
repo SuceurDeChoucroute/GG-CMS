@@ -47,7 +47,7 @@
                     this.loadingPage = false
                 })
                 .catch(() => {
-                    this.$noty.error("Something went wrong... Try again")
+                    // this.$noty.error("Something went wrong... Try again")
                     this.loadingPage = false
                 })
             },
