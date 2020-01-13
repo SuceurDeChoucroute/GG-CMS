@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,7 +31,11 @@ class AuthController extends Controller
         $request['password'] = Hash::make($request['password']);
 
         $info = $request->toArray();
-        $info += ['avatar' => "https://api.adorable.io/avatars/285/".$request->email];
+        $info += [
+            'avatar' => "https://api.adorable.io/avatars/285/".$request->email,
+            'secret_key' => Str::random(40),
+        ];
+        
         $user = User::create($info);
 
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
