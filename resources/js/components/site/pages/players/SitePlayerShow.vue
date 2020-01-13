@@ -60,7 +60,7 @@
                                             <label for="pseudo">Pseudo</label>
                                             <input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" v-model="player.player.pseudo" required :disabled="!isUserProfile">
                                         </div>
-                                        <div class="form-group col-lg-6">
+                                        <div class="form-group col-lg-6" v-show="isUserProfile">
                                             <label for="avatar">Avatar</label>
                                             <input type="url" name="avatar" id="avatar" class="form-control" placeholder="https://..." v-model="player.player.avatar" :disabled="!isUserProfile">
                                         </div>
