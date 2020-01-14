@@ -4,7 +4,7 @@
 
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="https://gglan.fr/storage/avatars/pVZJ8PnP8ZkiapOtMiXtkzWrYVlxkGRuY1hQdgfQ.jpeg" class="img-circle" alt="User Image">
+                    <img :src="user.avatar" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <p v-if="user"> {{ user.pseudo }} </p>
@@ -37,6 +37,7 @@ export default {
                 { name: 'tournaments', icon: 'fa-trophy', title: 'Tournaments'},
                 { name: 'posts', icon: 'fa-newspaper', title: 'Posts'},
                 { name: 'rules', icon: 'fa-align-left', title: 'Rules'},
+                { name: 'partners', icon: 'fa-handshake', title: 'Partners'},
             ]
         }
     },

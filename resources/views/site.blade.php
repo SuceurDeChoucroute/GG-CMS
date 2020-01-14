@@ -21,6 +21,9 @@
             <transition name="slide-fade" mode="out-in">
                 <router-view></router-view>
             </transition>
+
+            
+            <site-partners v-show="$route.name != 'home'"></site-partners>
         </div>
 
         {{-- <site-footer></site-footer> --}}
@@ -30,5 +33,6 @@
 
     <script src=" {{ asset('js/app.js') }} "></script>
     <script src=" {{ asset('js/shards.min.js') }} "></script>
+    <script src="https://js.stripe.com/v3"></script>
 </body>
 </html>

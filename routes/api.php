@@ -40,6 +40,7 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::post('players/{player}/grantAdmin', 'PlayerController@grantAdmin')->name('players.admins.grant');
         Route::post('players/{player}/revokeAdmin', 'PlayerController@revokeAdmin')->name('players.admins.revoke');
         Route::post('players/{player}/visibility', 'PlayerController@changeVisibility')->name('players.admins.visibility');
+        Route::post('players/regenerate/secret/keys', 'PlayerController@regenerateSecretKeys');
         
         // Teams
         Route::resource('teams', 'TeamController')->only(['store', 'update', 'destroy']);
@@ -49,12 +50,19 @@ Route::group(['middleware' => ['json.response']], function () {
         
         // Tournaments
         Route::resource('tournaments', 'TournamentController')->only(['store', 'update', 'destroy']);
+        Route::get('tournaments/payed/players', 'TournamentController@getPayedPlayers');
         
         // Posts
         Route::resource('posts', 'PostController')->only(['store', 'update', 'destroy']);
         
         // Rules
         Route::put('rules', 'RuleController@update')->name('rules.update');
+        
+        // Partners
+        Route::resource('partners', 'PartnerController')->only(['store', 'update', 'destroy']);
+
+        // Payment
+        Route::get('payment/fail', 'PaymentController@failedPayment');
     });
     
     /*
@@ -62,6 +70,7 @@ Route::group(['middleware' => ['json.response']], function () {
     | PUBLIC Routes
     |--------------------------------------------------------------------------
     */
+    
     // Auth
     Route::post('/login', 'AuthController@login')->name('login');
     Route::post('/register', 'AuthController@register')->name('register');
@@ -108,4 +117,11 @@ Route::group(['middleware' => ['json.response']], function () {
     
     // Rules
     Route::get('rules', 'RuleController@show')->name('rules.index');
+
+    // Partners
+    Route::resource('partners', 'PartnerController')->only(['index', 'show']);
+
+    // Payment
+    Route::get('payment/check/player/{player}', 'PaymentController@isPlayerPayed');
+    Route::get('payment/{secretKey}/{tournament}', 'PaymentController@successfulPayment');
 });

@@ -17,18 +17,18 @@
                         <span class="text-muted d-block mb-2"> {{ team.team.description }} </span>
 
                         <div v-if="!isCaptainTeam()">
-                            <button class="btn btn-danger" v-if="isPlayerAlreadyHasJoinRequest(team.team) || requestAlreadySend" disabled> Request already send</button>
+                            <button class="btn btn-danger" v-if="isPlayerAlreadyHasJoinRequest(team.team) || requestAlreadySend" disabled> Demande déjà envoyée</button>
                             
                             <button type="button" class="btn btn-success" v-else-if="!isTeamFull()" @click="sendJoinRequest()" :disabled="loadingButton">
                                 <i class="fas fa-sync-alt fa-spin" v-show="loadingButton"></i>
-                                <i class="fas fa-plus" v-show="!loadingButton"></i> Join
+                                <i class="fas fa-plus" v-show="!loadingButton"></i> Rejoindre
                             </button>
                         </div>
                     </div>
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item p-4">
-                            <strong class="text-muted d-block mb-2">Our participation(s):</strong>
+                            <strong class="text-muted d-block mb-2">Nos participation(s):</strong>
                             <ul>
                                 <li v-for="(participation, key) in team.participations" :key="key"> {{ participation.name }} </li>
                             </ul>
@@ -39,14 +39,14 @@
             <div class="col-lg-7">
                 <div class="card card-small mb-4">
                     <div class="card-header border-bottom">
-                        <h6 class="m-0">Team players</h6>
+                        <h6 class="m-0">Joueurs de l'équipe</h6>
                     </div>
                     <div class="card-body p-0 text-center">
                         <table class="table mb-0 table-hover">
                             <thead class="bg-light" v-if="isCaptainTeam()">
                                 <tr>
-                                    <th scope="col" class="border-0">Player</th>
-                                    <th scope="col" class="border-0">Actions</th>
+                                    <th scope="col" class="text-white border-0">Joueur</th>
+                                    <th scope="col" class="text-white border-0">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,7 +61,7 @@
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </td>
-                                    <!-- <td v-else></td> -->
+                                    <td v-else></td>
                                     
                                     <td v-if="team.joinrequests.players.length">
                                     </td>
@@ -75,11 +75,11 @@
                                         
                                         <button class="btn btn-success" @click="acceptRequest(player)" :disabled="loadingButton">
                                             <i class="fas fa-sync-alt fa-spin" v-show="loadingButton"></i>
-                                            Accept
+                                            Accepter
                                         </button>
                                         <button class="btn btn-danger" @click="refuseRequest(player)" :disabled="loadingButton">
                                             <i class="fas fa-sync-alt fa-spin" v-show="loadingButton"></i>
-                                            Refuse
+                                            Refuser
                                         </button>
                                     </td>
                                 </tr>
@@ -133,7 +133,7 @@ export default {
                 this.playerJoinRequests = response.data
             })
             .catch(() => {
-                this.$noty.error('Something went wrong... Try again')
+                // this.$noty.error('Something went wrong... Try again')
             })
         },
 
@@ -162,10 +162,10 @@ export default {
             })
             .catch(error => {
                 if (error.response.status == 401) {
-                    this.$noty.error("You already send a request !")
+                    this.$noty.error("Vous avez déjà envoyé une demande")
                 }
                 else {
-                    this.$noty.error("Something went wrong... Try again")
+                    // this.$noty.error("Something went wrong... Try again")
                 }
                 
                 this.loadingButton = false
@@ -181,7 +181,7 @@ export default {
                 this.loadingButton = false
             })
             .catch(() => {
-                this.$noty.error("Something went wrong... Please try again")
+                // this.$noty.error("Something went wrong... Please try again")
                 this.loadingButton = false
             })
         },
@@ -195,7 +195,7 @@ export default {
                 this.loadingButton = false
             })
             .catch(() => {
-                this.$noty.error("Something went wrong... Please try again")
+                // this.$noty.error("Something went wrong... Please try again")
                 this.loadingButton = false
             })
         },
@@ -230,10 +230,12 @@ export default {
         },
 
         isTeamFull() {
-            if (this.team.game.place >= this.team.players.length) {
+            if (this.team.game.places > this.team.players.length) {
+                return false
+            }
+            else {
                 return true
             }
-            return false
         }
     },
 

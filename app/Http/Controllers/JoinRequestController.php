@@ -50,7 +50,7 @@ class JoinRequestController extends Controller
                 'user_id' => $this->player->id,
             ]);
     
-            $this->team->captain[0]->notify(new JoinRequestNotification($this->team));
+            // $this->team->captain[0]->notify(new JoinRequestNotification($this->team));
             return true;
         }
 
@@ -63,7 +63,7 @@ class JoinRequestController extends Controller
         $joinrequest->response = true;
         $joinrequest->save();
 
-        $this->player->notify(new AcceptJoinRequest($this->team));
+        // $this->player->notify(new AcceptJoinRequest($this->team));
 
         return true;
     }
@@ -74,7 +74,7 @@ class JoinRequestController extends Controller
         $joinrequest->response = false;
         $joinrequest->save();
 
-        $this->player->notify(new RefuseJoinRequest($this->team));
+        // $this->player->notify(new RefuseJoinRequest($this->team));
 
         return true;
     }

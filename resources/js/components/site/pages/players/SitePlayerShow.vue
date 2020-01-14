@@ -32,10 +32,10 @@
                                 <a class="nav-link active" id="informations-tab" data-toggle="tab" href="#informations" role="tab" aria-controls="informations" aria-selected="true">Informations</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="teams-tab" data-toggle="tab" href="#teams" role="tab" aria-controls="teams" aria-selected="true">Teams</a>
+                                <a class="nav-link" id="teams-tab" data-toggle="tab" href="#teams" role="tab" aria-controls="teams" aria-selected="true">Equipes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="games-tab" data-toggle="tab" href="#games" role="tab" aria-controls="games" aria-selected="true">Games</a>
+                                <a class="nav-link" id="games-tab" data-toggle="tab" href="#games" role="tab" aria-controls="games" aria-selected="true">Jeux</a>
                             </li>
                         </ul>
                     </div>
@@ -46,7 +46,7 @@
                                 <form action="POST" @submit.prevent="updatePlayer()">
                                     <div class="form-row" v-show="isUserProfile">
                                         <div class="form-group col-lg-6">
-                                            <label for="name">Name</label>
+                                            <label for="name">Nom</label>
                                             <input type="text" name="name" id="name" class="form-control" v-model="player.player.name" required>
                                         </div>
                                         <div class="form-group col-lg-6">
@@ -60,7 +60,7 @@
                                             <label for="pseudo">Pseudo</label>
                                             <input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" v-model="player.player.pseudo" required :disabled="!isUserProfile">
                                         </div>
-                                        <div class="form-group col-lg-6">
+                                        <div class="form-group col-lg-6" v-show="isUserProfile">
                                             <label for="avatar">Avatar</label>
                                             <input type="url" name="avatar" id="avatar" class="form-control" placeholder="https://..." v-model="player.player.avatar" :disabled="!isUserProfile">
                                         </div>
@@ -76,7 +76,7 @@
                                     <button type="submit" class="btn btn-success" :disabled="loading" v-show="isUserProfile">
                                         <i class="fas fa-sync-alt fa-spin" v-show="loading"></i>
                                         <i class="fas fa-check" v-show="!loading"></i>
-                                        Update
+                                        Mettre à jour
                                     </button>
                                 </form>
                             </div>
@@ -85,15 +85,15 @@
                             <div class="tab-pane" id="teams" role="tabpanel" aria-labelledby="teams-tab">
                                 <button class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#createTeam" v-show="isUserProfile">
                                     <i class="fas fa-plus"></i>
-                                    Create
+                                    Créer
                                 </button>
 
-                                <table class="table table-hover">
+                                <table class="table table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Game</th>
-                                            <th scope="col" class="text-center" v-show="isUserProfile">Actions</th>
+                                            <th scope="col" class="text-white">Nom</th>
+                                            <th scope="col" class="text-white">Jeu</th>
+                                            <th scope="col" class="text-center text-white" v-show="isUserProfile">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -103,13 +103,13 @@
                                                     {{ team.name }}     
                                                 </router-link> 
                                             </td>
-                                            <td> {{ team.game.name }} </td>
+                                            <td class="text-white"> {{ team.game.name }} </td>
                                             <td class="text-center" v-show="isUserProfile">
-                                                <button class="btn btn-sm btn-pill btn-success" @click="teamSelected = team" data-toggle="modal" data-target="#editTeam">
+                                                <button class="btn btn-sm  btn-success" @click="teamSelected = team" data-toggle="modal" data-target="#editTeam">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
 
-                                                <button class="btn btn-sm btn-pill btn-danger" @click="deleteTeam(team.id)">
+                                                <button class="btn btn-sm  btn-danger" @click="deleteTeam(team.id)">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </td>
@@ -122,20 +122,20 @@
                             <div class="tab-pane" id="games" role="tabpanel" aria-labelledby="games-tab">
                                 <button class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#addGame" v-show="isUserProfile">
                                     <i class="fas fa-plus"></i>
-                                    Add
+                                    Ajouter
                                 </button>
 
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Name</th>
+                                            <th scope="col" class="text-white">Nom</th>
                                             <!-- <th scope="col">Rank</th> -->
-                                            <th scope="col" class="text-center" v-show="isUserProfile">Actions</th>
+                                            <th scope="col" class="text-center text-white" v-show="isUserProfile">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(game, key) in player.games" :key="key">
-                                            <td> {{ game.name }} </td>
+                                            <td class="text-white"> {{ game.name }} </td>
                                             <!-- <td></td> -->
                                             <td class="text-center" v-show="isUserProfile">
                                                 <!-- <button class="btn btn-sm btn-pill btn-success" data-toggle="modal" data-target="#editGame" v-show="isUserProfile" @click="editGame(game.id)">
@@ -159,11 +159,11 @@
 
 
 
-        <site-modal id="createTeam" header="Create team" confirmButton="Create" @clicked="addTeam()">
+        <site-modal id="createTeam" header="Créer une équipe" confirmButton="Créer" @clicked="addTeam()">
             <form>
                 <div class="form-row">
                     <div class="form-group col-lg-12">
-                        <label for="name">Name</label>
+                        <label for="name">Nom</label>
                         <input type="text" class="form-control" name="name" id="name" autofocus v-model="newTeam.name" required>
                     </div>
                     
@@ -173,9 +173,9 @@
                     </div>
 
                     <div class="form-group col-lg-12">
-                        <label for="game_id">Game</label>
+                        <label for="game_id">Jeu</label>
                         <select name="game_id" id="game_id" class="form-control" v-model="newTeam.game_id" required>
-                            <option selected disabled>-- Please choose a game --</option>
+                            <option selected disabled>-- Choisir un jeu --</option>
                             <option :value="game.id" v-for="(game, key) in games" :key="key"> {{ game.name }} </option>
                         </select>
                     </div>
@@ -183,13 +183,13 @@
             </form>
         </site-modal>
 
-        <site-modal id="addGame" header="Add Game" confirmButton="Add" @clicked="addGame()">
+        <site-modal id="addGame" header="Ajouter un jeu" confirmButton="Ajouter" @clicked="addGame()">
             <form>
                 <div class="form-row">
                     <div class="form-group col-lg-12">
-                        <label for="game_id">Game</label>
+                        <label for="game_id">Jeu</label>
                         <select name="game_id" id="game_id" class="form-control" autofocus v-model="gameSelected" required>
-                            <option selected disabled>-- Please choose a game --</option>
+                            <option selected disabled>-- Choisir un jeu --</option>
                             <option :value="game.id" v-for="(game, key) in games" :key="key"> {{ game.name }} </option>
                         </select>
                     </div>
@@ -197,13 +197,13 @@
             </form>
         </site-modal>
 
-        <site-modal id="editGame" header="Edit Game" confirmButton="Update" @clicked="updateGame()">
+        <site-modal id="editGame" header="Modifier un jeu" confirmButton="Mettre à jour" @clicked="updateGame()">
             <form>
                 <div class="form-row">
                     <div class="form-group col-lg-12">
-                        <label for="game_id">Rank</label>
+                        <label for="game_id">Rang</label>
                         <select name="game_id" id="game_id" class="form-control" autofocus v-model="rankSelected" required>
-                            <option selected disabled>-- Please choose your --</option>
+                            <option selected disabled>-- Choisir un jeu --</option>
                             <option :value="rank.id" v-for="(rank, key) in gameRanks" :key="key"> {{ rank.name }} </option>
                         </select>
                     </div>
@@ -211,11 +211,11 @@
             </form>
         </site-modal>
 
-        <site-modal id="editTeam" header="Edit Team" confirmButton="Update" @clicked="updateTeam()">
+        <site-modal id="editTeam" header="Modifier un jeu" confirmButton="Mettre à jour" @clicked="updateTeam()">
             <form>
                 <div class="form-row">
                     <div class="form-group col-lg-12">
-                        <label for="name">Name</label>
+                        <label for="name">Nom</label>
                         <input type="text" name="name" class="form-control" autofocus v-model="teamSelected.name">
                     </div>
 
@@ -296,7 +296,7 @@ export default {
             this.loading = true
             axios.put('/api/players/' + this.$route.params.id, this.player.player)
             .then(response => {
-                this.$noty.success("Parameters updated !")
+                this.$noty.success("Compte mis à jour !")
                 this.loading = false
             })
             .catch(response => {
@@ -309,7 +309,7 @@ export default {
             this.loading = true
             axios.post('/api/teams', this.newTeam)
             .then(response => {
-                this.$noty.success("Team created !")
+                this.$noty.success("Equipe crée !")
                 this.getPlayer()
                 this.loading = false
             })
@@ -324,7 +324,7 @@ export default {
                 this.loading = true
                 axios.delete('/api/teams/' + id)
                 .then(() => {
-                    this.$noty.success("Team deleted !")
+                    this.$noty.success("Equipe supprimée !")
                     this.getPlayer()
                     this.loading = false
                 })
@@ -339,7 +339,7 @@ export default {
             this.loading = true
             axios.put('/api/teams/' + this.teamSelected.id, this.teamSelected)
             .then(() => {
-                this.$noty.success("Team updated !")
+                this.$noty.success("Equipe mise à jour !")
                 this.getPlayer()
                 this.loading = false
             })
@@ -353,7 +353,7 @@ export default {
             this.loading = true
             axios.post('/api/players/' + this.player.player.id + '/game', { game_id: this.gameSelected})
             .then(response => {
-                this.$noty.success("Parameters updated !")
+                this.$noty.success("Compte mis à jour !")
                 this.getPlayer()
                 this.loading = false
             })
@@ -375,7 +375,7 @@ export default {
                 this.loading = true
                 axios.delete('/api/players/' + this.player.player.id + '/game', {params: {game_id: id}})
                 .then(response => {
-                    this.$noty.success("Game deleted !")
+                    this.$noty.success("Jeu supprimé !")
                     this.getPlayer()
                     this.loading = false
                 })

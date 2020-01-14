@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PlayerController extends Controller
@@ -37,6 +38,8 @@ class PlayerController extends Controller
         $player->description = $request->description;
         $player->birth_date = $request->birth_date;
         $player->password = bcrypt($request->password);
+        $player->secret_key = Str::random(40);
+
         if (!$request->avatar) {
             $player->avatar = "https://api.adorable.io/avatars/285/".$request->email;
         }
@@ -164,12 +167,22 @@ class PlayerController extends Controller
 
     public function revokeAdmin(User $player)
     {
-        $player->admin = false;
-        $player->save();
+        $admins = User::all()->where('admin', 1);
+
+        if (count($admins) > 1) {
+            $player->admin = false;
+            $player->save();
+    
+            return response()->json([
+                'title' => 'Admin revoked !',
+                'message' => "Admin successfully revoked"
+            ]);
+        }
 
         return response()->json([
-            'message' => 'Admin revoked !'
-        ]);
+                'title' => "Admin not revoked",
+                'message' => "You can't revoke the only admin"
+            ]);
     }
 
     public function changeVisibility(User $player)
@@ -185,5 +198,19 @@ class PlayerController extends Controller
     public function getPlayerJoinRequests(User $player)
     {
         return $player->joinrequests;
+    }
+
+    public function regenerateSecretKeys()
+    {
+        $players = User::all();
+
+        foreach ($players as $player) {
+            $player->secret_key = Str::random(40);
+            $player->save();
+        }
+
+        return response()->json([
+            'message' => "All the secret keys has been regenerate successfully !"
+        ]);
     }
 }

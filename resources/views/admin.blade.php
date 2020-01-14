@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href=" {{ asset('/img/favicon.png') }} ">
 
-    <title> {{ config('app.name') }} </title>
+    <title> {{ config('app.name') }} - Admin </title>
     @include('admin.css')
 </head>
 

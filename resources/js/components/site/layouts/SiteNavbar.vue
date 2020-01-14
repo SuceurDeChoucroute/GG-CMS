@@ -1,7 +1,7 @@
 <template>
-    <div class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <router-link :to="{name: 'home'}" class="navbar-brand">
-            Home
+            <img src="https://avatar.gglan.fr/img/logo.png" alt="GG-LAN" style="width: 130px;">
         </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarDropdown" aria-controls="navbarDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,34 +24,33 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <router-link :to="{name: 'player.show', params: {id: user.id}}" class="dropdown-item font-weight-bold">
                             <i class="fas fa-cog"></i>
-                            Profile
+                            Profil
                         </router-link>
                         
                         <a href="/admin" class="dropdown-item font-weight-bold" v-if="isAdmin">
                             <i class="fas fa-user-shield"></i>
-                            Go to admin
+                            Admin
                         </a>
                         
                         <div class="dropdown-divider"></div>
 
                         <a href="#" class="dropdown-item text-danger font-weight-bold" @click="logout()">
                             <i class="fas fa-sign-out-alt"></i>
-                            Logout
+                            Déconnexion
                         </a>
                     </div>
                 </li>
 
                 <li class="nav-item" v-show="!user">
-                    <router-link :to="{name: 'login'}" class="btn btn-success">
+                    <router-link :to="{name: 'login'}" class="nav-link">
+                        Connexion
+                    </router-link>                
+                </li>
+                <li v-show="!user">
+                    <router-link :to="{name: 'register'}" class="btn btn-danger">
                         <i class="fas fa-sign-in-alt"></i>
-                        Login
+                        Inscription
                     </router-link>
-                
-                    <router-link :to="{name: 'register'}" class="btn btn-primary">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Register
-                    </router-link>
-                
                 </li>
                 <li class="nav-item">
                 
@@ -72,10 +71,10 @@ export default {
                 authenticated: auth.check(),
                 user: null,
                 navs: [
-                    {name: 'players', title:'Players',},
-                    {name: 'teams', title:'Teams',},
-                    {name: 'tournaments', title: 'Register to tournament'},
-                    {name: 'rules', title:'Rules',},
+                    {name: 'players', title:'Joueurs',},
+                    {name: 'teams', title:'Equipes',},
+                    {name: 'tournaments', title: "Inscription aux tournois"},
+                    {name: 'rules', title:'Règlement',},
                 ]
             }
         },
