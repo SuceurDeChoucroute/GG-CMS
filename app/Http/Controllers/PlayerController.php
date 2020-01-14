@@ -20,7 +20,7 @@ class PlayerController extends Controller
 
     public function index_site()
     {
-        return User::all()->where('visibility', 1);
+        return User::where('visibility', 1)->orderBy('id', 'desc')->get();
     }
 
     /**

@@ -76,10 +76,12 @@ Route::group(['middleware' => ['json.response']], function () {
     Route::post('/register', 'AuthController@register')->name('register');
     
     // Games
+    Route::get('games/team', 'GameController@indexForTeam');
     Route::resource('games', 'GameController')->only(['index', 'show']);
     Route::get('games/{game}/players', 'GameController@players')->name('games.players');
     Route::get('games/{game}/teams', 'GameController@teams')->name('games.teams');
     Route::get('games/players/percentage', 'GameController@playersPercentage')->name('games.players.percentage');
+
     
     // Ranks
     Route::get('games/{game}/ranks', 'GameController@ranks')->name('games.ranks');

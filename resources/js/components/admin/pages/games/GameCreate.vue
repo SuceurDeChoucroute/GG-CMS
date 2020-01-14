@@ -44,15 +44,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Image -->
-                                <div class="form-group">
-                                    <label for="image" class="col-sm-2 control-label">Image</label>
-
-                                    <div class="col-sm-10">
-                                        <input type="url" class="form-control" id="image" placeholder="https://..." v-model="game.image" required>
-                                    </div>
-                                </div>
-
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-8">
                                         <button type="submit" class="btn btn-success">
@@ -87,7 +78,6 @@ export default {
                 name: '',
                 description: '',
                 places: 1,
-                image: '',
             },
         }
     },

@@ -19,7 +19,7 @@
                         <div v-if="!isCaptainTeam()">
                             <button class="btn btn-danger" v-if="isPlayerAlreadyHasJoinRequest(team.team) || requestAlreadySend" disabled> Demande déjà envoyée</button>
                             
-                            <button type="button" class="btn btn-success" v-else-if="!isTeamFull()" @click="sendJoinRequest()" :disabled="loadingButton">
+                            <button type="button" class="btn btn-success" v-else-if="user && !isTeamFull()" @click="sendJoinRequest()" :disabled="loadingButton">
                                 <i class="fas fa-sync-alt fa-spin" v-show="loadingButton"></i>
                                 <i class="fas fa-plus" v-show="!loadingButton"></i> Rejoindre
                             </button>
@@ -72,7 +72,6 @@
                                         <router-link :to="{name: 'player.show', params: {id: player.id}}"> {{ player.pseudo }} </router-link>    
                                     </td>
                                     <td v-if="isCaptainTeam()">
-                                        
                                         <button class="btn btn-success" @click="acceptRequest(player)" :disabled="loadingButton">
                                             <i class="fas fa-sync-alt fa-spin" v-show="loadingButton"></i>
                                             Accepter
@@ -218,13 +217,15 @@ export default {
         {
             let check = false
 
-            this.team.players.forEach(player => {
-                if (player.pivot.captain == 1) {
-                    if (player.id == this.user.id) {
-                        check = true
+            if (this.user) {
+                this.team.players.forEach(player => {
+                    if (player.pivot.captain == 1) {
+                        if (player.id == this.user.id) {
+                            check = true
+                        }
                     }
-                }
-            })
+                })
+            }
 
             return check
         },

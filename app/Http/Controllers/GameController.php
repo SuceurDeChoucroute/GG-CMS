@@ -18,6 +18,11 @@ class GameController extends Controller
         return Game::all();
     }
 
+    public function indexForTeam()
+    {
+        return Game::all()->where('places', '>', 1);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -29,7 +34,6 @@ class GameController extends Controller
         $game = new Game;
         $game->name = $request->name;
         $game->description = $request->description;
-        $game->image = $request->image;
         $game->places = $request->places;
         $game->save();
 
@@ -58,7 +62,6 @@ class GameController extends Controller
     {
         $game->name = $request->name;
         $game->description = $request->description;
-        $game->image = $request->image;
         $game->places = $request->places;
         $game->save();
 
