@@ -10,6 +10,18 @@
     <link rel="stylesheet" href="{{ asset('css/animation.css') }}">
         <link rel="stylesheet" href=" {{ asset('css/site.css') }} ">
     <title> {{ config('app.name') }} </title>
+
+    @if (config('app.env') == "production")
+        <!-- Global Site Tag (gtag.js) - Google Analytics -->
+        {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-91334247-1 "></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', ' UA-91334247-1 ');
+        </script> --}}
+        sex
+    @endif
 </head>
 <body>
     
