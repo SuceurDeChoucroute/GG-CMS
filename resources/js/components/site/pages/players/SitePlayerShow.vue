@@ -176,7 +176,7 @@
                         <label for="game_id">Jeu</label>
                         <select name="game_id" id="game_id" class="form-control" v-model="newTeam.game_id" required>
                             <option selected disabled>-- Choisir un jeu --</option>
-                            <option :value="game.id" v-for="(game, key) in games" :key="key"> {{ game.name }} </option>
+                            <option :value="game.id" v-for="(game, key) in games_team" :key="key"> {{ game.name }} </option>
                         </select>
                     </div>
                 </div>
@@ -249,6 +249,7 @@ export default {
             loading: false,
             player: {},
             games: [],
+            games_team: [],
             gameRanks: [],
             gameSelected: null,
             rankSelected: null,
@@ -294,6 +295,13 @@ export default {
             axios.get('/api/games')
             .then(response => {
                 this.games = response.data
+            })
+        },
+
+        getGamesForTeam() {
+            axios.get('/api/games/team')
+            .then(response => {
+                this.games_team = response.data
             })
         },
 
@@ -418,6 +426,7 @@ export default {
         this.getUser()
         this.getPlayer()
         this.getGames()
+        this.getGamesForTeam()
     }
 }
 </script>
