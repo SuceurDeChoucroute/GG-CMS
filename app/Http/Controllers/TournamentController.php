@@ -92,7 +92,6 @@ class TournamentController extends Controller
         $tournament->places = $request->places;
         $tournament->cashprize = $request->cashprize;
         $tournament->status = $request->status;
-        $tournament->image = $request->image;
         $tournament->save();
 
         return $tournament;
@@ -130,7 +129,6 @@ class TournamentController extends Controller
         $tournament->places = $request->places;
         $tournament->cashprize = $request->cashprize;
         $tournament->status = $request->status;
-        $tournament->image = $request->image;
         $tournament->stripe_key = $request->stripe_key;
         $tournament->save();
 
