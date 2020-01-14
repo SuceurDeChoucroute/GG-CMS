@@ -19,13 +19,13 @@
                         </span>
 
                         <span class="badge badge-primary">
-                            {{ tournament.tournament|timerTournament }} jour(s) restant
+                            {{ tournament.tournament|timerTournament }} jour(s) restant(s)
                         </span>
                     </h1>
                     
                     <!-- Cashprize -->
                     <h2>
-                        Cashprize:
+                        Cashprize :
                         <span class="badge badge-danger"> {{ tournament.tournament.cashprize }} </span>
                     </h2>
 
