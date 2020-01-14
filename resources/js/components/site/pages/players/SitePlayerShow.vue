@@ -169,7 +169,7 @@
                     
                     <div class="form-group col-lg-12">
                         <label for="description">Description</label>
-                        <textarea class="form-control" name="description" id="description" v-model="newTeam.description" required></textarea>
+                        <textarea class="form-control" name="description" id="description" v-model="newTeam.description"></textarea>
                     </div>
 
                     <div class="form-group col-lg-12">
@@ -216,7 +216,12 @@
                 <div class="form-row">
                     <div class="form-group col-lg-12">
                         <label for="name">Nom</label>
-                        <input type="text" name="name" class="form-control" autofocus v-model="teamSelected.name">
+                        <input type="text" name="name" class="form-control" autofocus v-model="teamSelected.name" required>
+                    </div>
+
+                    <div class="form-group col-lg-12">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" id="description" v-model="newTeam.description"></textarea>
                     </div>
 
                     <div class="form-group col-lg-12">
