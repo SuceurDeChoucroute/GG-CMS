@@ -78,15 +78,6 @@
                                         <input type="text" class="form-control" id="cashprize" placeholder="Cashprize" v-model="tournament.cashprize" required>
                                     </div>
                                 </div>
-
-                                <!-- Image -->
-                                <div class="form-group">
-                                    <label for="image" class="col-sm-2 control-label">Image</label>
-
-                                    <div class="col-sm-10">
-                                        <input type="url" class="form-control" id="image" placeholder="https://..." v-model="tournament.image" required>
-                                    </div>
-                                </div>
                                 
                                 <!-- Create -->
                                 <div class="form-group">
@@ -127,7 +118,6 @@ export default {
                 places: '',
                 cashprize: '',
                 status: 'Closed',
-                image: '',
             },
             games: [],
         }

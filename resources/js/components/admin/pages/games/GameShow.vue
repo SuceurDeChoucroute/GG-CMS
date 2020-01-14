@@ -14,7 +14,6 @@
                     <div class="box box-primary">
                         <loader :color="'#337ab7'" v-show="loading"></loader>
                         <div class="box-body box-profile" v-show="!loading">
-                            <img class="profile-user-img img-responsive img-circle" :src="game.image" alt="User profile picture">
 
                             <h3 class="profile-username text-center"> {{ game.name }} </h3>
                             <p class="text-muted text-center">{{ game.description }} </p>
@@ -153,15 +152,6 @@
 
                                         <div class="col-sm-10">
                                             <input type="number" min="1" step="1" class="form-control" id="places" placeholder="places" v-model="game.places" required>
-                                        </div>
-                                    </div>
-
-                                    <!-- Image -->
-                                    <div class="form-group">
-                                        <label for="image" class="col-sm-2 control-label">Image</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="url" class="form-control" id="image" placeholder="https://..." v-model="game.image" required>
                                         </div>
                                     </div>
 

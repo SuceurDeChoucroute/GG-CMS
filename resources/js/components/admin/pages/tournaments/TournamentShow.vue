@@ -14,7 +14,6 @@
                     <div class="box box-primary">
                         <loader :color="'#337ab7'" v-show="loading"></loader>
                         <div class="box-body box-profile" v-show="!loading">
-                            <img class="profile-user-img img-responsive img-circle" :src="tournament.image" alt="User profile picture">
 
                             <h3 class="profile-username text-center"> 
                                 {{ tournament.name }}
@@ -167,15 +166,6 @@
                                                 <option value="Closed"> Closed </option>
                                                 <option value="Finished"> Finished </option>
                                             </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- Image -->
-                                    <div class="form-group">
-                                        <label for="image" class="col-sm-2 control-label">Image</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="url" class="form-control" id="image" placeholder="https://..." v-model="tournament.image" required>
                                         </div>
                                     </div>
 
