@@ -33,6 +33,11 @@ export default {
                             total: {
                                 show: true,
                                 label: 'Total',
+                                formatter: function (w) {
+                                    return Math.floor(w.globals.seriesTotals.reduce((a, b) => {
+                                        return a + b
+                                    }, 0) / w.globals.series.length) + '%'
+                                }
                             }
                         }
                     }
