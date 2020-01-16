@@ -15,8 +15,30 @@
                     </router-link>
                 </li>
             </ul>
-
+            
             <ul class="navbar-nav ml-auto">
+                <li class="list-inline-item">
+                    <a href="https://www.instagram.com/gglanbrest" target="_blank">
+                        <img src="../../../../../public/img/instagram.png" alt="Instagram" style="height: 35px;">
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://twitter.com/GGLanBrest" target="_blank">
+                        <img src="../../../../../public/img/twitter.png" alt="Twitter" style="height: 35px;">
+                    </a>
+                </li>
+
+                <li class="list-inline-item">
+                    <a href="https://www.facebook.com/GGLANBREST/" target="_blank">
+                        <img src="../../../../../public/img/facebook.png" alt="Facebook" style="height: 35px;">
+                    </a>
+                </li>
+
+                <li class="list-inline-item">
+                    <a href="https://discord.gg/mApqnDW" target="_blank">
+                        <img src="../../../../../public/img/discord.png" alt="Discord" style="height: 35px;">
+                    </a>
+                </li>
                 <li class="nav-item" v-if="user">
                      <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <b> {{ user.pseudo }} </b> <span class="caret"></span>
