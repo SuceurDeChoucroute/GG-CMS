@@ -7,7 +7,7 @@
                 <players-stat-box timer="120000"></players-stat-box>
                 <teams-stat-box timer="120000"></teams-stat-box>
                 <posts-stat-box timer="120000"></posts-stat-box>
-                <tournaments-average-teams-stat-box></tournaments-average-teams-stat-box>
+                <tournaments-average-filling-stat-box></tournaments-average-filling-stat-box>
             </div>
             
             <div class="row">
