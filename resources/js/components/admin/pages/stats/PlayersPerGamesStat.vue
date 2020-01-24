@@ -4,7 +4,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Players / Games</h3>
                 <div class="box-tools pull-right">
-                    <button class="btn btn-info" @click="getPercentage()">
+                    <button class="btn btn-info" @click="getPercentage(1)">
                         <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i>
                     </button>
                 </div>
@@ -39,7 +39,7 @@ export default {
     },
     
     methods: {
-        getPercentage() {
+        getPercentage(isRefresh) {
             this.loading = true
             axios.get('/api/games/players/percentage')
             .then(response => {
@@ -48,6 +48,12 @@ export default {
                     labels: response.data.labels
                 }
                 this.series = response.data.values
+
+                if (isRefresh) {
+                    this.flashMessage.success({
+                        title: "Data updated",
+                    })
+                }
 
                 this.loading = false
             })

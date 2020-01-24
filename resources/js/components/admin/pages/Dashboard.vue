@@ -1,5 +1,6 @@
 <template>
     <div>
+        <FlashMessage position="right bottom"></FlashMessage>
         <admin-content-header page_name="Dashboard" page_description="Control Panel"></admin-content-header>
 
         <section class="content">
