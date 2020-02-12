@@ -1,5 +1,5 @@
 <template>
-    <admin-box-stat classes="bg-aqua" :loading="loading" :number="count" title="Joueurs" icon="fas fa-user-check" link="players"></admin-box-stat>
+    <admin-box-stat classes="bg-green" :loading="loading" :number="count" title="Nouveaux joueurs (mois)" icon="fas fa-user-plus" link="players"></admin-box-stat>
 </template>
 
 <script>
@@ -27,9 +27,9 @@ export default {
   methods: {
       getCount() {
             this.loading = true
-            axios.get('/api/players')
+            axios.get('/api/players/count/new/players/month')
             .then(response => {
-                this.count = response.data.length
+                this.count = response.data
                 this.loading = false
             })
       },

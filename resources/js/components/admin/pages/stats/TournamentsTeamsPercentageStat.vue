@@ -2,7 +2,7 @@
     <div class="col-lg-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Tournaments Filling</h3>
+                <h3 class="box-title">Remplissage tournoi(s)</h3>
                 <div class="box-tools pull-right">
                     <button class="btn btn-info" @click="getPercentage(1)">
                         <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i>
