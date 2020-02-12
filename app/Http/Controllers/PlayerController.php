@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PlayerController extends Controller
 {
@@ -220,5 +221,14 @@ class PlayerController extends Controller
         return response()->json([
             'message' => "All the secret keys has been regenerate successfully !"
         ]);
+    }
+
+    public function countNewPlayersThisMonth()
+    {
+        $count = DB::table('users')
+            ->whereMonth('created_at', date('n'))
+            ->count();
+
+        return $count;
     }
 }
