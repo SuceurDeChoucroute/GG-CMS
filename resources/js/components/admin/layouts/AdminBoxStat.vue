@@ -14,7 +14,7 @@
                     </div>
 
                     <span class="small-box-footer" @click.prevent="refresh()">
-                        <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i> Refresh
+                        <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i> Rafraîchir
                     </span>
                 </div>
         </div>

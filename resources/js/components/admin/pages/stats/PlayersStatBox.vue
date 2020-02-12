@@ -1,5 +1,5 @@
 <template>
-    <admin-box-stat classes="bg-aqua" :loading="loading" :number="count" title="Players" icon="fas fa-user-check" link="players"></admin-box-stat>
+    <admin-box-stat classes="bg-aqua" :loading="loading" :number="count" title="Joueurs" icon="fas fa-user-check" link="players"></admin-box-stat>
 </template>
 
 <script>

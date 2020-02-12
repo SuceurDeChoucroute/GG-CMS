@@ -1,13 +1,13 @@
 <template>
     <header class="main-header">
-        <a href="index2.html" class="logo">
+        <router-link :to="{name: 'index'}" class="logo">
             <span class="logo-mini">
                 <b> {{ app_name_mini }} </b>
             </span>
             <span class="logo-lg">
                 <b> {{ app_name }} </b>    
             </span>
-        </a>
+        </router-link>
         <nav class="navbar navbar-static-top">
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <span class="sr-only">Toggle navigation</span>
@@ -16,7 +16,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages -->
-                    <li class="dropdown messages-menu">
+                    <!-- <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
                             <span class="label label-success">4</span>
@@ -42,10 +42,10 @@
 
                             <li class="footer"><a href="#">See All Messages</a></li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     <!-- Notifications -->
-                    <li class="dropdown notifications-menu">
+                    <!-- <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
                             <span class="label label-warning">10</span>
@@ -64,7 +64,7 @@
                             </li>
                             <li class="footer"><a href="#">View all</a></li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     <!-- User account -->
                     <li class="dropdown user user-menu">
