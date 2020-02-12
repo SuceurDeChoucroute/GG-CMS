@@ -104,6 +104,14 @@ class PlayerController extends Controller
      */
     public function destroy(User $player)
     {
+        // Delete each team where the player was the captain
+        foreach ($player->teams as $team) {
+            if ($team->captain = $player) {
+                $team->delete();
+            }
+        }
+        
+        // Delete the player
         $player->delete();
         return response()->json([
             'message' => 'Success',
