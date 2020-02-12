@@ -18,6 +18,5 @@ $factory->define(App\Tournament::class, function (Faker $faker) {
         'places' => rand(6, 24),
         'cashprize' => rand(150, 1000),
         'status' => $status[rand(0,2)],
-        'image' => $faker->imageUrl(480, 480, 'cats', true),
     ];
 });
