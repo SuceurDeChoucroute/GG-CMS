@@ -1,13 +1,16 @@
 <template>
     <div>
-        <admin-content-header page_name="Dashboard" page_description="Control Panel"></admin-content-header>
+        <FlashMessage position="right bottom"></FlashMessage>
+        <admin-content-header page_name="Tableau de bord" page_description=""></admin-content-header>
 
         <section class="content">
             <div class="row">
                 <players-stat-box timer="120000"></players-stat-box>
                 <teams-stat-box timer="120000"></teams-stat-box>
-                <posts-stat-box timer="120000"></posts-stat-box>
-                <tournaments-average-teams-stat-box></tournaments-average-teams-stat-box>
+                <!-- <posts-stat-box timer="120000"></posts-stat-box> -->
+                <new-players-stat-box timer="120000"></new-players-stat-box>
+                <tournaments-average-filling-stat-box></tournaments-average-filling-stat-box>
+                <!-- <tournaments-days-left-stat-box timer="120000"></tournaments-days-left-stat-box> -->
             </div>
             
             <div class="row">

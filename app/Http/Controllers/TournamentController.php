@@ -172,8 +172,14 @@ class TournamentController extends Controller
         $values = [];
 
         foreach ($tournaments as $tournament) {
-            array_push($labels, $tournament->name);
-            array_push($values, (count($tournament->teams) / $tournament->places) * 100);
+            if ($tournament->game->places > 1) {
+                array_push($labels, $tournament->name);
+                array_push($values, (count($tournament->teams) / $tournament->places) * 100);
+            }
+            else {
+                array_push($labels, $tournament->name);
+                array_push($values, (count($tournament->players) / $tournament->places) * 100);
+            }
         }
 
         return ['labels' => $labels, 'values' => $values];
@@ -198,16 +204,19 @@ class TournamentController extends Controller
 
     public function tournamentsAverageFilling()
     {
-        $tournaments = Tournament::all();
-        $countPlaces = 0;
-        $countTeams = 0;
+        $tournaments = Tournament::all()->where('status', 'Open');
+        $countFilling = 0;
 
         foreach ($tournaments as $tournament) {
-            $countPlaces += $tournament->places;
-            $countTeams += count($tournament->teams);
+            if ($tournament->game->places > 1) {
+                $countFilling += (count($tournament->teams) / $tournament->places) * 100;
+            }
+            else {
+                $countFilling += (count($tournament->players) / $tournament->places) * 100;
+            }
         }
 
-        return ($countTeams / $countPlaces) * 100;
+        return $countFilling / count($tournaments);
     }
 
     public function getPayedPlayers()

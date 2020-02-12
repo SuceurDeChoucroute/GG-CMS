@@ -18,7 +18,6 @@
                             </router-link>
                             <div class="card-body">
                                 <h5 class="card-title"> {{ post.title }} </h5>
-                                <span class="text-muted"> {{ post.created_at }} </span>
                             </div>
                         </div>
                     </div>

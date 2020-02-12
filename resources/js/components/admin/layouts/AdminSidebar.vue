@@ -30,14 +30,14 @@ export default {
             authenticated: auth.check(),
             user: null,
             navs: [
-                { name: 'index', icon: 'fa-tachometer-alt', title: 'Dashboard'},
-                { name: 'players', icon: 'fa-users', title: 'Players'},
-                { name: 'teams', icon: 'fa-user-friends', title: 'Teams'},
-                { name: 'games', icon: 'fa-gamepad', title: 'Games'},
-                { name: 'tournaments', icon: 'fa-trophy', title: 'Tournaments'},
-                { name: 'posts', icon: 'fa-newspaper', title: 'Posts'},
-                { name: 'rules', icon: 'fa-align-left', title: 'Rules'},
-                { name: 'partners', icon: 'fa-handshake', title: 'Partners'},
+                { name: 'index', icon: 'fa-tachometer-alt', title: 'Tableau de bord'},
+                { name: 'players', icon: 'fa-users', title: 'Joueurs'},
+                { name: 'teams', icon: 'fa-user-friends', title: 'Equipes'},
+                { name: 'games', icon: 'fa-gamepad', title: 'Jeux'},
+                { name: 'tournaments', icon: 'fa-trophy', title: 'Tournois'},
+                { name: 'posts', icon: 'fa-newspaper', title: 'Articles'},
+                { name: 'rules', icon: 'fa-align-left', title: 'Règlement'},
+                { name: 'partners', icon: 'fa-handshake', title: 'Partenaires'},
             ]
         }
     },

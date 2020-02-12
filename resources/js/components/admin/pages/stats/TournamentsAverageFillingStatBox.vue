@@ -1,5 +1,5 @@
 <template>
-    <admin-box-stat classes="bg-green" :loading="loading" :number="count" title="Tournaments Average Teams" icon="fas fa-info" link="tournaments"></admin-box-stat>
+    <admin-box-stat classes="bg-blue" :loading="loading" :number="count" title="Remplissage tournois" icon="fas fa-info" link="tournaments"></admin-box-stat>
 </template>
 
 <script>

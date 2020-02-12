@@ -2,9 +2,9 @@
     <div class="col-lg-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Tournaments Filling</h3>
+                <h3 class="box-title">Remplissage tournoi(s)</h3>
                 <div class="box-tools pull-right">
-                    <button class="btn btn-info" @click="getPercentage()">
+                    <button class="btn btn-info" @click="getPercentage(1)">
                         <i class="fas fa-sync" :class="{ 'fa-spin': loading }"></i>
                     </button>
                 </div>
@@ -33,6 +33,11 @@ export default {
                             total: {
                                 show: true,
                                 label: 'Total',
+                                formatter: function (w) {
+                                    return Math.floor(w.globals.seriesTotals.reduce((a, b) => {
+                                        return a + b
+                                    }, 0) / w.globals.series.length) + '%'
+                                }
                             }
                         }
                     }
@@ -49,7 +54,7 @@ export default {
     },
     
     methods: {
-        getPercentage() {
+        getPercentage(isRefresh) {
             this.loading = true
             axios.get('/api/tournaments/teams/percentage')
             .then(response => {
@@ -58,6 +63,12 @@ export default {
                     labels: response.data.labels
                 }
                 this.series = response.data.values
+
+                if (isRefresh) {
+                    this.flashMessage.success({
+                        title: "Data updated",
+                    })
+                }
 
                 this.loading = false
             })
