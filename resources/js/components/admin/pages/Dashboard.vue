@@ -1,7 +1,7 @@
 <template>
     <div>
         <FlashMessage position="right bottom"></FlashMessage>
-        <admin-content-header page_name="Dashboard" page_description="Control Panel"></admin-content-header>
+        <admin-content-header page_name="Tableau de bord" page_description=""></admin-content-header>
 
         <section class="content">
             <div class="row">
