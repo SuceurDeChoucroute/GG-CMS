@@ -265,4 +265,9 @@ class TournamentController extends Controller
             'message' => 'Success',
         ]);
     }
+
+    public function getCashprizeSteps(Tournament $tournament)
+    {
+        return $tournament->cashprizeSteps;
+    }
 }

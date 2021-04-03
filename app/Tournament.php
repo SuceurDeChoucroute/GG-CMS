@@ -24,4 +24,9 @@ class Tournament extends Model
     {
         return $this->belongsTo('App\Game');
     }
+
+    public function cashprizeSteps()
+    {
+        return $this->hasMany('App\TournamentCashprizeStep');
+    }
 }

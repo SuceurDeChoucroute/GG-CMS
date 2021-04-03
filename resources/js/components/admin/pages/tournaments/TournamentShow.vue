@@ -33,6 +33,9 @@
                                 <a href="#profile" data-toggle="tab">Profile</a>
                             </li>
                             <li v-show="!loading">
+                                <a href="#steps" data-toggle="tab">Paliers</a>
+                            </li>
+                            <li v-show="!loading">
                                 <a href="#settings" data-toggle="tab">Settings</a>
                             </li>
                         </ul>
@@ -89,6 +92,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div class="tab-pane" id="steps">
+                                <h3>  </h3>
                             </div>
 
                             <div class="tab-pane" id="settings">
