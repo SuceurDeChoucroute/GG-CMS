@@ -42,7 +42,7 @@ class PlayerController extends Controller
         $player->secret_key = Str::random(40);
 
         if (!$request->avatar) {
-            $player->avatar = "https://api.adorable.io/avatars/285/".$request->email;
+            $player->avatar = "https://cdn.discordapp.com/attachments/192623917163216897/1013895853452300359/unknown.png";
         }
         else {
             $player->avatar = $request->avatar;
@@ -87,7 +87,7 @@ class PlayerController extends Controller
         $player->pseudo = $request->pseudo;
         $player->description = $request->description;
         if (!$request->avatar) {
-            $player->avatar = "https://api.adorable.io/avatars/285/".$request->email;
+            $player->avatar = "https://cdn.discordapp.com/attachments/192623917163216897/1013895853452300359/unknown.png";
         }
         else {
             $player->avatar = $request->avatar;
