@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         $info = $request->toArray();
         $info += [
-            'avatar' => "https://api.adorable.io/avatars/285/".$request->email,
+            'avatar' => "https://cdn.discordapp.com/attachments/192623917163216897/1013895853452300359/unknown.png",
             'secret_key' => Str::random(40),
         ];
         
