@@ -52,7 +52,7 @@ class TeamController extends Controller
         $team->description = $request->description;
         $team->game_id = $request->game_id;
         if (!$request->avatar) {
-            $team->avatar = "https://api.adorable.io/avatars/285/".$request->name;
+            $team->avatar = "https://cdn.discordapp.com/attachments/192623917163216897/1013895853452300359/unknown.png";
         }
         else {
             $team->avatar = $request->avatar;
