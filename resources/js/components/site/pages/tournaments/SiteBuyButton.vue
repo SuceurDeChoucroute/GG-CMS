@@ -35,7 +35,7 @@ export default {
                 // When the customer clicks on the button, redirect
                 // them to Checkout.
                 stripe.redirectToCheckout({
-                    items: [{ sku: this.tournament.stripe_key, quantity: 1 }],
+                    items: [{ price: this.tournament.stripe_key, quantity: 1 }],
     
                     // Note that it is not guaranteed your customers will be redirected to this
                     // URL *100%* of the time, it's possible that they could e.g. close the
