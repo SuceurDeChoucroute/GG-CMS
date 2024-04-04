@@ -1,0 +1,290 @@
+[33m6a590fc7[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m Update SiteBuyButton.vue
+[33m007def35[m commit
+[33mabfe2479[m Update SiteBuyButton.vue
+[33mb4513132[m Merge branch 'master' of https://github.com/ThobsChoucroute/GG-CMS
+[33m8ca2c620[m commit
+[33m1c200811[m Fix Avatar field default value
+[33m80621a2d[m Merge branch 'V1.3'
+[33md9f0b9d4[m oui oui baguette
+[33ma3c4f14e[m[33m ([m[1;33mtag: V1.2[m[33m)[m Merge branch 'V1.2'
+[33m2e6a9480[m[33m ([m[1;31morigin/V1.2[m[33m, [m[1;32mV1.2[m[33m)[m fix lang
+[33m096297f0[m Merge branch 'playersCharts' into V1.2
+[33m4ba5f539[m translate stats
+[33m3bd77b89[m add stats
+[33m8f84a2d1[m fix factory
+[33m160d5d9c[m Merge branch 'fixDeletePlayerWhenCaptainOfATeam' into V1.2
+[33m3d34e2cd[m Fix player delete when he is a captain of a team
+[33m99564a49[m Merge branch 'notificationReloadStatAdmin' into V1.2
+[33m2a40c55a[m added notification when data is refreshed
+[33mb5b3af57[m add social network link
+[33m8e51efcc[m delete date for posts
+[33m5a73ca41[m fix count stat tournaments filling
+[33m788953ad[m Merge branch 'addSentry' into V1.2
+[33mc2fa255a[m add sentry
+[33m6fca53fc[m add sentry package
+[33madfc41b9[m format total number in TournamentsFilling stat
+[33md4dd4a3e[m[33m ([m[1;33mtag: V1.1[m[33m)[m Merge branch 'V1.1'
+[33mb93c8c3b[m[33m ([m[1;31morigin/V1.1[m[33m)[m fix
+[33mb429ed84[m oupsy
+[33m797c70b3[m Merge branch 'V1.1'
+[33medd8cfa8[m fix typo
+[33m173f2b3d[m Merge branch 'V1.1'
+[33m8d0ecfd1[m fix show team when user not logged in
+[33m407e3872[m new players are now the first in players page
+[33m3fe4b0fb[m Merge branch 'deleteImageField' into V1.1
+[33m06cc13ba[m Update vue components
+[33mec21914b[m Update models & controllers
+[33m534b93d6[m migration to delete image fields
+[33m550b19e6[m Merge branch 'fixSoloGamesInCreateTeamGames' into V1.1
+[33m3edffed4[m get games for team at creation
+[33m92b77bd5[m api  route & function for games for team
+[33me52f5694[m Merge branch 'fixCreateTeamWithoutDescription' into V1.1
+[33m9987b20b[m Add description field in update team modal & disabled required attribute
+[33mb1f9ba18[m Team description column is now nullable
+[33m9fb1f04b[m add doctrine/dbal for changing db table column
+[33m928bc3a7[m[33m ([m[1;33mtag: V1[m[33m)[m Merge branch 'V1'
+[33m9a8c0c07[m[33m ([m[1;31morigin/V1[m[33m, [m[1;32mV1[m[33m)[m fix secret key generation
+[33m399be80b[m fix join request prod
+[33m463c815c[m change card stat size
+[33mf5e2a7fa[m fix url for img brand in navbar
+[33m0f2d8898[m fix avatar field for non user profile
+[33m43541d1e[m fix bugs & fr trad
+[33mfd5d60ae[m Merge branch 'changeStyle' into V1
+[33m66e7c053[m fr traduction
+[33ma8aaf9ac[m Change navbar
+[33m452cf48b[m add Darkly
+[33mdd4460f7[m fix bugs
+[33mf1604371[m Merge branch 'listOfPayedPlayers' into V1
+[33m5dac955f[m add show list of payed players
+[33m07130e2c[m Merge branch 'fixRegisterToTournament' into V1
+[33m3acbd97e[m fix show buy button
+[33mbb22f0e0[m fix register team
+[33mb5e957af[m edit page title for admin part
+[33m26a430b8[m Merge branch 'placeManagement' into V1
+[33m4f32f4c9[m fix blocking buy button if already payed
+[33m9ed7b588[m online payment
+[33m7777c7e8[m add stripe_key to tournaments table
+[33mc9899948[m Merge branch 'laravelInitializerConfig' into V1
+[33m46973d95[m fix install & update config
+[33mcb8160ec[m Merge branch 'laravelInitializer' into V1
+[33m76769c1b[m update command
+[33mae2256e1[m Merge branch 'laravelInitializer' into V1
+[33m4668cc45[m add Laravel Initializer
+[33meb9c454d[m reduce width of players & teams card
+[33m3f3fdc8c[m fix player registering with no avatar
+[33m04b113ed[m Merge branch 'partners' into V1
+[33m41eedc31[m Update sidebar
+[33me34e222d[m Partners Index, Create, Edit & Delete
+[33m140af3f7[m Partners Api
+[33mdb22688e[m Show partners in player side site
+[33me66e2bca[m add migration, model, factory, seed & routes
+[33m844635c1[m Merge branch 'tournamentTimer' into V1
+[33m40b6aa26[m add timer days left before tournament
+[33m4b1f6ff7[m hotfix
+[33mbb82b20d[m Merge branch 'adminDatatable' into V1
+[33me9c3de6a[m delete useless code
+[33mb41cf58c[m relocate toggleAdmin & toggleVisibility
+[33m887613d4[m Merge remote-tracking branch 'origin/V1' into V1
+[33m70356d0f[m toggle admin in player show [WIP]
+[33m65e56a2c[m fix show avatar in admin
+[33mbad44ecd[m Update README.md
+[33mc9cabd56[m Tournament Datatable
+[33mce5eba1b[m Teams Datatable
+[33mcc34ed70[m Posts Datatable
+[33m86104d9d[m Games Datatable
+[33m6d57b2b3[m Players Datatable
+[33mbe8034c7[m add vue datatable
+[33mdfcbf0f7[m Add DataTable
+[33md61ac541[m Add list of players of tournament
+[33m0ae3f7c2[m update npm package
+[33me57f8f3d[m[33m ([m[1;33mtag: V0.5[m[33m)[m fix typo
+[33m4cec8a7d[m fix npm package
+[33mde969a75[m fix team show join button
+[33m984abb7a[m fix test
+[33me46ce659[m fix
+[33m42f44bc2[m add checkbox for the rules at register page
+[33m53a7ab06[m Merge remote-tracking branch 'origin/master'
+[33m244c3938[m Merge branch 'teamManagement'
+[33mb2cab828[m link to player in team & not show request button if team complete
+[33m3df05142[m Update README.md
+[33madb735ae[m delete player from team
+[33me7ea293a[m Accept / Refuse JoinRequests
+[33m8d75db60[m send JoinRequest & accept JoinRequest
+[33mccaa7598[m fix avatar field & show only visible players
+[33m5969e87e[m fix message
+[33m324bf6e3[m change token lifetime to 2 days
+[33mc1927454[m fix navbar collapse
+[33mc2aea70b[m Merge remote-tracking branch 'origin/master'
+[33m90b4597c[m Merge branch 'UserTournament'
+[33m00f0379b[m Add register & unregister teams and players to tournaments
+[33m312e64be[m Update README.md
+[33mb356a23d[m Add show open tournaments
+[33m26803209[m create table & edit model + controller
+[33m45398806[m add description in players page & add alert if api fail to fetch
+[33m4e0616dc[m add SitePlayers & disable select number of show teams
+[33m05712a88[m fix delete game
+[33m52e99f0a[m too lazy to name this commit
+[33m7e8181d2[m Merge remote-tracking branch 'origin/master'
+[33m5fa217d7[m add SitePostShow
+[33m7975ee2b[m add filter field for teams
+[33m57688f5a[m try to add a footer 😭& delete partners card in Site home
+[33mcb85444f[m Merge branch 'wip'
+[33mefe63e9c[m Add post show
+[33m051891d0[m fix mistake
+[33m5bb8fb93[m remix navbar
+[33md393b614[m add posts
+[33mdf7346ab[m Add player parameters
+[33m1a7cd046[m mix css
+[33m43a62faa[m wip
+[33ma2f50c40[m players page
+[33m319f520e[m add noty vuejs toast
+[33m9f5e931a[m hide table column title
+[33ma04810e0[m fix npm & fix tests
+[33m1f591048[m Add team show page
+[33mb04cb4a6[m Add player side teams list
+[33m089a637e[m fix rules loading
+[33md284797c[m Add rules page
+[33m7cd94442[m add navbar & fix layout
+[33mf7b9f1af[m add Shards css
+[33m85a1223f[m fix rules show
+[33m03924d75[m fix useless api call
+[33m6e2357fe[m fix tournaments cashprize field type
+[33m235171cc[m Merge branch 'stats'
+[33m6437d4aa[m add tournamentsAverageTeamsStatBox
+[33m0ceea606[m add tournamentsDaysLeft
+[33m37afc117[m stat legend use series color
+[33m861bd20a[m show legend on tournamentsTeamPercentageStat
+[33mb6fe1d05[m Change to pie charts & add refresh button
+[33m2ca1bfd3[m change auto refresh time to 120s
+[33md29a095d[m add tournamentsTeamsPercentageStat
+[33m7faffcd0[m add playersPerGames
+[33m14b2e70c[m add teamsPercentage
+[33m611c0553[m add apexCharts
+[33mca3e80c9[m add change visibility for admin player
+[33m17bd368e[m redirect user to home if not logged in admin
+[33mf56baeab[m fix tests && ignore testCreatePlayer (fail for unknown reason)
+[33m00aae7f2[m Merge branch 'auth'
+[33m74a4b219[m protect admin
+[33mfc7fedbe[m update routes & add csrf token in site page
+[33m49849f4b[m add 2 weeks token lifetime
+[33m5f7627ae[m Merge branch 'auth'
+[33mff96411d[m Register & go to admin button
+[33m1ad12844[m Delete token, route fallback, add loader to login & logout button
+[33me2ff6578[m Auth front-end site & admin
+[33ma709f562[m separate routes from admin.js
+[33m3a0a8122[m Laravel passort back-end auth
+[33md7d595f2[m add refresh button on admin stat box
+[33mc554a4ef[m change font
+[33m863e3546[m add favicon
+[33md7708956[m[33m ([m[1;33mtag: V0.1.1[m[33m)[m delete prod files
+[33m2a715189[m update gitignore
+[33mf4ced490[m compile js for production
+[33maa9a4e13[m fix Undefined offset[0] if there was no player in a team
+[33m5458506e[m[33m ([m[1;33mtag: V0.1[m[33m)[m Revert "add force https"
+[33mefd9a05c[m test no-cors
+[33m6f564485[m add force https
+[33m5bbe9f32[m Team tests
+[33mb11c4561[m Update README.md
+[33m958bef63[m Update README.md
+[33m66d596b8[m Update README.md
+[33md580a379[m Update README.md
+[33m644872b7[m Ranks tests
+[33mabbbf120[m fix rules get test
+[33m68faa06a[m Rules tests
+[33m47baff54[m Tournament tests
+[33mf9608c80[m Post tests
+[33m2f797d60[m Player tests
+[33maf20de1b[m Game tests
+[33mb22148bb[m remove chrome addon from travis build script
+[33meaf66005[m Add files for travis
+[33m0277e4c1[m Merge branch 'admin'
+[33mca626e56[m[33m ([m[1;31morigin/admin[m[33m)[m Add front-end retrieving for user admin
+[33m8814e4de[m Minor fix
+[33m18984db8[m fix stats components path to AdminBoxStat component
+[33m38b76d2b[m move stats components folder to the right place ^^'
+[33m0ad1cd8c[m Merge branch 'statBox' into admin
+[33m35115995[m delete useless component call
+[33mde5cd13d[m players stats, teams stats, posts stats
+[33maca7c2dc[m Merge branch 'admin'
+[33m81fe3b7d[m[33m ([m[1;31morigin/charts[m[33m)[m Merge branch 'gameRanks' into admin
+[33m2bbf4f1d[m Add edit rank
+[33m80e54495[m add create rank & change way to update rank list after delete
+[33m46b017b1[m add delete rank
+[33m31101c91[m add rank list into game show
+[33med488766[m set refresh timer to 15sec
+[33mdc31187d[m Add link in box stat
+[33m79c858cd[m Add timer to refresh data
+[33m88b42d3c[m stash
+[33m2911f933[m Add rules
+[33mb2032373[m Rename add Admin vue
+[33mca252636[m fix typo
+[33m6e4178e4[m add posts counter on dashboard
+[33m22a56aa9[m Add posts
+[33m7ee97f67[m Add Front posts & postCreate & postEdit & add CkEditor
+[33m66b0c7ba[m add revoke & grant admin button in players list
+[33m0943587b[m update factories image size
+[33m7d756f4e[m update teams seed
+[33m3ff6ec94[m edit way to show navs & add active class for current nav item
+[33mb48489e5[m Add message if no data in table
+[33mdf0a9834[m Front & Back Teams & TeamShow & TeamCreate
+[33mff960309[m Front & Back tournamentCreate
+[33m8c5ff68e[m Add refresh button & move add button to right
+[33m2243a34a[m Front & Back Tournaments & TournamentShow
+[33me4d7b540[m Add adorable avatar for default player avatar
+[33mbfb6a8fb[m add loader in box stat
+[33m6a86151f[m Add teams count in home dashboard
+[33m8de951c1[m Add players count in home dashboard
+[33mfee1652f[m add relationship data in response
+[33mb760a4be[m fix usual database issue key too long
+[33mb6b83137[m fix mistakes
+[33m0ffacaaf[m Front & Back Games
+[33m70e7de94[m delete test code
+[33m04b0cc4c[m disable api call limitation
+[33m9cdfb7bd[m Add base url to axios, all player vue are connecter to the api
+[33m881612d8[m Merge branch 'Back-end' into admin
+[33m40a0d331[m Tournament & Team relationship & add on cascade on table
+[33ma4157381[m Tournaments model, controller, migrations, factory
+[33m22e37804[m Player & Team & Game relationship
+[33m00e4fd4d[m Merge branch 'Back-end' into admin
+[33m9a7be674[m fix forget places in GameController
+[33m6d7f9b04[m Teams model, controller, migrations, factory
+[33m4f12a8e9[m fix forget places in Game
+[33m3991a227[m Merge branch 'Back-end' into admin
+[33m1ee6abde[m Player & Game relationship
+[33m13c3ffe5[m Players model, controller, migrations, factory
+[33m3f7fb846[m Games model, controller, migrations, factory
+[33m86ef6117[m Merge branch 'tournaments' into admin
+[33m4d5314c5[m Add tournament create
+[33m544d5447[m Add tournament show
+[33m1d7067cc[m Add tournaments list
+[33m775bb515[m Merge branch 'games' into admin
+[33m670d1482[m Add game create
+[33md5a53334[m Add game show
+[33m9b33d8a6[m Add game list
+[33m7eae2c5a[m fix button link in players list
+[33m07bc5482[m Merge branch 'teams' into admin
+[33md27f3be7[m Edit Team show vue
+[33m6b935632[m Add team create vue
+[33m9f3ca4ee[m add team show
+[33m3bb11ea1[m Add teams list
+[33m4fd55fdd[m Merge branch 'players' into admin
+[33m606547db[m last touch on players vue
+[33mff883e96[m Move delete player button in playerShow
+[33m3e467a72[m Delete PlayerList component & move to AdminPlayers page
+[33m0ac9adcd[m add loop for tournament participation in playerShow
+[33m12b078ef[m fix header & add page animation & add playerList & pageShow component
+[33mec3ff3f7[m add vue-loader
+[33m4f290190[m Start admin players page
+[33mc8609013[m Auto stash before rebase of "admin"
+[33m925885c6[m fix unload avatar
+[33m22b768f0[m Add vuejs flash message
+[33m9d173d65[m Add player vue & start players component
+[33m7df23796[m Edit layout
+[33mb6fa1dff[m add vue-router
+[33m7232ae0f[m Move file, add card stat & content header
+[33md295896c[m Move files
+[33m7b6f92db[m add adminlte2.4 files
+[33m890f445c[m add BootstrapVue
+[33mef118279[m remove comment
+[33mc5b34460[m init Laravel 5.8
+[33m32bcf1c2[m Initial commit
