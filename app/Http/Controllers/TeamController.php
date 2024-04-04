@@ -52,7 +52,7 @@ class TeamController extends Controller
         $team->description = $request->description;
         $team->game_id = $request->game_id;
         if (!$request->avatar) {
-            $team->avatar = "https://cdn.discordapp.com/attachments/192623917163216897/1013895853452300359/unknown.png";
+            $team->avatar = "https://api.dicebear.com/8.x/initials/svg?seed=". $team->name ."&backgroundColor=e53935";
         }
         else {
             $team->avatar = $request->avatar;

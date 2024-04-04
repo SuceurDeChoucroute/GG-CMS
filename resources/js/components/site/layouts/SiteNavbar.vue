@@ -1,7 +1,7 @@
 <template>
     <div class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <router-link :to="{name: 'home'}" class="navbar-brand">
-            <img src="https://cdn.discordapp.com/attachments/192623917163216897/1013891747761369099/GGLAN.png" alt="GG-LAN" style="width: 130px;">
+            <img src="../../../../../public/img/GGLAN.png" alt="GG-LAN" style="width: 130px;">
         </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarDropdown" aria-controls="navbarDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
