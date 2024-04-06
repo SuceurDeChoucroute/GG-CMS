@@ -30,7 +30,7 @@
                     </h2>
 
                     <!-- Description -->
-                    <p class="lead"> {{ tournament.tournament.description }} </p>
+                    <p class="lead" v-html="tournament.tournament.description"></p>
 
                     <hr class="my-4">
 
